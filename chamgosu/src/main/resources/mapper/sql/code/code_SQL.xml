@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="code">
+	<select id="indexCodeView" parameterType="hashmap" resultType="hashmap">
+		select
+			CODE_IDX
+			, CODE_CODENAME
+		from
+			CG_CODE
+		where
+			CODE_FIRST='#####'
+			and CODE_TWO='#####'
+			and CODE_IDX <![CDATA[<]]> 90
+	</select>
+	
+	<select id="code1View" parameterType="hashmap" resultType="hashmap">
+		select 
+			CODE_IDX
+			, CODE_FIRST
+			, CODE_CODENAME
+		from
+			CG_CODE
+		where
+			CODE_FIRST!='#####'
+			and CODE_TWO='00000'
+			and CODE_IDX <![CDATA[<]]> 90
+			<if test=" code_idx != '' and code_idx != '' ">
+				and CODE_IDX=#{code_idx}
+			</if>
+	</select>
+	
+	<select id="indexCdName" parameterType="hashmap" resultType="string">
+		select CODE_CODENAME from CG_CODE where CODE_IDX=#{code_idx} and CODE_FIRST='#####'
+	</select>
+	
+	<select id="code1Value" parameterType="hashmap" resultType="hashmap">
+		select CODE_IDX, CODE_FIRST, CODE_CODENAME, CODE_ISUSE from CG_CODE where CODE_IDX=#{code_idx} and CODE_FIRST=#{code_first} and CODE_TWO='00000'
+	</select>
+	
+   
+</mapper>

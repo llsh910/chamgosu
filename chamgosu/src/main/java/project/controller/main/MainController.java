@@ -1,4 +1,4 @@
-package project.controller.mainController;
+package project.controller.main;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
