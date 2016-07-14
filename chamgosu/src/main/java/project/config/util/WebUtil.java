@@ -282,6 +282,56 @@ public class WebUtil {
 		stringbuffer.append("\t\t</td>\n ");
 		return stringbuffer.toString();
 	}
+	
+	public static  String printPageIndex4(String s, int i, int j, int k, int l, String aa, String realPath) throws IOException{
+		if(j <= k)
+			return "";
+		byte byte0 = 10;
+		System.out.println(realPath);
+		StringBuffer stringbuffer = new StringBuffer(1000);
+		int i1 = (i - 1) / byte0;
+		int j1 = (i - 1) % byte0;
+		int k1 = j / k;
+
+		if(j % k != 0)
+			k1++;
+
+		if(s.indexOf(63) == -1)
+			s = s + "?page=";
+		else
+			s = s + "&page=";
+		//stringbuffer.append("\t<tr>\n");
+		stringbuffer.append("\t\t<ul class='pager_wrap' colspan=" + l + " align=center>\n ");
+		/*if(i1 != 0) {
+			stringbuffer.append("\t\t\t<a href=\"javascript:"+aa+"(1);\"><<</a>\n ");
+			stringbuffer.append("\t\t\t<a href=\"javascript:"+aa+"("+((i1 * 10 - 10) + 1)+");\" class='direction prev' ><span></span><span></span><</a>\n ");
+		}*/
+		if(i1 != 0) {
+			stringbuffer.append("\t\t\t<a class='btn' href=\"javascript:"+aa+"(1);\"><img src='"+realPath+"/css/images/btn_page_prev02.gif' alt='처음 페이지로 가기' /></a>\n ");
+			stringbuffer.append("\t\t\t<a class='btn' href=\"javascript:"+aa+"("+((i1 * 10 - 10) + 1)+");\"><img src='"+realPath+"/css/images/btn_page_prev.gif' alt='이전 페이지로 가기' /></a>\n ");
+		} else {
+			stringbuffer.append("\t\t\t<a class='btn' href=\"javascript:"+aa+"(1);\"><img src='"+realPath+"/css/images/btn_page_prev02.gif' alt='처음 페이지로 가기' /></a>\n ");
+			stringbuffer.append("\t\t\t<a class='btn' href=''><img src='"+realPath+"/css/images/btn_page_prev.gif' alt='처음 페이지로 가기' /></a>\n ");
+		}
+
+		for(int i2 = 0; i2 < byte0; i2++) {
+			int l1 = i1 * byte0 + i2 + 1;
+			if(l1 > k1)
+				break;
+			if(l1 == i)
+				stringbuffer.append("<a href='#'><strong>" + l1 + "</strong></a>\n ");
+			else
+				stringbuffer.append("<a href=\"javascript:"+aa+"("+l1+");\">" + l1 + "</a>\n ");
+		}
+
+		stringbuffer.append("\n ");
+		if(i1 != (k1 - 1) / byte0) {
+			stringbuffer.append("\t\t\t<a class='btn' href=\"javascript:"+aa+"("+ (i1 * 10 + 10 + 1) + ");\" class='direction next' ><img src='"+realPath+"/css/images/btn_page_next.gif' alt='다음 페이지로 가기' /></a>\n ");
+			stringbuffer.append("\t\t\t<a class='btn' href=\"javascript:"+aa+"("+k1+");\"><img src='"+realPath+"/css/images/btn_page_next02.gif' alt='마지막 페이지로 가기' /></a></a>\n ");
+		}
+		stringbuffer.append("\t\t</ul>\n ");
+		return stringbuffer.toString();
+	}
 
 
 
