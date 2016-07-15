@@ -20,6 +20,13 @@ public class administrator_setServiceImpl implements administrator_setService {
 	}
 	
 	@Override
+	public int updateAdministrator(Map<String, Object> map) throws Exception {
+		return administrator_setDAO.updateAdministrator(map);
+	}
+	
+	
+	
+	@Override
 	public List<Map<String, Object>> selectAdministrator(Map<String, Object> map) throws Exception {
 		return administrator_setDAO.selectAdministrator(map);
 	}
@@ -27,6 +34,16 @@ public class administrator_setServiceImpl implements administrator_setService {
 	@Override
 	public int selectAdministratorCnt(Map<String, Object> map) throws Exception {
 		return administrator_setDAO.selectAdministratorCnt(map);
+	}
+	
+	@Override
+	public Map<String, Object> selectAdmin(String seq) throws Exception {
+		return administrator_setDAO.selectAdmin(seq);
+	}
+	
+	@Override
+	public int deleteAdministrator(String seq) throws Exception {
+		return administrator_setDAO.deleteAdministrator(seq);
 	}
 	
 	

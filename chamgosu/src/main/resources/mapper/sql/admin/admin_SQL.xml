@@ -57,4 +57,50 @@
 		WHERE
 			US_MASTER = 'T'
 	</select>
+	
+	<select id="selectAdmin" parameterType="string" resultType="hashmap">
+		SELECT
+			US_USERID,
+			US_LOGINID,
+			US_LOGINPASS,
+			US_NAME,
+			US_TELNO1,
+			US_TELNO2,
+			US_EMAIL,
+			US_LEV,
+			US_MASTER,
+			US_MEMO,
+			REGDATE
+		FROM
+			chamgosu.CG_USER
+		WHERE
+			US_MASTER = 'T'
+			AND US_USERID = #{US_USERID}
+	</select>
+	
+	<update id="updateAdministrator" parameterType="hashmap">
+		UPDATE
+			chamgosu.CG_USER
+		SET
+			US_LOGINID = #{US_LOGINID},
+			US_LOGINPASS = #{US_LOGINPASS},
+			US_NAME = #{US_NAME},
+			US_TELNO1 = #{US_TELNO1},
+			US_TELNO2 = #{US_TELNO2},
+			US_EMAIL = #{US_EMAIL},
+			US_LEV = #{US_LEV},
+			US_MEMO = #{US_MEMO}
+		WHERE
+			US_MASTER = 'T'
+			AND US_USERID = #{US_USERID}
+	</update>
+	
+	<delete id="deleteAdministrator" parameterType="string">
+		DELETE
+		FROM
+			chamgosu.CG_USER
+		WHERE
+			US_MASTER = 'T'
+			AND US_USERID = #{US_USERID}
+	</delete>
 </mapper>

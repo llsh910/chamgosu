@@ -32,7 +32,7 @@ public class administrator_setController {
 	private administrator_setService administrator_setService;
 
 	@RequestMapping(value="/administrator_set.do")
-	public ModelAndView codeView(CommandMap map, HttpServletRequest request, HttpServletResponse response) throws Exception{
+	public ModelAndView administratorPage(CommandMap map, HttpServletRequest request, HttpServletResponse response) throws Exception{
 		ModelAndView mav = new ModelAndView("/admin/administrator_set");
 		try{
 			Map<String, Object>param = map.getMap();
@@ -72,10 +72,18 @@ public class administrator_setController {
 		try{
 			
 			Map<String, Object> param = map.getMap();
-	    	log.debug(param);
-	    	int result = administrator_setService.insertAdministrator(param);
-	    	if(result <= 0){
-	    		msg = "error";
+	    	String updateType = RsUtil.checkNull(param.get("updateType"));
+	    	
+	    	if(updateType.equals("insert")){
+	    		int result = administrator_setService.insertAdministrator(param);
+		    	if(result <= 0){
+		    		msg = "error";
+		    	}
+	    	}else{
+	    		int result = administrator_setService.updateAdministrator(param);
+		    	if(result <= 0){
+		    		msg = "error";
+		    	}
 	    	}
 		}catch(Exception ex){
 			ex.printStackTrace();
@@ -91,4 +99,61 @@ public class administrator_setController {
 			pw.close();
 		}
 	}
+	
+	@RequestMapping(value="/selectAdministrator.do")
+	public void selectAdministrator(CommandMap map, HttpServletRequest request, HttpServletResponse response) throws Exception{
+		PrintWriter pw = null;
+    	String msg = "success";
+    	JSONObject json = new JSONObject();
+		try{
+			
+			String US_USERID = RsUtil.checkNull(map.get("US_USERID"));
+	    	Map<String, Object> admin = administrator_setService.selectAdmin(US_USERID);
+	    	if(admin != null){
+	    		json.put("admin", admin);
+	    	}else{
+	    		msg = "error";
+	    	}
+	    	
+		}catch(Exception ex){
+			ex.printStackTrace();
+			msg = "error";
+		}finally{
+			
+			response.setContentType("application/x-json; charset=UTF-8");
+			json.put("msg", msg);
+			pw = response.getWriter();
+			pw.print(json);
+			pw.flush();
+			pw.close();
+		}
+	}
+	
+	@RequestMapping(value="/deleteAdministrator.do")
+	public void deleteAdministrator(CommandMap map, HttpServletRequest request, HttpServletResponse response) throws Exception{
+		PrintWriter pw = null;
+    	String msg = "success";
+    	JSONObject json = new JSONObject();
+		try{
+			
+			String US_USERID = RsUtil.checkNull(map.get("US_USERID"));
+	    	int result = administrator_setService.deleteAdministrator(US_USERID);
+	    	if(result <= 0){
+	    		msg = "error";
+	    	}
+		}catch(Exception ex){
+			ex.printStackTrace();
+			msg = "error";
+		}finally{
+			
+			response.setContentType("application/x-json; charset=UTF-8");
+			json.put("msg", msg);
+			pw = response.getWriter();
+			pw.print(json);
+			pw.flush();
+			pw.close();
+		}
+	}
+	
+	
 }

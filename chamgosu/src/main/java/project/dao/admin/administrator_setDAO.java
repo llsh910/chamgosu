@@ -16,6 +16,11 @@ public class administrator_setDAO extends TempletDAO {
 	}
 	
 	@SuppressWarnings("unchecked")
+	public int updateAdministrator(Map<String, Object> map) throws Exception{
+		return (Integer)insert("admin.updateAdministrator", map);
+	}
+	
+	@SuppressWarnings("unchecked")
 	public List<Map<String, Object>> selectAdministrator(Map<String, Object> map) throws Exception{
 		return (List<Map<String, Object>>)selectList("admin.selectAdministrator", map);
 	}
@@ -23,6 +28,16 @@ public class administrator_setDAO extends TempletDAO {
 	@SuppressWarnings("unchecked")
 	public int selectAdministratorCnt(Map<String, Object> map) throws Exception{
 		return (Integer)selectOne("admin.selectAdministratorCnt", map);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public Map<String, Object> selectAdmin(String seq) throws Exception{
+		return (Map<String, Object>)selectOne("admin.selectAdmin", seq);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public int deleteAdministrator(String seq) throws Exception{
+		return (Integer)delete("admin.deleteAdministrator", seq);
 	}
 	
 	
