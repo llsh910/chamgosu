@@ -131,7 +131,7 @@
       <tbody>
       	<% for(int i=0; i < administorList.size(); i++){ %>
         <tr>
-          <td>1</td>
+          <td><%= ((Integer.parseInt(totalCount) - ((Integer.parseInt(page_index)-1) * 10))- i)%></td>
           <td><%= RsUtil.checkNull(administorList.get(i).get("US_LEV"))%></td>
           <td><%= RsUtil.checkNull(administorList.get(i).get("US_LOGINID"))%></td>
           <td><%= RsUtil.checkNull(administorList.get(i).get("US_NAME"))%></td>
