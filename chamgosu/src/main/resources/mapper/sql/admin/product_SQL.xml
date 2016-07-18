@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="product">
+	<insert id="insertProduct" parameterType="hashmap">
+		INSERT INTO chamgosu.CG_MARSTERGOODS(
+			MG_ISBN,
+			MG_BOOKNM,
+			MG_BOOKSUBNM,
+			MG_PBS,
+			MG_BOOKWRITER,
+			MG_PRICE,
+			MG_SUBJECT,
+			MG_OBJECT,
+			MG_GRADE,
+			MG_STEP,
+			MG_BOOKISYEAR,
+			MG_MOREINF,
+			MG_REFMAT,
+			MG_USERID,
+			MG_APPLYCHK,
+			MG_BOOKIMG,
+			REGDATE
+		)VALUES(
+			#{MG_ISBN},
+			#{MG_BOOKNM},
+			#{MG_BOOKSUBNM},
+			#{MG_PBS},
+			#{MG_BOOKWRITER},
+			#{MG_PRICE},
+			#{MG_SUBJECT},
+			#{MG_OBJECT},
+			#{MG_GRADE},
+			#{MG_STEP},
+			#{MG_BOOKISYEAR},
+			#{MG_MOREINF},
+			#{MG_REFMAT},
+			#{MG_USERID},
+			#{MG_APPLYCHK},
+			#{MG_BOOKIMG},
+			CURDATE()
+		)
+	</insert>
+	<!-- <select id="selectAdministrator" parameterType="hashmap" resultType="hashmap">
+		SELECT * FROM(SELECT
+			@rnum := @rnum + 1 AS rownum,
+			US_USERID,
+			US_LOGINID,
+			US_LOGINPASS,
+			US_NAME,
+			US_TELNO1,
+			US_TELNO2,
+			US_EMAIL,
+			US_LEV,
+			US_MASTER,
+			US_MEMO,
+			REGDATE
+		FROM
+			(SELECT @rnum := 0) r,
+			chamgosu.CG_USER) result
+		WHERE rownum BETWEEN #{start} AND #{end}
+		AND US_MASTER = 'T'
+	</select>
+	<select id="selectAdministratorCnt" parameterType="hashmap" resultType="int">
+		SELECT 
+			COUNT(*)
+		FROM
+			chamgosu.CG_USER
+		WHERE
+			US_MASTER = 'T'
+	</select>
+	
+	<select id="selectAdmin" parameterType="string" resultType="hashmap">
+		SELECT
+			US_USERID,
+			US_LOGINID,
+			US_LOGINPASS,
+			US_NAME,
+			US_TELNO1,
+			US_TELNO2,
+			US_EMAIL,
+			US_LEV,
+			US_MASTER,
+			US_MEMO,
+			REGDATE
+		FROM
+			chamgosu.CG_USER
+		WHERE
+			US_MASTER = 'T'
+			AND US_USERID = #{US_USERID}
+	</select>
+	
+	<update id="updateAdministrator" parameterType="hashmap">
+		UPDATE
+			chamgosu.CG_USER
+		SET
+			US_LOGINID = #{US_LOGINID},
+			US_LOGINPASS = #{US_LOGINPASS},
+			US_NAME = #{US_NAME},
+			US_TELNO1 = #{US_TELNO1},
+			US_TELNO2 = #{US_TELNO2},
+			US_EMAIL = #{US_EMAIL},
+			US_LEV = #{US_LEV},
+			US_MEMO = #{US_MEMO}
+		WHERE
+			US_MASTER = 'T'
+			AND US_USERID = #{US_USERID}
+	</update>
+	
+	<delete id="deleteAdministrator" parameterType="string">
+		DELETE
+		FROM
+			chamgosu.CG_USER
+		WHERE
+			US_MASTER = 'T'
+			AND US_USERID = #{US_USERID}
+	</delete> -->
+</mapper>
