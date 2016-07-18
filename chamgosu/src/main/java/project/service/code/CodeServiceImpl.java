@@ -34,4 +34,29 @@ public class CodeServiceImpl implements CodeService {
 		return codeDAO.code1Value(map);
 	}
 
+	@Override
+	public int code1Save(Map<String, Object> map) throws Exception {
+		return codeDAO.code1Save(map);
+	}
+
+	@Override
+	public int code2Save(Map<String, Object> map) throws Exception {
+		return codeDAO.code2Save(map);
+	}
+
+	@Override
+	public int code1ModifySave(Map<String, Object> map) throws Exception {
+		return codeDAO.code1ModifySave(map);
+	}
+
+	@Override
+	public int code2ModifySave(Map<String, Object> map) throws Exception {
+		return codeDAO.code2ModifySave(map);
+	}
+
+	@Override
+	public Map<String, Object> code2Value(Map<String, Object> map) throws Exception {
+		return codeDAO.code2Value(map);
+	}
+
 }

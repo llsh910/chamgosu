@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="supply">
+	<insert id="supplySave" parameterType="hashmap">
+		insert into CG_SUPPLIER(
+			SP_SEQ
+			, SP_ID
+			, SP_PWD
+			, SP_BUSINM
+			, SP_NAME
+			, SP_USERATING
+			, SP_POST
+			, SP_ADDRESS
+			, SP_DETAILADDRESS
+			, SP_TEL
+			, SP_FAX
+			, SP_HP
+			, SP_SNSCHK
+			, SP_EMAIL
+			, SP_EMAILSENDCHK
+			, SP_POINT
+			, SP_OUTPOINT
+			, SP_INPOINT
+			, SP_COMPINTRO
+			, SP_NEWREGIONS
+			, SP_OLDREGIONS
+			, SP_ITEMS
+			, SP_MANAGER
+			, SP_ORGRATE
+			, SP_FEESCHK
+			, SP_DVRTYPE
+			, SP_DVRTYPEETC
+			, SP_DVRCOMP
+			, SP_DVRSTANDARD
+			, SP_DVRPRICE
+			, SP_DVRRETURN
+			, SP_DVRRETURNETC
+			, SP_DVRRETURNCOMP
+			, SP_BANKNM
+			, SP_BANKNUM
+			, SP_BANKDEPNM
+			, SP_COMPNUMIMG
+			, SP_BANKBOOKIMG
+			, SP_LOGOIMG
+		) values (
+			
+			, #{sp_id}
+			, #{sp_pwd}
+			, #{sp_businm}
+			, #{sp_name}
+			, #{sp_userating}
+			, #{sp_post}
+			, #{sp_address}
+			, #{sp_detailAddress}
+			, #{sp_tel}
+			, #{sp_fax}
+			, #{sp_hp}
+			, #{sp_snsChk}
+			, #{sp_email}
+			, #{sp_emailSendChk}
+			, #{sp_point}
+			, #{sp_outPoint}
+			, #{sp_inPoint}
+			, #{sp_compIntro}
+			, #{sp_newRegions}
+			, #{sp_oldRegions}
+			, #{sp_items}
+			, #{sp_manager}
+			, #{sp_orgRate}
+			, #{sp_feesChk}
+			, #{sp_dvrType}
+			, #{sp_dvrTypeEtc}
+			, #{sp_dvrComp}
+			, #{sp_dvrStandard}
+			, #{sp_dvrPrice}
+			, #{sp_dvrReturn}
+			, #{sp_dvrReturnEtc}
+			, #{sp_dvrReturnComp}
+			, #{sp_bankNm}
+			, #{sp_bankNum}
+			, #{sp_bankDepNm}
+			, #{sp_compNumImg}
+			, #{sp_bankBookImg}
+			, #{sp_logoImg}
+		)
+	</insert>
+   
+</mapper>

@@ -38,5 +38,64 @@
 		select CODE_IDX, CODE_FIRST, CODE_CODENAME, CODE_ISUSE from CG_CODE where CODE_IDX=#{code_idx} and CODE_FIRST=#{code_first} and CODE_TWO='00000'
 	</select>
 	
+	
+	<select id="code2Value" parameterType="hashmap" resultType="hashmap">
+		select CODE_IDX, CODE_FIRST, CODE_TWO, CODE_CODENAME, CODE_ISUSE from CG_CODE where CODE_IDX=#{code_idx} and CODE_FIRST=#{code_first} and CODE_TWO=#{code_two}
+	</select>
+	
+	
+	<insert id="code1Save" parameterType="hashmap">
+		insert into CG_CODE (
+			CODE_IDX
+			, CODE_FIRST
+			, CODE_TWO
+			, CODE_CODENAME
+			, CODE_ISUSE
+		) values (
+			#{code_idx}
+			, 
+			, '00000'
+			, #{code_codeName}
+			, 'Y'
+		)
+	</insert>
+	
+	
+	<insert id="code2Save" parameterType="hashmap">
+		insert into CG_CODE (
+			CODE_IDX
+			, CODE_FIRST
+			, CODE_TWO
+			, CODE_CODENAME
+			, CODE_ISUSE
+		) values (
+			#{code_idx}
+			, #{code_first}
+			, 
+			, #{code_codeName}
+			, 'Y'
+		)
+	</insert>
+	
+	<update id="code1ModifySave" parameterType="hashmap">
+		update CG_CODE set 
+			CODE_CODENAME=#{code_codeName}
+			, CODE_ISUSE=#{code_isuse}
+		where
+			CODE_IDX=#{code_idx}
+			and CODE_FIRST=#{code_first}
+			and CODE_TWO='00000'
+	</update>
+	
+	
+	<update id="code2ModifySave" parameterType="hashmap">
+		update CG_CODE set 
+			CODE_CODENAME=#{code_codeName}
+			, CODE_ISUSE=#{code_isuse}
+		where
+			CODE_IDX=#{code_idx}
+			and CODE_FIRST=#{code_first}
+			and CODE_TWO=#{code_two}
+	</update>
    
 </mapper>
