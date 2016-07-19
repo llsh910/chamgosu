@@ -5,6 +5,7 @@
 
 	Map<String, Object> pageInfo = (Map<String, Object>)request.getAttribute("pageInfo");
 %>
+<%= pageInfo%>
 	  <!--contents-->
   <div id="contents">
     <h2>ㆍ상품공급자 관리</h2>
@@ -224,6 +225,18 @@
       <!-- /탭컨텐츠 --> 
     </div>
     <script>
+    
+	    var searchSubmit = function(){
+			jQuery("#searchForm").submit();
+		};
+		
+		var pageSearch = function(page_index){
+			jQuery("#page_index").val(page_index);
+			
+			searchSubmit();
+		};
+	
+	
 		$(function () {
 		
 		    $(".tab_content01").hide();
