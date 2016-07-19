@@ -1,9 +1,5 @@
-<%@page import="project.config.util.WebUtil"%>
-<%@page import="java.util.List"%>
-<%@page import="java.util.Map"%>
-<%@page import="project.config.util.RsUtil"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ include file="../top.jsp" %>
 <%
 	List<Map<String,Object>> administorList = (List<Map<String,Object>>)request.getAttribute("administorList");
 	Map<String, Object> pageInfo = (Map<String, Object>)request.getAttribute("pageInfo");
@@ -13,22 +9,10 @@
 	if(page_index.equals("")) page_index = "1";
 %>
 
-<body class="subbg">
-<!--header-->
-<%@ include file="../admin_top.jsp" %>
-<!--/header-->
 
-<div id="layout"> 
-  <!--gnb-->
-  <%@ include file="../admin_nav.jsp" %>
-  <!--/gnb--> 
-  
-  <!--contents-->
+ <!--contents-->
   <div id="contents">
     <h2>ㆍ관리자 설정</h2>
-    
-    
-    <!-- 버튼 -->
     <form id="updateAdministor">
     	
     	
@@ -97,11 +81,9 @@
 	      <input value="취 소" type="reset" class="btn01" />
 	    </div>
     </form>
-    <!-- /버튼 --> 
     
     
     
-    <!--list-->
    <form id="searchForm">
    	<input type="hidden" id="page_index" name="page_index"  value="<%=page_index%>">
     <table class="bbs_list01 mgt40">
@@ -155,8 +137,8 @@
     
   </div>
   <!--/contents--> 
-</div>
-</body>
+  
+  
 <script>
 	function insertAdmin(type){
 		var Url = "updateAdministrator.do";
@@ -245,3 +227,4 @@
 	};
 
 </script>
+<%@ include file="../bottom.jsp" %>

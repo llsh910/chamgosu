@@ -48,8 +48,6 @@
 			, SP_OUTPOINT
 			, SP_INPOINT
 			, SP_COMPINTRO
-			, SP_NEWREGIONS
-			, SP_OLDREGIONS
 			, SP_ITEMS
 			, SP_MANAGER
 			, SP_ORGRATE
@@ -90,8 +88,6 @@
 			, #{sp_outPoint}
 			, #{sp_inPoint}
 			, #{sp_compIntro}
-			, #{sp_newRegions}
-			, #{sp_oldRegions}
 			, #{sp_items}
 			, #{sp_manager}
 			, #{sp_orgRate}
@@ -144,8 +140,6 @@
 			, SP_OUTPOINT
 			, SP_INPOINT
 			, SP_COMPINTRO
-			, SP_NEWREGIONS
-			, SP_OLDREGIONS
 			, SP_ITEMS
 			, SP_MANAGER
 			, SP_ORGRATE
@@ -189,8 +183,6 @@
 				, SP_OUTPOINT
 				, SP_INPOINT
 				, SP_COMPINTRO
-				, SP_NEWREGIONS
-				, SP_OLDREGIONS
 				, SP_ITEMS
 				, SP_MANAGER
 				, SP_ORGRATE
@@ -212,8 +204,9 @@
 				, SP_GRADE
 				, SP_GRADECHK
 				, SP_REGDATE
-				, ROW_NUMBER() OVER(order by SP_REGDATE) as rn
+				, @rnum := @rnum + 1 as rn
 			from
+				(SELECT @rnum := 0) r,
 				CG_SUPPLIER
 			where
 				1=1
@@ -245,8 +238,6 @@
 			, SP_OUTPOINT
 			, SP_INPOINT
 			, SP_COMPINTRO
-			, SP_NEWREGIONS
-			, SP_OLDREGIONS
 			, SP_ITEMS
 			, SP_MANAGER
 			, SP_ORGRATE
@@ -293,8 +284,6 @@
 			, SP_OUTPOINT = #{sp_outPoint}
 			, SP_INPOINT = #{sp_inPoint}
 			, SP_COMPINTRO = #{sp_compIntro}
-			, SP_NEWREGIONS = #{sp_newRegions}
-			, SP_OLDREGIONS = #{sp_oldRegions}
 			, SP_ITEMS = #{sp_items}
 			, SP_MANAGER = #{sp_manager}
 			, SP_ORGRATE = #{sp_orgRate}
