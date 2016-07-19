@@ -2,6 +2,31 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
 <mapper namespace="supply">
+
+	<select id="supplyIdChk" parameterType="hashmap" resultType="int">
+		select count(*) from CG_SPPLIER where SP_ID=#{sp_id}
+	</select>
+	
+	<insert id="supplyMiniSave" parameterType="hashmap">
+		insert into CG_SUPPLIER(
+			SP_SEQ
+			, SP_ID
+			, SP_PWD
+			, SP_BUSINM
+			, SP_NAME
+			, SP_GRADE
+			, SP_REGDATE
+		) values (
+			makeSupplyId()
+			, #{sp_id}
+			, #{sp_pwd}
+			, #{sp_businm}
+			, #{sp_name}
+			, '0'
+			, now()
+		)
+	</insert>
+
 	<insert id="supplySave" parameterType="hashmap">
 		insert into CG_SUPPLIER(
 			SP_SEQ
@@ -43,8 +68,10 @@
 			, SP_COMPNUMIMG
 			, SP_BANKBOOKIMG
 			, SP_LOGOIMG
+			, SP_GRADE
+			, SP_REGDATE
 		) values (
-			
+			makeSupplyId()
 			, #{sp_id}
 			, #{sp_pwd}
 			, #{sp_businm}
@@ -83,7 +110,211 @@
 			, #{sp_compNumImg}
 			, #{sp_bankBookImg}
 			, #{sp_logoImg}
+			, '0'
+			, now()
 		)
 	</insert>
+	
+	<select id="supplyListCnt" parameterType="hashmap" resultType="int">
+		select count(*) from CG_SUPPLIER
+		where 1=1
+		<if test="search_businm != null and search_businm != '' ">
+			and SP_BUSINM like CONCAT('%', #{search_businm}, '%')
+		</if>
+	</select>
+	
+	<select id="supplyList" parameterType="hashmap" resultType="hashmap">
+		select 
+			SP_SEQ                                       
+			, SP_ID
+			, SP_PWD
+			, SP_BUSINM
+			, SP_NAME
+			, SP_USERATING
+			, SP_POST
+			, SP_ADDRESS
+			, SP_DETAILADDRESS
+			, SP_TEL
+			, SP_FAX
+			, SP_HP
+			, SP_SNSCHK
+			, SP_EMAIL
+			, SP_EMAILSENDCHK
+			, SP_POINT
+			, SP_OUTPOINT
+			, SP_INPOINT
+			, SP_COMPINTRO
+			, SP_NEWREGIONS
+			, SP_OLDREGIONS
+			, SP_ITEMS
+			, SP_MANAGER
+			, SP_ORGRATE
+			, SP_FEESCHK
+			, SP_DVRTYPE
+			, SP_DVRTYPEETC
+			, SP_DVRCOMP
+			, SP_DVRSTANDARD
+			, SP_DVRPRICE
+			, SP_DVRRETURN
+			, SP_DVRRETURNETC
+			, SP_DVRRETURNCOMP
+			, SP_BANKNM
+			, SP_BANKNUM
+			, SP_BANKDEPNM
+			, SP_COMPNUMIMG
+			, SP_BANKBOOKIMG
+			, SP_LOGOIMG
+			, SP_GRADE
+			, SP_GRADECHK
+			, SP_REGDATE
+		from 
+		(
+			select
+				SP_SEQ                                       
+				, SP_ID
+				, SP_PWD
+				, SP_BUSINM
+				, SP_NAME
+				, SP_USERATING
+				, SP_POST
+				, SP_ADDRESS
+				, SP_DETAILADDRESS
+				, SP_TEL
+				, SP_FAX
+				, SP_HP
+				, SP_SNSCHK
+				, SP_EMAIL
+				, SP_EMAILSENDCHK
+				, SP_POINT
+				, SP_OUTPOINT
+				, SP_INPOINT
+				, SP_COMPINTRO
+				, SP_NEWREGIONS
+				, SP_OLDREGIONS
+				, SP_ITEMS
+				, SP_MANAGER
+				, SP_ORGRATE
+				, SP_FEESCHK
+				, SP_DVRTYPE
+				, SP_DVRTYPEETC
+				, SP_DVRCOMP
+				, SP_DVRSTANDARD
+				, SP_DVRPRICE
+				, SP_DVRRETURN
+				, SP_DVRRETURNETC
+				, SP_DVRRETURNCOMP
+				, SP_BANKNM
+				, SP_BANKNUM
+				, SP_BANKDEPNM
+				, SP_COMPNUMIMG
+				, SP_BANKBOOKIMG
+				, SP_LOGOIMG
+				, SP_GRADE
+				, SP_GRADECHK
+				, SP_REGDATE
+				, ROW_NUMBER() OVER(order by SP_REGDATE) as rn
+			from
+				CG_SUPPLIER
+			where
+				1=1
+				<if test="search_businm != null and search_businm != '' ">
+					and SP_BUSINM like CONCAT('%', #{search_businm}, '%')
+				</if>
+		) as list
+		where list.rn between #{start} and #{end}
+	</select>
+	
+	<select id="supplyModifyData" parameterType="hashmap" resultType="hashmap">
+		select 
+			SP_SEQ                                       
+			, SP_ID
+			, SP_PWD
+			, SP_BUSINM
+			, SP_NAME
+			, SP_USERATING
+			, SP_POST
+			, SP_ADDRESS
+			, SP_DETAILADDRESS
+			, SP_TEL
+			, SP_FAX
+			, SP_HP
+			, SP_SNSCHK
+			, SP_EMAIL
+			, SP_EMAILSENDCHK
+			, SP_POINT
+			, SP_OUTPOINT
+			, SP_INPOINT
+			, SP_COMPINTRO
+			, SP_NEWREGIONS
+			, SP_OLDREGIONS
+			, SP_ITEMS
+			, SP_MANAGER
+			, SP_ORGRATE
+			, SP_FEESCHK
+			, SP_DVRTYPE
+			, SP_DVRTYPEETC
+			, SP_DVRCOMP
+			, SP_DVRSTANDARD
+			, SP_DVRPRICE
+			, SP_DVRRETURN
+			, SP_DVRRETURNETC
+			, SP_DVRRETURNCOMP
+			, SP_BANKNM
+			, SP_BANKNUM
+			, SP_BANKDEPNM
+			, SP_COMPNUMIMG
+			, SP_BANKBOOKIMG
+			, SP_LOGOIMG
+			, SP_GRADE
+			, SP_GRADECHK
+			, SP_REGDATE
+		from 
+			CG_SUPPLIER
+		where SP_SEQ=#{sp_seq}
+	</select>
+	
+	<update id="supplyModifySave" parameterType="hashmap">
+		update 
+			CG_SUPPLIER
+		set
+			SP_BUSINM = #{sp_businm}
+			, SP_NAME = #{sp_name}
+			, SP_USERATING = #{sp_userating}
+			, SP_POST = #{sp_post}
+			, SP_ADDRESS = #{sp_address}
+			, SP_DETAILADDRESS = #{sp_detailAddress}
+			, SP_TEL = #{sp_tel}
+			, SP_FAX = #{sp_fax}
+			, SP_HP = #{sp_hp}
+			, SP_SNSCHK = #{sp_snsChk}
+			, SP_EMAIL = #{sp_email}
+			, SP_EMAILSENDCHK = #{sp_emailSendChk}
+			, SP_POINT = #{sp_point}
+			, SP_OUTPOINT = #{sp_outPoint}
+			, SP_INPOINT = #{sp_inPoint}
+			, SP_COMPINTRO = #{sp_compIntro}
+			, SP_NEWREGIONS = #{sp_newRegions}
+			, SP_OLDREGIONS = #{sp_oldRegions}
+			, SP_ITEMS = #{sp_items}
+			, SP_MANAGER = #{sp_manager}
+			, SP_ORGRATE = #{sp_orgRate}
+			, SP_FEESCHK = #{sp_feesChk}
+			, SP_DVRTYPE = #{sp_dvrType}
+			, SP_DVRTYPEETC = #{sp_dvrTypeEtc}
+			, SP_DVRCOMP = #{sp_dvrComp}
+			, SP_DVRSTANDARD = #{sp_dvrStandard}
+			, SP_DVRPRICE = #{sp_dvrPrice}
+			, SP_DVRRETURN = #{sp_dvrReturn}
+			, SP_DVRRETURNETC = #{sp_dvrReturnEtc}
+			, SP_DVRRETURNCOMP = #{sp_dvrReturnComp}
+			, SP_BANKNM = #{sp_bankNm}
+			, SP_BANKNUM = #{sp_bankNum}
+			, SP_BANKDEPNM = #{sp_bankDepNm}
+			, SP_COMPNUMIMG = #{sp_compNumImg}
+			, SP_BANKBOOKIMG = #{sp_bankBookImg}
+			, SP_LOGOIMG = #{sp_logoImg}
+		where
+			SP_SEQ=#{sp_seq}
+	</update>
    
 </mapper>
