@@ -72,4 +72,9 @@ public class SupplyServiceImpl implements SupplyService {
 		return supplyDAO.supplyRegionStateSave(map);
 	}
 
+	@Override
+	public int supplyPubSave(Map<String, Object> map) throws Exception {
+		return supplyDAO.supplyPubSave(map);
+	}
+
 }

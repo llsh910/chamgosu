@@ -324,7 +324,13 @@ public class SupplyController {
 	}
 	
 	
-	
+	/**
+	 * 출판사 지역 승인 미승인
+	 * @param map
+	 * @param response
+	 * @param request
+	 * @throws Exception
+	 */
 	@RequestMapping(value="/supplyRegisonStateSave.do")
 	public void supplyRegisonStateSave(CommandMap map, HttpServletResponse response, HttpServletRequest request) throws Exception{
 		PrintWriter pw = null;
@@ -343,17 +349,71 @@ public class SupplyController {
 		try{
 			
 			
-			for(int i=0; i<pr_seq.length; i++){
-				
-				supplyMap.remove("pr_seq");
-				supplyMap.remove("pr_state");
-				
-				supplyMap.put("pr_seq", pr_seq[i]);
-				supplyMap.put("pr_state", pr_state[i]);
-				
-				supplyService.supplyRegionStateSave(supplyMap);
-				
+			if(pr_seq != null && pr_seq.length > 0){
+				for(int i=0; i<pr_seq.length; i++){
+					
+					supplyMap.remove("pr_seq");
+					supplyMap.remove("pr_state");
+					
+					supplyMap.put("pr_seq", pr_seq[i]);
+					supplyMap.put("pr_state", pr_state[i]);
+					
+					supplyService.supplyRegionStateSave(supplyMap);
+					
+				}
 			}
+			
+			
+			
+
+		}catch(Exception ex){
+			ex.printStackTrace();
+			msg = "error";
+		}finally{
+			response.setContentType("application/x-json; charset=UTF-8");
+			json.put("msg", msg);
+			pw = response.getWriter();
+			pw.print(json);
+			pw.flush();
+			pw.close();
+		}
+	}
+	
+	/**
+	 * 공급업체 출판사 지역 저장
+	 * @param map
+	 * @param response
+	 * @param request
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/supplyPubSave.do")
+	public void supplyPubSave(CommandMap map, HttpServletResponse response, HttpServletRequest request) throws Exception{
+		PrintWriter pw = null;
+
+		JSONObject json = new JSONObject();
+		String msg = "success";
+
+		Map<String, Object> supplyPubMap = map.getMap();
+		
+		String pr_spid = RsUtil.checkNull(request.getParameter("pr_spid"));
+		String[] pr_pbs = request.getParameterValues("pr_pbs");
+		String[] region1 = request.getParameterValues("region1");
+		String[] region2 = request.getParameterValues("region2");
+		
+
+		try{
+			
+			if(pr_pbs != null && pr_pbs.length > 0){
+				for(int i=0; i<pr_pbs.length; i++){
+					supplyPubMap.clear();
+					supplyPubMap.put("pr_spid", pr_spid);
+					supplyPubMap.put("pr_pbs", pr_pbs[i]);
+					supplyPubMap.put("region1", region1[i]);
+					supplyPubMap.put("region2", region2[i]);
+					supplyService.supplyPubSave(supplyPubMap);
+				}
+			}
+			
 			
 			
 

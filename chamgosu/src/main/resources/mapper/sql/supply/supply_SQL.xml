@@ -368,6 +368,24 @@
 	</update>
 	
 	
+	<insert id="supplyPubSave" parameterType="hashmap">
+		insert into CG_PBSREGION (
+			PR_SPID
+			, PR_PBS
+			, REGION1
+			, REGION2
+			, PR_STATE
+			, PR_REGDATE
+		) values (
+			#{pr_spid}
+			, #{pr_pbs}
+			, #{region1}
+			, #{region2}
+			, 'N'
+			, now()
+		)
+	</insert>
+	
 	
 	
    

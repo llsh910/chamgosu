@@ -56,4 +56,8 @@ public class SupplyDAO extends TempletDAO {
 		return (Integer)update("supply.supplyRegionStateSave", map);
 	}
 	
+	public int supplyPubSave(Map<String, Object> map) throws Exception{
+		return (Integer)insert("supply.supplyPubSave", map);
+	}
+	
 }
