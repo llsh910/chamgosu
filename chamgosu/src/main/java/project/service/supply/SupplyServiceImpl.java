@@ -57,4 +57,14 @@ public class SupplyServiceImpl implements SupplyService {
 		return supplyDAO.supplyTotalCnt(map);
 	}
 
+	@Override
+	public int supplyRegionListCnt(Map<String, Object> map) throws Exception {
+		return supplyDAO.supplyRegionListCnt(map);
+	}
+
+	@Override
+	public List<Map<String, Object>> supplyRegionList(Map<String, Object> map) throws Exception {
+		return supplyDAO.supplyRegionList(map);
+	}
+
 }

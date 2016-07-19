@@ -329,7 +329,34 @@
 	
 	
 	<select id="supplyRegionList" parameterType="hashmap" resultType="hashmap">
-		select count(*) from CG_PBSREGION where PR_SPID=#{sp_seq}
+		select
+			PR_SEQ
+			, PR_SPID
+			, PR_PBS
+			, REGION1
+			, REGION2
+			, REGION3
+			, PR_STATE
+			, DATE_FORMAT( SP_REGDATE,'%Y-%m-%d' ) as SP_REGDATE
+		from
+		(
+			select
+				PR_SEQ
+				, PR_SPID
+				, PR_PBS
+				, REGION1
+				, REGION2
+				, REGION3
+				, PR_STATE
+				, SP_REGDATE
+				, @rnum := @rnum + 1 as rn
+			from
+				(SELECT @rnum := 0) r,
+				CG_PBSREGION
+			where PR_SPID=#{sp_seq}
+		) as list
+		
+		where list.rn between #{start} and #{end}
 	</select>
 	
 	

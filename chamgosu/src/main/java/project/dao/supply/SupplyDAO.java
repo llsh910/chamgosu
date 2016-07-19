@@ -42,4 +42,14 @@ public class SupplyDAO extends TempletDAO {
 	public int supplyTotalCnt(Map<String, Object> map) throws Exception{
 		return (Integer)selectOne("supply.supplyTotalCnt", map);
 	}
+	
+	public int supplyRegionListCnt(Map<String, Object> map) throws Exception{
+		return (Integer)selectOne("supply.supplyRegionListCnt", map);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Map<String, Object>> supplyRegionList(Map<String, Object> map) throws Exception{
+		return (List<Map<String, Object>>)selectList("supply.supplyRegionList", map);
+	}
+	
 }
