@@ -227,6 +227,7 @@
 				<if test="search_userating != null and search_userating != '' ">
 					and SP_USERATING = #{search_userating}
 				</if>
+			order by SP_REGDATE desc
 		) as list
 		where list.rn between #{start} and #{end}
 	</select>
@@ -320,6 +321,16 @@
 			SP_SEQ=#{sp_seq}
 	</update>
 	
+	
+	
+	<select id="supplyRegionListCnt" parameterType="hashmap" resultType="int">
+		select count(*) from CG_PBSREGION where PR_SPID=#{sp_seq}
+	</select>
+	
+	
+	<select id="supplyRegionList" parameterType="hashmap" resultType="hashmap">
+		select count(*) from CG_PBSREGION where PR_SPID=#{sp_seq}
+	</select>
 	
 	
 	
