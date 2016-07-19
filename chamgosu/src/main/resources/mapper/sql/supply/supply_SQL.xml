@@ -3,6 +3,10 @@
  
 <mapper namespace="supply">
 
+	<select id="supplyTotalCnt" parameterType="hashmap" resultType="int">
+		select count(*) from CG_SUPPLIER 
+	</select>
+	
 	<select id="supplyIdChk" parameterType="hashmap" resultType="int">
 		select count(*) from CG_SUPPLIER where SP_ID=#{sp_id}
 	</select>
@@ -119,6 +123,10 @@
 		<if test="search_businm != null and search_businm != '' ">
 			and SP_BUSINM like CONCAT('%', #{search_businm}, '%')
 		</if>
+		
+		<if test="search_userating != null and search_userating != '' ">
+			and SP_USERATING = #{search_userating}
+		</if>
 	</select>
 	
 	<select id="supplyList" parameterType="hashmap" resultType="hashmap">
@@ -215,6 +223,10 @@
 				<if test="search_businm != null and search_businm != '' ">
 					and SP_BUSINM like CONCAT('%', #{search_businm}, '%')
 				</if>
+				
+				<if test="search_userating != null and search_userating != '' ">
+					and SP_USERATING = #{search_userating}
+				</if>
 		) as list
 		where list.rn between #{start} and #{end}
 	</select>
@@ -307,5 +319,10 @@
 		where
 			SP_SEQ=#{sp_seq}
 	</update>
+	
+	
+	
+	
+	
    
 </mapper>
