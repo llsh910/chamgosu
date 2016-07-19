@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="../admin_top.jsp" %>
+<%@ include file="../top.jsp" %>
  <!--contents-->
   <div id="contents">
     <h2>ㆍ상품 공급자별 취급품목(출판사별 영업지역)관리</h2>
