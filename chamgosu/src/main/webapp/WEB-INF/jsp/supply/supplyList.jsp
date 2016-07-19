@@ -5,7 +5,6 @@
 
 	Map<String, Object> pageInfo = (Map<String, Object>)request.getAttribute("pageInfo");
 %>
-<%= pageInfo%>
 	  <!--contents-->
   <div id="contents">
     <h2>ㆍ상품공급자 관리</h2>
@@ -78,7 +77,7 @@
 	        <td><%= RsUtil.checkNull(supplyList.get(i).get("SP_TEL"))%></td>
 	        <td><a href="mailto:<%= RsUtil.checkNull(supplyList.get(i).get("SP_EMAIL"))%>"><%= RsUtil.checkNull(supplyList.get(i).get("SP_EMAIL"))%></a></td>
 	        <td><%= RsUtil.checkNull(supplyList.get(i).get("SP_REGDATE"))%></td>
-	        <td>유료업체</td>
+	        <td><%= RsUtil.checkNull(supplyList.get(i).get("SP_USERATING"))%></td>
 	        <td><input value="상세보기" type="button" class="btns01" /></td>
 	      </tr>
 	  <%} %>
