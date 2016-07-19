@@ -23,12 +23,12 @@
 	        <tr>
 	          <th scope="row">* 아이디<br>
 	            (사업자등록번호)</th>
-	          <td><input type="text" class="inputTxt" name="chkid" id="chkid" style="width:40%;" value="<%= RsUtil.checkNull(supplyData.get("SP_ID"))%>"/>
-	            <input value="중복체크" type="button" name="chkID_btn" id="chkID_btn" class="btns01" />
+	          <td><input type="text" class="inputTxt" name="sp_id" id="sp_id" style="width:40%;" value="<%= RsUtil.checkNull(supplyData.get("SP_ID"))%>"/>
+	            <input value="중복체크" type="button" name="chkID_btn" id="chkID_btn" class="btns01" onclick="idChk()"/>
 	            <br>
 	            ※ '-'없이 입력하세요. 사업자등록번호로 ID가 부여됩니다.</td>
 	          <th scope="row" class="bleft">이용등급</th>
-	          <td><select style="width:150px;">
+	          <td><select style="width:150px;" id="SP_USERATING" name="SP_USERATING">
 	              <option value="">선택하세요</option>
 	              <option value="1" <%= WebUtil.isSelected("1", RsUtil.checkNull(supplyData.get("SP_USERATING")))%>>유료업체</option>
 	              <option value="0" <%= WebUtil.isSelected("0", RsUtil.checkNull(supplyData.get("SP_USERATING")))%>>무료업체</option>
@@ -37,9 +37,9 @@
 	        </tr>
 	        <tr>
 	          <th scope="row">* 업체명</th>
-	          <td><input type="text" name="name" id="name" class="inputTxt" style="width:60%;" value="<%= RsUtil.checkNull(supplyData.get("SP_BUSINM"))%>" /></td>
+	          <td><input type="text" name="sp_businm" id="sp_businm" class="inputTxt" style="width:60%;" value="<%= RsUtil.checkNull(supplyData.get("SP_BUSINM"))%>" /></td>
 	          <th scope="row" class="bleft">* 대표자명</th>
-	          <td><input type="text" name="name01" id="name01" class="inputTxt" style="width:60%;" value="<%= RsUtil.checkNull(supplyData.get("SP_NAME"))%>"/></td>
+	          <td><input type="text" name="sp_name" id="sp_name" class="inputTxt" style="width:60%;" value="<%= RsUtil.checkNull(supplyData.get("SP_NAME"))%>"/></td>
 	        </tr>
 	        <tr>
 	          <th scope="row">* 현재 비밀번호</th>
@@ -48,7 +48,7 @@
 	        </tr>
 	        <tr>
 	          <th scope="row">변경할 비밀번호</th>
-	          <td><input type="password" name="newpass" id="newpass" class="inputTxt" style="width:150px;" />
+	          <td><input type="password" name="sp_pwd" id="sp_pwd" class="inputTxt" style="width:150px;" />
 	            <span><br>
 	            - 반드시 8~20자의 영문, 숫자, 특수문자 중 2가지 이상으로 조합해야 합니다. <br>
 	            - 동일한 문자열을 연속 배치할 수 없습니다. 예) aaa, 111 <br>
@@ -58,9 +58,11 @@
 	        </tr>
 	        <tr>
 	          <th scope="row">* 주소</th>
-	          <td colspan="3"><input type="text" id="post1" name="post1" class="inputTxt" style="width:100px;" title="우편번호 입력"  value="<%= RsUtil.checkNull(supplyData.get("SP_POST"))%>"/>
+	          <td colspan="3"><input type="text" id="sp_post" name="sp_post" class="inputTxt" style="width:100px;" title="우편번호 입력"  value="<%= RsUtil.checkNull(supplyData.get("SP_POST"))%>"/>
 	            <input value="우편번호찾기" type="button" class="btns" />
-	            <input type="text" id="addrDetail" name="addrDetail" class="inputTxt" style="width:400px;"  value=""/></td>
+	            <input type="text" id="sp_address" name="sp_address" class="inputTxt" style="width:400px;"  value="<%= RsUtil.checkNull(supplyData.get("SP_ADDRESS"))%>"/>
+	          	<input type="text" id="sp_detailAddress" name="sp_detailAddress" class="inputTxt" style="width:400px;"  value="<%= RsUtil.checkNull(supplyData.get("SP_DETAILADDRESS"))%>"/>  
+	          </td>
 	        </tr>
 	        <tr>
 	          <th scope="row">* 전화번호</th>
@@ -165,21 +167,21 @@
 	        </tr>
 	        <tr>
 	          <th scope="row">* 취급품목 및 회사소개</th>
-	          <td colspan="3"><textarea rows="3" class="inputTxt" style="width:80%;"><%= RsUtil.checkNull(supplyData.get("SP_COMPINTRO"))%></textarea>
+	          <td colspan="3"><textarea rows="3" class="inputTxt" style="width:80%;" id="sp_compIntro" name="sp_compIntro"><%= RsUtil.checkNull(supplyData.get("SP_COMPINTRO"))%></textarea>
 	            200자 내외</td>
 	        </tr>
 	        <tr>
 	          <th scope="row">* 계좌번호</th>
 	          <td colspan="3">은행
-	            <input type="text" class="inputTxt mgr15" style="width:70px;" value="<%= RsUtil.checkNull(supplyData.get("SP_BANKNM"))%>"/>
+	            <input type="text" class="inputTxt mgr15" style="width:70px;" id="sp_bankNm" name="sp_bankNm" value="<%= RsUtil.checkNull(supplyData.get("SP_BANKNM"))%>"/>
 	            계좌
-	            <input type="number" style="ime-mode:disabled; width:200px;" onkeypress="return digit_check(event)" class="inputTxt mgr15" value="<%= RsUtil.checkNull(supplyData.get("SP_BANKNUM"))%>" />
+	            <input type="number" style="ime-mode:disabled; width:200px;" id="sp_bankNum" name="sp_bankNum" onkeypress="return digit_check(event)" class="inputTxt mgr15" value="<%= RsUtil.checkNull(supplyData.get("SP_BANKNUM"))%>" />
 	            예금주
-	            <input type="text" class="inputTxt" style="width:90px;" /></td>
+	            <input type="text" class="inputTxt" style="width:90px;"  id="sp_bankDepNm" name="sp_bankDepNm" value="<%= RsUtil.checkNull(supplyData.get("SP_BANKDEPNM"))%>"/></td>
 	        </tr>
 	        <tr>
 	          <th scope="row">* 기본공급률</th>
-	          <td colspan="3"><input type="text" name="reserve" onkeyup="lfn_keychk(this)"  style="ime-mode:disabled; width:35px;" class="inputTxt" value="<%= RsUtil.checkNull(supplyData.get("SP_ORGRATE"))%>"/>
+	          <td colspan="3"><input type="text" id="sp_orgRate" name="sp_orgRate" onkeyup="lfn_keychk(this)"  style="ime-mode:disabled; width:35px;" class="inputTxt" value="<%= RsUtil.checkNull(supplyData.get("SP_ORGRATE"))%>"/>
 	            % <span>(상품 등록시 자동적으로 적용되는 당사에 대한 공급율이며 추후 상품별 또는 전체 수정이 가능합니다.)</span></td>
 	        </tr>
 	        <tr>
@@ -200,44 +202,44 @@
 	        <tr>
 	          <th scope="row">배송정책</th>
 	          <td colspan="3"><div class="delivery"><strong>배송방법 : </strong>
-	              <input type="radio" class="rdo mgl10" name="change01" value="0"/>
+	              <input type="radio" class="rdo mgl10" name="sp_dvrType" value="0"/>
 	              직원방문
-	              <input type="radio" class="rdo mgl20" name="change01" value="1"/>
+	              <input type="radio" class="rdo mgl20" name="sp_dvrType" value="1"/>
 	              택배수령
-	              <input type="text" class="inputTxt" style="width:90px;" value="2" />
+	              <input type="text" class="inputTxt" style="width:90px;" value="<%= RsUtil.checkNull(supplyData.get("SP_DVRPRICE2"))%>" />
 	              <select style="width:70px;">
 	                <option>선불</option>
 	                <option>착불</option>
 	              </select>
-	              <input type="radio" class="rdo mgl20" name="change01" value="2"/>
+	              <input type="radio" class="rdo mgl20" name="sp_dvrType" value="2"/>
 	              방문수령
-	              <input type="radio" class="rdo mgl20" name="change01" value="3"/>
+	              <input type="radio" class="rdo mgl20" name="sp_dvrType" value="3"/>
 	              기타
 	              <input type="text" class="inputTxt" style="width:120px;" value="<%= RsUtil.checkNull(supplyData.get("SP_DVRTYPEETC"))%>"/>
 	            </div>
 	            <strong>배송기준 : </strong>
-	            <input type="radio" class="rdo mgl10" name="change02"  value="0"/>
+	            <input type="radio" class="rdo mgl10" name="sp_dvrStandard"  value="0"/>
 	            무료배송
-	            <input type="radio" class="rdo mgl20" name="change02"  value="1"/>
+	            <input type="radio" class="rdo mgl20" name="sp_dvrStandard"  value="1"/>
 	            <input type="number" style="ime-mode:disabled; width:90px;" onkeypress="return digit_check(event)" class="inputTxt"  value="<%= RsUtil.checkNull(supplyData.get("SP_DVRPRICE"))%>"/>
 	            원 이상 무료배송
-	            <input type="radio" class="rdo mgl20" name="change02"  value="2"/>
+	            <input type="radio" class="rdo mgl20" name="sp_dvrStandard"  value="2"/>
 	            착불 </td>
 	        </tr>
 	        <tr>
 	          <th scope="row">교환 및 반품정책</th>
-	          <td colspan="3"><input type="radio" class="rdo" name="change" value="0"/>
+	          <td colspan="3"><input type="radio" class="rdo" name="sp_dvrReturn" value="0"/>
 	            직원방문
-	            <input type="radio" class="rdo mgl33" name="change"  value="1"/>
+	            <input type="radio" class="rdo mgl33" name="sp_dvrReturn"  value="1"/>
 	            택배수령
 	            <input type="text" class="inputTxt" style="width:90px;"  value="<%= RsUtil.checkNull(supplyData.get("SP_DVRREPRICE"))%>"/>
 	            <select style="width:70px;">
 	              <option>선불</option>
 	              <option>착불</option>
 	            </select>
-	            <input type="radio" class="rdo mgl33" name="change"  value="3"/>
+	            <input type="radio" class="rdo mgl33" name="sp_dvrReturn"  value="2"/>
 	            당사 직접방문
-	            <input type="radio" class="rdo mgl33" name="change"  value="4"/>
+	            <input type="radio" class="rdo mgl33" name="sp_dvrReturn"  value="3"/>
 	            기타
 	            <input type="text" class="inputTxt" style="width:150px;" /></td>
 	        </tr>
@@ -256,7 +258,7 @@
 <%@ include file="../bottom.jsp" %>
 <script>
 	function updateSP(){
-		var Url = "supplySave.do";
+		var Url = "supplyModifySave.do";
 		jQuery.ajax({
             url: Url,
             type:'POST',
@@ -268,6 +270,24 @@
             		location.reload();
             	}else{
             		alert("수정하는 과정에서 오류가 발생했습니다.");
+            	}
+			}
+		})
+	}
+	
+	function idChk(){
+		var Url = "supplyIdChk.do";
+		jQuery.ajax({
+            url: Url,
+            type:'POST',
+            data : {
+            	"sp_id" : $("#sp_id").val()
+            },
+            success: function(data){
+            	if(data.msg == "success"){
+            		alert("사용가능한 아이디(사업자등록번호) 입니다.");
+            	}else{
+            		alert("이미 존재하는 아이디(사업자등록번호) 입니다.");
             	}
 			}
 		})
