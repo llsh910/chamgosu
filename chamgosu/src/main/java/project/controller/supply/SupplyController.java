@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONObject;
@@ -321,6 +322,55 @@ public class SupplyController {
 		
 		return mav;
 	}
+	
+	
+	
+	@RequestMapping(value="/supplyRegisonStateSave.do")
+	public void supplyRegisonStateSave(CommandMap map, HttpServletResponse response, HttpServletRequest request) throws Exception{
+		PrintWriter pw = null;
+
+		JSONObject json = new JSONObject();
+		String msg = "success";
+
+		Map<String, Object> supplyMap = map.getMap();
+		
+		
+		
+		String[] pr_seq = request.getParameterValues("pr_seq");
+		String[] pr_state = request.getParameterValues("pr_state");
+		
+
+		try{
+			
+			
+			for(int i=0; i<pr_seq.length; i++){
+				
+				supplyMap.remove("pr_seq");
+				supplyMap.remove("pr_state");
+				
+				supplyMap.put("pr_seq", pr_seq[i]);
+				supplyMap.put("pr_state", pr_state[i]);
+				
+				supplyService.supplyRegionStateSave(supplyMap);
+				
+			}
+			
+			
+
+		}catch(Exception ex){
+			ex.printStackTrace();
+			msg = "error";
+		}finally{
+			response.setContentType("application/x-json; charset=UTF-8");
+			json.put("msg", msg);
+			pw = response.getWriter();
+			pw.print(json);
+			pw.flush();
+			pw.close();
+		}
+	}
+	
+	
 	
 	
 }

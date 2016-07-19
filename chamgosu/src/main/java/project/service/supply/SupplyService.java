@@ -14,4 +14,5 @@ public interface SupplyService {
 	int supplyTotalCnt(Map<String, Object> map) throws Exception;
 	int supplyRegionListCnt(Map<String, Object> map) throws Exception;
 	List<Map<String, Object>> supplyRegionList(Map<String, Object> map) throws Exception;
+	int supplyRegionStateSave(Map<String, Object> map) throws Exception;
 }

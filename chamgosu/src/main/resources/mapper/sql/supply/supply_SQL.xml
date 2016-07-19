@@ -21,6 +21,7 @@
 			, SP_USERATING
 			, SP_GRADE
 			, SP_REGDATE
+			, SP_LOGINCHK
 		) values (
 			makeSupplyId()
 			, #{sp_id}
@@ -30,6 +31,7 @@
 			, #{sp_userating}
 			, '0'
 			, now()
+			, 'N'
 		)
 	</insert>
 
@@ -358,6 +360,12 @@
 		
 		where list.rn between #{start} and #{end}
 	</select>
+	
+	<update id="supplyRegionStateSave" parameterType="hashmap">
+		update CG_PBSREGION
+			set PR_STATE=#{pr_state}
+		where PR_SEQ=#{pr_seq}
+	</update>
 	
 	
 	

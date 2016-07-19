@@ -67,4 +67,9 @@ public class SupplyServiceImpl implements SupplyService {
 		return supplyDAO.supplyRegionList(map);
 	}
 
+	@Override
+	public int supplyRegionStateSave(Map<String, Object> map) throws Exception {
+		return supplyDAO.supplyRegionStateSave(map);
+	}
+
 }
