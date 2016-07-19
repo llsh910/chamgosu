@@ -205,6 +205,41 @@ public class SupplyController {
 	}
 	
 	
+	/**
+	 * 공급처 수정 저장
+	 * @param map
+	 * @param response
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/supplyModifySave.do")
+	public void supplyModifySave(CommandMap map, HttpServletResponse response) throws Exception{
+		PrintWriter pw = null;
+
+		JSONObject json = new JSONObject();
+		String msg = "success";
+
+		Map<String, Object> supplyMap = map.getMap();
+		
+
+		try{
+			
+			
+			supplyService.supplyModifySave(supplyMap);			
+
+		}catch(Exception ex){
+			ex.printStackTrace();
+			msg = "error";
+		}finally{
+			response.setContentType("application/x-json; charset=UTF-8");
+			json.put("msg", msg);
+			pw = response.getWriter();
+			pw.print(json);
+			pw.flush();
+			pw.close();
+		}
+	}
+	
+	
 	
 	/**
 	 * 출판지역 관리 업체 리스트

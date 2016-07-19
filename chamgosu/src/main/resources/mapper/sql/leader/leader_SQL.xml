@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="leader">
+
+	<select id="supplyTotalCnt" parameterType="hashmap" resultType="int">
+		select count(*) from CG_SUPPLIER 
+	</select>
+	
+	<select id="supplyIdChk" parameterType="hashmap" resultType="int">
+		select count(*) from CG_SUPPLIER where SP_ID=#{sp_id}
+	</select>
+	
+	<insert id="supplyMiniSave" parameterType="hashmap">
+		insert into CG_SUPPLIER(
+			SP_SEQ
+			, SP_ID
+			, SP_PWD
+			, SP_BUSINM
+			, SP_NAME
+			, SP_USERATING
+			, SP_GRADE
+			, SP_REGDATE
+			, SP_LOGINCHK
+		) values (
+			makeSupplyId()
+			, #{sp_id}
+			, #{sp_pwd}
+			, #{sp_businm}
+			, #{sp_name}
+			, #{sp_userating}
+			, '0'
+			, now()
+			, 'N'
+		)
+	</insert>
+
+	<insert id="supplySave" parameterType="hashmap">
+		insert into CG_SUPPLIER(
+			SP_SEQ
+			, SP_ID
+			, SP_PWD
+			, SP_BUSINM
+			, SP_NAME
+			, SP_USERATING
+			, SP_POST
+			, SP_ADDRESS
+			, SP_DETAILADDRESS
+			, SP_TEL
+			, SP_FAX
+			, SP_HP
+			, SP_SNSCHK
+			, SP_EMAIL
+			, SP_EMAILSENDCHK
+			, SP_POINT
+			, SP_OUTPOINT
+			, SP_INPOINT
+			, SP_COMPINTRO
+			, SP_ITEMS
+			, SP_MANAGER
+			, SP_ORGRATE
+			, SP_FEESCHK
+			, SP_DVRTYPE
+			, SP_DVRTYPEETC
+			, SP_DVRCOMP
+			, SP_DVRSTANDARD
+			, SP_DVRPRICE
+			, SP_DVRRETURN
+			, SP_DVRRETURNETC
+			, SP_DVRRETURNCOMP
+			, SP_BANKNM
+			, SP_BANKNUM
+			, SP_BANKDEPNM
+			, SP_COMPNUMIMG
+			, SP_BANKBOOKIMG
+			, SP_LOGOIMG
+			, SP_GRADE
+			, SP_REGDATE
+		) values (
+			makeSupplyId()
+			, #{sp_id}
+			, #{sp_pwd}
+			, #{sp_businm}
+			, #{sp_name}
+			, #{sp_userating}
+			, #{sp_post}
+			, #{sp_address}
+			, #{sp_detailAddress}
+			, #{sp_tel}
+			, #{sp_fax}
+			, #{sp_hp}
+			, #{sp_snsChk}
+			, #{sp_email}
+			, #{sp_emailSendChk}
+			, #{sp_point}
+			, #{sp_outPoint}
+			, #{sp_inPoint}
+			, #{sp_compIntro}
+			, #{sp_items}
+			, #{sp_manager}
+			, #{sp_orgRate}
+			, #{sp_feesChk}
+			, #{sp_dvrType}
+			, #{sp_dvrTypeEtc}
+			, #{sp_dvrComp}
+			, #{sp_dvrStandard}
+			, #{sp_dvrPrice}
+			, #{sp_dvrReturn}
+			, #{sp_dvrReturnEtc}
+			, #{sp_dvrReturnComp}
+			, #{sp_bankNm}
+			, #{sp_bankNum}
+			, #{sp_bankDepNm}
+			, #{sp_compNumImg}
+			, #{sp_bankBookImg}
+			, #{sp_logoImg}
+			, '0'
+			, now()
+		)
+	</insert>
+	
+	<select id="supplyListCnt" parameterType="hashmap" resultType="int">
+		select count(*) from CG_SUPPLIER
+		where 1=1
+		<if test="search_businm != null and search_businm != '' ">
+			and SP_BUSINM like CONCAT('%', #{search_businm}, '%')
+		</if>
+		
+		<if test="search_userating != null and search_userating != '' ">
+			and SP_USERATING = #{search_userating}
+		</if>
+	</select>
+	
+	<select id="supplyList" parameterType="hashmap" resultType="hashmap">
+		select 
+			SP_SEQ                                       
+			, SP_ID
+			, SP_PWD
+			, SP_BUSINM
+			, SP_NAME
+			, case SP_USERATING when '0' then '무료회원' when '1' then '유료회원' when '2' then '승인대기' end as SP_USERATING
+			, SP_POST
+			, SP_ADDRESS
+			, SP_DETAILADDRESS
+			, SP_TEL
+			, SP_FAX
+			, SP_HP
+			, SP_SNSCHK
+			, SP_EMAIL
+			, SP_EMAILSENDCHK
+			, SP_POINT
+			, SP_OUTPOINT
+			, SP_INPOINT
+			, SP_COMPINTRO
+			, SP_ITEMS
+			, SP_MANAGER
+			, SP_ORGRATE
+			, SP_FEESCHK
+			, SP_DVRTYPE
+			, SP_DVRTYPEETC
+			, SP_DVRCOMP
+			, SP_DVRSTANDARD
+			, SP_DVRPRICE
+			, SP_DVRRETURN
+			, SP_DVRRETURNETC
+			, SP_DVRRETURNCOMP
+			, SP_BANKNM
+			, SP_BANKNUM
+			, SP_BANKDEPNM
+			, SP_COMPNUMIMG
+			, SP_BANKBOOKIMG
+			, SP_LOGOIMG
+			, SP_GRADE
+			, SP_GRADECHK
+			, DATE_FORMAT( SP_REGDATE,'%Y-%m-%d' ) as SP_REGDATE
+		from 
+		(
+			select
+				SP_SEQ                                       
+				, SP_ID
+				, SP_PWD
+				, SP_BUSINM
+				, SP_NAME
+				, SP_USERATING
+				, SP_POST
+				, SP_ADDRESS
+				, SP_DETAILADDRESS
+				, SP_TEL
+				, SP_FAX
+				, SP_HP
+				, SP_SNSCHK
+				, SP_EMAIL
+				, SP_EMAILSENDCHK
+				, SP_POINT
+				, SP_OUTPOINT
+				, SP_INPOINT
+				, SP_COMPINTRO
+				, SP_ITEMS
+				, SP_MANAGER
+				, SP_ORGRATE
+				, SP_FEESCHK
+				, SP_DVRTYPE
+				, SP_DVRTYPEETC
+				, SP_DVRCOMP
+				, SP_DVRSTANDARD
+				, SP_DVRPRICE
+				, SP_DVRRETURN
+				, SP_DVRRETURNETC
+				, SP_DVRRETURNCOMP
+				, SP_BANKNM
+				, SP_BANKNUM
+				, SP_BANKDEPNM
+				, SP_COMPNUMIMG
+				, SP_BANKBOOKIMG
+				, SP_LOGOIMG
+				, SP_GRADE
+				, SP_GRADECHK
+				, SP_REGDATE
+				, @rnum := @rnum + 1 as rn
+			from
+				(SELECT @rnum := 0) r,
+				CG_SUPPLIER
+			where
+				1=1
+				<if test="search_businm != null and search_businm != '' ">
+					and SP_BUSINM like CONCAT('%', #{search_businm}, '%')
+				</if>
+				
+				<if test="search_userating != null and search_userating != '' ">
+					and SP_USERATING = #{search_userating}
+				</if>
+			order by SP_REGDATE desc
+		) as list
+		where list.rn between #{start} and #{end}
+	</select>
+	
+	<select id="supplyModifyData" parameterType="hashmap" resultType="hashmap">
+		select 
+			SP_SEQ                                       
+			, SP_ID
+			, SP_PWD
+			, SP_BUSINM
+			, SP_NAME
+			, SP_USERATING
+			, SP_POST
+			, SP_ADDRESS
+			, SP_DETAILADDRESS
+			, SP_TEL
+			, SP_FAX
+			, SP_HP
+			, SP_SNSCHK
+			, SP_EMAIL
+			, SP_EMAILSENDCHK
+			, SP_POINT
+			, SP_OUTPOINT
+			, SP_INPOINT
+			, SP_COMPINTRO
+			, SP_ITEMS
+			, SP_MANAGER
+			, SP_ORGRATE
+			, SP_FEESCHK
+			, SP_DVRTYPE
+			, SP_DVRTYPEETC
+			, SP_DVRCOMP
+			, SP_DVRSTANDARD
+			, SP_DVRPRICE
+			, SP_DVRRETURN
+			, SP_DVRRETURNETC
+			, SP_DVRRETURNCOMP
+			, SP_BANKNM
+			, SP_BANKNUM
+			, SP_BANKDEPNM
+			, SP_COMPNUMIMG
+			, SP_BANKBOOKIMG
+			, SP_LOGOIMG
+			, SP_GRADE
+			, SP_GRADECHK
+			, SP_REGDATE
+		from 
+			CG_SUPPLIER
+		where SP_SEQ=#{sp_seq}
+	</select>
+	
+	<update id="supplyModifySave" parameterType="hashmap">
+		update 
+			CG_SUPPLIER
+		set
+			SP_BUSINM = #{sp_businm}
+			, SP_NAME = #{sp_name}
+			, SP_USERATING = #{sp_userating}
+			, SP_POST = #{sp_post}
+			, SP_ADDRESS = #{sp_address}
+			, SP_DETAILADDRESS = #{sp_detailAddress}
+			, SP_TEL = #{sp_tel}
+			, SP_FAX = #{sp_fax}
+			, SP_HP = #{sp_hp}
+			, SP_SNSCHK = #{sp_snsChk}
+			, SP_EMAIL = #{sp_email}
+			, SP_EMAILSENDCHK = #{sp_emailSendChk}
+			, SP_POINT = #{sp_point}
+			, SP_OUTPOINT = #{sp_outPoint}
+			, SP_INPOINT = #{sp_inPoint}
+			, SP_COMPINTRO = #{sp_compIntro}
+			, SP_ITEMS = #{sp_items}
+			, SP_MANAGER = #{sp_manager}
+			, SP_ORGRATE = #{sp_orgRate}
+			, SP_FEESCHK = #{sp_feesChk}
+			, SP_DVRTYPE = #{sp_dvrType}
+			, SP_DVRTYPEETC = #{sp_dvrTypeEtc}
+			, SP_DVRCOMP = #{sp_dvrComp}
+			, SP_DVRSTANDARD = #{sp_dvrStandard}
+			, SP_DVRPRICE = #{sp_dvrPrice}
+			, SP_DVRRETURN = #{sp_dvrReturn}
+			, SP_DVRRETURNETC = #{sp_dvrReturnEtc}
+			, SP_DVRRETURNCOMP = #{sp_dvrReturnComp}
+			, SP_BANKNM = #{sp_bankNm}
+			, SP_BANKNUM = #{sp_bankNum}
+			, SP_BANKDEPNM = #{sp_bankDepNm}
+			, SP_COMPNUMIMG = #{sp_compNumImg}
+			, SP_BANKBOOKIMG = #{sp_bankBookImg}
+			, SP_LOGOIMG = #{sp_logoImg}
+		where
+			SP_SEQ=#{sp_seq}
+	</update>
+	
+	
+	
+	<select id="supplyRegionListCnt" parameterType="hashmap" resultType="int">
+		select count(*) from CG_PBSREGION where PR_SPID=#{sp_seq}
+	</select>
+	
+	
+	<select id="supplyRegionList" parameterType="hashmap" resultType="hashmap">
+		select
+			PR_SEQ
+			, PR_SPID
+			, PR_PBS
+			, REGION1
+			, REGION2
+			, REGION3
+			, PR_STATE
+			, DATE_FORMAT( SP_REGDATE,'%Y-%m-%d' ) as SP_REGDATE
+		from
+		(
+			select
+				PR_SEQ
+				, PR_SPID
+				, PR_PBS
+				, REGION1
+				, REGION2
+				, REGION3
+				, PR_STATE
+				, SP_REGDATE
+				, @rnum := @rnum + 1 as rn
+			from
+				(SELECT @rnum := 0) r,
+				CG_PBSREGION
+			where PR_SPID=#{sp_seq}
+		) as list
+		
+		where list.rn between #{start} and #{end}
+	</select>
+	
+	<update id="supplyRegionStateSave" parameterType="hashmap">
+		update CG_PBSREGION
+			set PR_STATE=#{pr_state}
+		where PR_SEQ=#{pr_seq}
+	</update>
+	
+	
+	<insert id="supplyPubSave" parameterType="hashmap">
+		insert into CG_PBSREGION (
+			PR_SPID
+			, PR_PBS
+			, REGION1
+			, REGION2
+			, PR_STATE
+			, PR_REGDATE
+		) values (
+			#{pr_spid}
+			, #{pr_pbs}
+			, #{region1}
+			, #{region2}
+			, 'N'
+			, now()
+		)
+	</insert>
+	
+	
+	
+   
+</mapper>
