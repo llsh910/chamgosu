@@ -162,7 +162,7 @@
 			, SP_LOGOIMG
 			, SP_GRADE
 			, SP_GRADECHK
-			, CAST( DATE_FORMAT( SP_REGDATE,'%Y-%m-%d' ) AS CHAR(10) ) as SP_REGDATE
+			, CAST( DATE_FORMAT( SP_REGDATE,'%Y-%m-%d' ) ) as SP_REGDATE
 			, 
 		from 
 		(
