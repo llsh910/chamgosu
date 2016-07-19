@@ -27,14 +27,14 @@
     <div class="accordion">
       <h1>기본정보</h1>
       <div> <a href="#">회사정보</a><br>
-        <a href="#">관리자 설정</a><br>
+        <a href="<%= realPath%>/administrator_set.do">관리자 설정</a><br>
         <a href="#">이용약관 관리</a> </div>
       <h1>DB 관리</h1>
       <div> <a href="#">상품관리</a><br>
         <a href="#">지역별 상품 관리</a><br>
         <a href="#">코드 관리</a> </div>
       <h1>거래처 관리</h1>
-      <div> <a href="#">상품공급자 관리</a><br>
+      <div> <a href="<%= realPath%>/supplyList.do">상품공급자 관리</a><br>
         <a href="#">공급자 취급품목 관리</a> </div>
       <h1>회원관리</h1>
       <div> <a href="#">위탁영업 리더 관리</a><br>
