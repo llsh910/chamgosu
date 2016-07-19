@@ -320,6 +320,9 @@
 			, SP_COMPNUMIMG = #{sp_compNumImg}
 			, SP_BANKBOOKIMG = #{sp_bankBookImg}
 			, SP_LOGOIMG = #{sp_logoImg}
+			, SP_DVRPRICE2 = #{sp_dvrprice2}
+			, SP_SENDTYPE= #{sp_sendtype}
+			, SP_DVRREPRICE = ${sp_dvrreprice}
 		where
 			SP_SEQ=#{sp_seq}
 	</update>
