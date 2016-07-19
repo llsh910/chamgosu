@@ -4,11 +4,17 @@
 	List<Map<String, Object>> supplyList = (List<Map<String, Object>>)request.getAttribute("supplyList");
 
 	Map<String, Object> pageInfo = (Map<String, Object>)request.getAttribute("pageInfo");
+	String page_index = RsUtil.checkNull(pageInfo.get("page_index"));
+	String totalCount = RsUtil.checkNull(pageInfo.get("totalCount"));
+	String per_page = RsUtil.checkNull(pageInfo.get("per_page"));
+	if(page_index.equals("")) page_index = "1";
 %>
 	  <!--contents-->
   <div id="contents">
     <h2>ㆍ상품공급자 관리</h2>
     <!-- search -->
+    <form id="searchForm">
+    <input type="hidden" id="page_index" name="page_index"  value="<%=page_index%>">
     <div class="search">
       <ul>
         <li class="fl"> <span>업체명</span>
@@ -25,7 +31,7 @@
     </div>
     <!-- /search -->
     
-    <h4><span>총 업체수 : 100건</span> 조회업체 수 : 100건
+    <h4><span>총 업체수 : <%= totalCount%>건</span> 조회업체 수 : <%= totalCount%>건
       <p>
         <select style="width:90px;">
           <option>10개씩 보기</option>
@@ -92,8 +98,9 @@
 		</script> 
     
     <!-- paging -->
-    <div class="paging"> <a href="#" class="btn"><img src="../img/btn_page_prev02.gif" alt="처음 페이지로 가기" /></a> <a href="#" class="btn"><img src="../img/btn_page_prev.gif" alt="이전 페이지로 가기" /></a> <span> <a href="#"><strong>1</strong></a> <a href="#">2</a> <a href="#">3</a> <a href="#">4</a> <a href="#">5</a> </span> <a href="#" class="btn"><img src="../img/btn_page_next.gif" alt="다음 페이지로 가기" /></a> <a href="#" class="btn"><img src="../img/btn_page_next02.gif" alt="마지막 페이지로 가기" /></a> </div>
+    <div class="paging"><%= WebUtil.printPageIndex4("", Integer.parseInt(page_index), Integer.parseInt(totalCount), Integer.parseInt(per_page), 10, "pageSearch", realPath) %></div>
     <!-- //paging --> 
+    </form>
     
     <!--탭버튼-->
     <div id="tabwrap01">
