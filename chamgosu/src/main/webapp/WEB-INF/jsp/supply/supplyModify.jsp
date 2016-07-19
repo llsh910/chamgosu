@@ -8,7 +8,8 @@
   <div id="contents">
     <h2>ㆍ상품공급자 관리</h2>
     <h3>상품공급자 상세보기</h3>
-    <form id="updateForm">
+    <form id="updateForm" name="updateForm">
+    	<input type="hidden" id="sp_seq" name="sp_seq" value="<%= RsUtil.checkNull(supplyData.get("SP_SEQ"))%>" />
 	    <table class="bbs_write01">
 	      <caption>
 	      사업자 정보
@@ -28,7 +29,7 @@
 	            <br>
 	            ※ '-'없이 입력하세요. 사업자등록번호로 ID가 부여됩니다.</td>
 	          <th scope="row" class="bleft">이용등급</th>
-	          <td><select style="width:150px;" id="SP_USERATING" name="SP_USERATING">
+	          <td><select style="width:150px;" id="sp_userating" name="sp_userating">
 	              <option value="">선택하세요</option>
 	              <option value="1" <%= WebUtil.isSelected("1", RsUtil.checkNull(supplyData.get("SP_USERATING")))%>>유료업체</option>
 	              <option value="0" <%= WebUtil.isSelected("0", RsUtil.checkNull(supplyData.get("SP_USERATING")))%>>무료업체</option>
@@ -66,7 +67,7 @@
 	        </tr>
 	        <tr>
 	          <th scope="row">* 전화번호</th>
-	          <td colspan="3"><select style="width:70px;">
+	          <td colspan="3"><select style="width:70px;" id="tel1">
 	              <option value=''>선택</option>
 	              <option value='02'>02</option>
 	              <option value='031'>031</option>
@@ -91,12 +92,14 @@
 	              <option value='0506'>0506</option>
 	              <option value='0303'>0303</option>
 	            </select>
-	            <input type="number" style="ime-mode:disabled; width:70px;" onkeypress="return digit_check(event)" onkeyup="ChkByte(this,4);" class="inputTxt" />
-	            <input type="number" style="ime-mode:disabled; width:70px;" onkeypress="return digit_check(event)" onkeyup="ChkByte(this,4);" class="inputTxt" /></td>
+	            <input type="number" style="ime-mode:disabled; width:70px;" id="tel2" onkeypress="return digit_check(event)" onkeyup="ChkByte(this,4);" class="inputTxt" />
+	            <input type="number" style="ime-mode:disabled; width:70px;" id="tel3" onkeypress="return digit_check(event)" onkeyup="ChkByte(this,4);" class="inputTxt" />
+	            <input type="hidden" id="sp_tel" name="sp_tel" value="<%= RsUtil.checkNull(supplyData.get("SP_TEL"))%>" />
+	            </td>
 	        </tr>
 	        <tr>
 	          <th scope="row">* 휴대폰 번호</th>
-	          <td colspan="3"><select style="width:70px;">
+	          <td colspan="3"><select style="width:70px;" id="hp1">
 	              <option value=''>선택</option>
 	              <option value='010'>010</option>
 	              <option value='011'>011</option>
@@ -105,12 +108,14 @@
 	              <option value='018'>018</option>
 	              <option value='019'>019</option>
 	            </select>
-	            <input type="number" style="ime-mode:disabled; width:70px;" onkeypress="return digit_check(event)" onkeyup="ChkByte(this,3);" class="inputTxt" />
-	            <input type="number" style="ime-mode:disabled; width:70px;" onkeypress="return digit_check(event)" onkeyup="ChkByte(this,4);" class="inputTxt" /></td>
+	            <input type="number" style="ime-mode:disabled; width:70px;" id="hp2" onkeypress="return digit_check(event)" onkeyup="ChkByte(this,4);" class="inputTxt" />
+	            <input type="number" style="ime-mode:disabled; width:70px;" id="hp3" onkeypress="return digit_check(event)" onkeyup="ChkByte(this,4);" class="inputTxt" />
+	            <input type="hidden" id="sp_hp" name="sp_hp" value="<%= RsUtil.checkNull(supplyData.get("SP_HP"))%>" />
+	            </td>
 	        </tr>
 	        <tr>
 	          <th scope="row">FAX 번호</th>
-	          <td colspan="3"><select style="width:70px;">
+	          <td colspan="3"><select style="width:70px;" id="fax1">
 	              <option value=''>선택</option>
 	              <option value='02'>02</option>
 	              <option value='031'>031</option>
@@ -135,15 +140,18 @@
 	              <option value='0506'>0506</option>
 	              <option value='0303'>0303</option>
 	            </select>
-	            <input type="number" style="ime-mode:disabled; width:70px;" onkeypress="return digit_check(event)" onkeyup="ChkByte(this,4);" class="inputTxt" />
-	            <input type="number" style="ime-mode:disabled; width:70px;" onkeypress="return digit_check(event)" onkeyup="ChkByte(this,4);" class="inputTxt" /></td>
+	            <input type="number" style="ime-mode:disabled; width:70px;" id="fax2" onkeypress="return digit_check(event)" onkeyup="ChkByte(this,4);" class="inputTxt" />
+	            <input type="number" style="ime-mode:disabled; width:70px;" id="fax3" onkeypress="return digit_check(event)" onkeyup="ChkByte(this,4);" class="inputTxt" />
+	            <input type="hidden" id="sp_fax" name="sp_fax" value="<%= RsUtil.checkNull(supplyData.get("SP_FAX"))%>" />
+	           </td>
+	            
 	        </tr>
 	        <tr>
 	          <th scope="row">* 이메일(계산서발급률)</th>
-	          <td colspan="3"><input type="text" name="emailID" id="emailID" class="inputTxt" style="width:100px;" />
+	          <td colspan="3"><input type="text" name="email1" id="email1" class="inputTxt" style="width:100px;" />
 	            @
-	            <input type="text" class="inputTxt" name="emailDomain" style="width:100px;" />
-	            <select style="width:110px;">
+	            <input type="text" class="inputTxt" id="email2" name="email2" style="width:100px;" />
+	            <select style="width:110px;" id="email3" name="email3" onchange="domainChange()">
 	              <option value=''>직접입력</option>
 	              <option value='chollian.net'>chollian.net</option>
 	              <option value='daum.net'>daum.net</option>
@@ -163,7 +171,9 @@
 	              <option value='paran.com'>paran.com</option>
 	              <option value='unitel.co.kr'>unitel.co.kr</option>
 	              <option value='yahoo.co.kr'>yahoo.co.kr</option>
-	            </select></td>
+	            </select>
+	            <input type="hidden" id="sp_email" name="sp_email" value="<%= RsUtil.checkNull(supplyData.get("SP_EMAIL"))%>" />
+	            </td>
 	        </tr>
 	        <tr>
 	          <th scope="row">* 취급품목 및 회사소개</th>
@@ -187,15 +197,15 @@
 	        <tr>
 	          <th scope="row">* 증빙서류</th>
 	          <td colspan="3"><input type="text" class="file_input_textbox" id="fileName" style="width:300px" value="사업자등록증 사본" readonly >
-	            <div class="file_input_div mgr15" style="width:80px"> <img src="../img/open.gif" class="file_input_img_btn" alt="open" />
-	              <input type="file" name="file_1" class="file_input_hidden" onchange="javascript: document.getElementById('fileName').value = this.value"/>
+	            <div class="file_input_div mgr15" style="width:80px"> <img src="<%= realPath%>/img/open.gif" class="file_input_img_btn" alt="open" />
+	              <input type="file" name="file_1" class="file_input_hidden" onchange="javascript: document.getElementById('fileName').value = this.value; javascript:fileChange();"/>
 	            </div>
 	            <input type="text" class="file_input01_textbox" id="fileName01" style="width:300px" value="통장사본" readonly >
-	            <div class="file_input01_div mgr15" style="width:80px"> <img src="../img/open.gif" class="file_input01_img_btn" alt="open" />
+	            <div class="file_input01_div mgr15" style="width:80px"> <img src="<%= realPath%>/img/open.gif" class="file_input01_img_btn" alt="open" />
 	              <input type="file" name="file_2" class="file_input01_hidden" onchange="javascript: document.getElementById('fileName01').value = this.value"/>
 	            </div>
 	            <input type="text" class="file_input02_textbox" id="fileName02" style="width:300px" value="회사로고" readonly >
-	            <div class="file_input02_div mgr15" style="width:80px"> <img src="../img/open.gif" class="file_input02_img_btn" alt="open" />
+	            <div class="file_input02_div mgr15" style="width:80px"> <img src="<%= realPath%>/img/open.gif" class="file_input02_img_btn" alt="open" />
 	              <input type="file" name="file_3" class="file_input02_hidden" onchange="javascript: document.getElementById('fileName02').value = this.value"/>
 	            </div></td>
 	        </tr>
@@ -207,9 +217,9 @@
 	              <input type="radio" class="rdo mgl20" name="sp_dvrType" value="1"/>
 	              택배수령
 	              <input type="text" class="inputTxt" style="width:90px;" value="<%= RsUtil.checkNull(supplyData.get("SP_DVRPRICE2"))%>" />
-	              <select style="width:70px;">
-	                <option>선불</option>
-	                <option>착불</option>
+	              <select style="width:70px;" id="sp_sendType" name="sp_sendType">
+	                <option value="0" <%= WebUtil.isSelected("0", RsUtil.checkNull(supplyData.get("SP_SENDTYPE")))%>>선불</option>
+	                <option value="1" <%= WebUtil.isSelected("1", RsUtil.checkNull(supplyData.get("SP_SENDTYPE")))%>>착불</option>
 	              </select>
 	              <input type="radio" class="rdo mgl20" name="sp_dvrType" value="2"/>
 	              방문수령
@@ -233,9 +243,9 @@
 	            <input type="radio" class="rdo mgl33" name="sp_dvrReturn"  value="1"/>
 	            택배수령
 	            <input type="text" class="inputTxt" style="width:90px;"  value="<%= RsUtil.checkNull(supplyData.get("SP_DVRREPRICE"))%>"/>
-	            <select style="width:70px;">
-	              <option>선불</option>
-	              <option>착불</option>
+	            <select style="width:70px;" id="sp_dvrReType" name="sp_dvrReType">
+	              <option value="0" <%= WebUtil.isSelected("0", RsUtil.checkNull(supplyData.get("SP_DVRRETYPE")))%>>선불</option>
+	              <option value="1" <%= WebUtil.isSelected("1", RsUtil.checkNull(supplyData.get("SP_DVRRETYPE")))%>>착불</option>
 	            </select>
 	            <input type="radio" class="rdo mgl33" name="sp_dvrReturn"  value="2"/>
 	            당사 직접방문
@@ -258,6 +268,21 @@
 <%@ include file="../bottom.jsp" %>
 <script>
 	function updateSP(){
+		var f = document.updateForm;
+		f.sp_hp.value = f.hp1.value + f.hp2.value + f.hp3.value;
+		f.sp_fax.value = f.fax1.value + f.fax2.value + f.fax3.value;
+		f.sp_tel.value = f.tel1.value + f.tel2.value + f.tel3.value;
+		if(f.sp_pwd.value != ""){
+			f.sp_pwd.value = f.pass.value;
+		}
+		
+		if(f.email2.value != ""){
+			f.sp_email.value = f.email1.value + "@" + f.email2.value;	
+		}else{
+			f.sp_email.value = f.email1.value + "@" + f.email3.value;
+		}
+		console.log(f.sp_email.value);
+		
 		var Url = "supplyModifySave.do";
 		jQuery.ajax({
             url: Url,
@@ -292,4 +317,31 @@
 			}
 		})
 	}
+	function domainChange(){
+		if($("#email3").val() != ""){
+			$("#email2").attr("disabled", "disabled");
+			$("#email2").val("");
+			
+		}else{
+			$("#email2").removeAttr("disabled");
+			$("#email3").val("");
+		}
+	}
+	
+	function fileChange(name){
+		var columnName = "#" + name; 
+		/* $(columnName).val(Filename); */
+		var options = {
+	    	url : 'spFileUpload.do',
+	    	type: 'post',
+	    	contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+	    	dataType : "json",
+	    	success:function(data){
+	    		console.log(data);
+	    	}
+		};
+		jQuery("#updateForm").ajaxForm(options).submit();
+	}
+	
+	
 </script>

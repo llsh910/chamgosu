@@ -309,10 +309,14 @@
 			, SP_DVRTYPEETC = #{sp_dvrTypeEtc}
 			, SP_DVRCOMP = #{sp_dvrComp}
 			, SP_DVRSTANDARD = #{sp_dvrStandard}
+			, SP_DVRPRICE2 = #{sp_dvrPrice2}
+			, SP_SENDTYPE = #{sp_sendType}
+			, SP_DVRREPRICE = #{sp_dvrRePrice}
 			, SP_DVRPRICE = #{sp_dvrPrice}
 			, SP_DVRRETURN = #{sp_dvrReturn}
 			, SP_DVRRETURNETC = #{sp_dvrReturnEtc}
 			, SP_DVRRETURNCOMP = #{sp_dvrReturnComp}
+			, SP_DVRRETYPE = #{sp_dvrReType}
 			, SP_BANKNM = #{sp_bankNm}
 			, SP_BANKNUM = #{sp_bankNum}
 			, SP_BANKDEPNM = #{sp_bankDepNm}

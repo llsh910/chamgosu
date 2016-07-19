@@ -1,6 +1,7 @@
 package project.controller.supply;
 
 import java.io.PrintWriter;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,7 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import project.config.common.CommandMap;
+import project.config.util.MultiUtil;
 import project.config.util.RsUtil;
+import project.config.util.UtilMultiFileUp;
 import project.service.supply.SupplyService;
 
 /**
@@ -29,7 +32,7 @@ import project.service.supply.SupplyService;
 @Controller
 public class SupplyController {
 	Logger log = Logger.getLogger(this.getClass());
-
+	private String asPath = "C:/dev/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp1/wtpwebapps/chamgosu/spimg/";
 	@Resource(name="supplyService")
 	private SupplyService supplyService;
 	
@@ -465,7 +468,36 @@ public class SupplyController {
 		}
 	}
 	
-	
+	@RequestMapping(value="/spFileUpload.do")
+	public void spFileUpload(HttpServletResponse response, HttpServletRequest request)throws Exception{
+		PrintWriter pw = null;
+    	String msg = "success";
+    	JSONObject json = new JSONObject();
+    	try {
+    		UtilMultiFileUp fileup = new UtilMultiFileUp(request);
+    		String imageName = fileup.getFileNameOne("file_1");
+        	String addName = Long.toString(new Date().getTime());
+        	String fileReName = addName + "_" + imageName;
+        	String filePath = asPath + fileReName;
+        	if(!imageName.equals("")){
+    			fileup.saveFile("MB_FILENAME", filePath);
+    			MultiUtil.createThumbImage(asPath, fileReName, "thumnail_" + fileReName, 200, 200);
+    			json.put("imageName", fileReName);
+    		}else{
+    			msg = "error";
+    		}
+		} catch (Exception e) {
+			e.printStackTrace();
+			msg = "error";
+		}finally {
+			response.setContentType("application/x-json; charset=UTF-8");
+			json.put("msg", msg);
+			pw = response.getWriter();
+			pw.print(json);
+			pw.flush();
+			pw.close();
+		}
+	}	
 	
 	
 }

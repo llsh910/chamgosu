@@ -27,13 +27,33 @@ ul, ol, li {list-style-type:none;}
 img {border:0 none;}
 
 em {font-style:normal;}
-button { border:none; padding:0; margin:0; background:none; vertical-align:middle; cursor:pointer;}
+button { border:none; padding:0; margin:0; background:none; cursor:pointer;}
 
-textarea, input, table {font-family:'Noto Sans KR', sans-serif;}
+textarea, input, table, select {font-family:'Noto Sans KR', sans-serif;}
 fieldset {display:block; margin:0; padding:0; border:0;}
 legend {display:none; position:absolute; visibility:hidden; width:0; height:0; overflow:hidden; font:0/0 arial;}
 form {margin:0px; padding:0px;}
 textarea {font-size:12px; padding:3px; border:1px solid #bbb; resize:none; color:#505050; -webkit-appearance:none;}
+.file_input_textbox {float:left; font-size:12px; height:22px; width:180px; border:1px solid #c0c0c0; border-radius:4px; color:#858585}
+.file_input_div {position:relative; width:250px; height:30px; overflow:hidden;}
+.file_input_img_btn {padding:0 0 0 5px; }
+.file_input_hidden {font-size:25px; position:absolute; right:0px; top:0px; opacity:0; filter: alpha(opacity=0); -ms-filter: alpha(opacity=0); cursor:pointer;}
+.file_input01_textbox {float:left; font-size:12px; height:22px; width:180px; border:1px solid #c0c0c0; border-radius:4px; color:#858585}
+.file_input01_div {position:relative; width:250px; height:30px; overflow:hidden;}
+.file_input01_img_btn {padding:0 0 0 5px;}
+.file_input01_hidden {font-size:25px; position:absolute; right:0px; top:0px; opacity:0; filter: alpha(opacity=0); -ms-filter: alpha(opacity=0); cursor:pointer;}
+.file_input02_textbox {float:left; font-size:12px; height:22px; width:180px; border:1px solid #c0c0c0; border-radius:4px; color:#858585}
+.file_input02_div {position:relative; width:250px; height:30px; overflow:hidden;}
+.file_input02_img_btn {padding:0 0 0 5px;}
+.file_input02_hidden {font-size:25px; position:absolute; right:0px; top:0px; opacity:0; filter: alpha(opacity=0); -ms-filter: alpha(opacity=0); cursor:pointer;}
+.file_input03_textbox {float:left; font-size:12px; height:22px; width:180px; border:1px solid #c0c0c0; border-radius:4px; color:#858585}
+.file_input03_div {position:relative; width:250px; height:30px; overflow:hidden;}
+.file_input03_img_btn {padding:0 0 0 5px;}
+.file_input03_hidden {font-size:25px; position:absolute; right:0px; top:0px; opacity:0; filter: alpha(opacity=0); -ms-filter: alpha(opacity=0); cursor:pointer;}
+.file_input04_textbox {float:left; font-size:12px; height:22px; width:180px; border:1px solid #c0c0c0; border-radius:4px; color:#858585}
+.file_input04_div {position:relative; width:250px; height:30px; overflow:hidden;}
+.file_input04_img_btn {padding:0 0 0 5px;}
+.file_input04_hidden {font-size:25px; position:absolute; right:0px; top:0px; opacity:0; filter: alpha(opacity=0); -ms-filter: alpha(opacity=0); cursor:pointer;}
 
 textarea{border-radius:4px;}
 input.inputTxt {height:23px; font-size:12px; padding:0 3px 0 3px; line-height:18px; border:1px solid #c0c0c0; color:#333; border-radius:4px}
@@ -44,11 +64,10 @@ input.btnm01 {height:29px;  border-radius:4px; background:#eaeaea; border:1px so
 input.btn01 {height:35px; background:#91969c; font-size:14px; border:1px solid #91969c; color:#ffffff; cursor:pointer; padding:0 20px; border-radius:4px}
 input.btn02 {height:35px; background:#2d2f33; font-size:14spx; border:1px solid #2d2f33; color:#ffffff; cursor:pointer; padding:0 20px; border-radius:4px}
 
-select {height:26px; font-size:12px;  padding:1px;  line-height:20px; border:solid 1px #bbb;  color:#505050; font:12px;  vertical-align:middle; border-radius:4px; background: url(../img/select.gif) no-repeat 98% 50%;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;}
-input.chk {width:13px; height:13px; margin:-3px 2px 0 0; #margin:-2px 0 0; vertical-align:middle;}
+select {height:26px; font-size:12px; padding:1px; line-height:20px; border:solid 1px #bbb; color:#505050; font:12px; border-radius:4px; background: url(../img/select.gif) no-repeat 98% 50%; -webkit-appearance: none; -moz-appearance: none; appearance: none;}
+select::-ms-expand { display: none;}
+input.chk {width:13px; height:13px; margin:-3px 0 0 2px; #margin:-2px 0 0; vertical-align:middle;}
+input.rdo {width:13px; height:13px; margin:-3px 2px 0 0; #margin:-2px 0 0; vertical-align:middle;}
 
 table {clear:both; width:100%; border-collapse:collapse; border-spacing:0; word-break:break-all; word-wrap:break-word;}
 caption {visibility:hidden; margin:0; padding:0; width:0; height:0; overflow:hidden; font:0/0 arial;}
@@ -70,6 +89,7 @@ caption {visibility:hidden; margin:0; padding:0; width:0; height:0; overflow:hid
 .pdt50 {padding-top:50px !important;}
 .pdt70 {padding-top:70px !important;}
 .pdl10 {padding-left:10px !important;}
+.pdb10 {padding-bottom:10px !important;}
 
 
 /* margin */
@@ -96,6 +116,7 @@ caption {visibility:hidden; margin:0; padding:0; width:0; height:0; overflow:hid
 .mgl10 {margin-left:10px !important;}
 .mgl20 {margin-left:20px !important;}
 .mgl33 {margin-left:33px !important;}
+.mgl50 {margin-left:50px !important;}
 
 
 /* float */
