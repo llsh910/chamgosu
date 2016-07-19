@@ -52,4 +52,9 @@ public class SupplyServiceImpl implements SupplyService {
 		return supplyDAO.supplyModifySave(map);
 	}
 
+	@Override
+	public int supplyTotalCnt(Map<String, Object> map) throws Exception {
+		return supplyDAO.supplyTotalCnt(map);
+	}
+
 }

@@ -38,4 +38,8 @@ public class SupplyDAO extends TempletDAO {
 	public int supplyModifySave(Map<String, Object> map) throws Exception{
 		return (Integer)update("supply.supplyModifySave", map);
 	}
+	
+	public int supplyTotalCnt(Map<String, Object> map) throws Exception{
+		return (Integer)selectOne("supply.supplyTotalCnt", map);
+	}
 }
