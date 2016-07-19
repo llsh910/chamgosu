@@ -4,7 +4,7 @@
 <mapper namespace="supply">
 
 	<select id="supplyIdChk" parameterType="hashmap" resultType="int">
-		select count(*) from CG_SPPLIER where SP_ID=#{sp_id}
+		select count(*) from CG_SUPPLIER where SP_ID=#{sp_id}
 	</select>
 	
 	<insert id="supplyMiniSave" parameterType="hashmap">
