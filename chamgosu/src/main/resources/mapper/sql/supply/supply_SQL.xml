@@ -14,6 +14,7 @@
 			, SP_PWD
 			, SP_BUSINM
 			, SP_NAME
+			, SP_USERATING
 			, SP_GRADE
 			, SP_REGDATE
 		) values (
@@ -22,6 +23,7 @@
 			, #{sp_pwd}
 			, #{sp_businm}
 			, #{sp_name}
+			, #{sp_userating}
 			, '0'
 			, now()
 		)

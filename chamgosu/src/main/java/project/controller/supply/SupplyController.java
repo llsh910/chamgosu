@@ -174,4 +174,32 @@ public class SupplyController {
 		
 		return mav;
 	}
+	
+	/**
+	 * 수정데이터
+	 * @param map
+	 * @param response
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/supplyModifyView.do")
+	public ModelAndView supplyModifyView(CommandMap map, HttpServletResponse response) throws Exception{
+		ModelAndView mav = new ModelAndView("/supply/supplyModify");
+		
+		Map<String, Object> searchMap = map.getMap();
+		
+		try{
+			
+			Map<String, Object> supplyData = supplyService.supplyModifyData(searchMap);
+			
+			mav.addObject("supplyData", supplyData);
+			
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}finally{
+			
+		}
+		
+		return mav;
+	}
 }
