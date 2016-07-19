@@ -33,11 +33,11 @@
     
     <h4><span>총 업체수 : <%= totalCount%>건</span> 조회업체 수 : <%= totalCount%>건
       <p>
-        <select style="width:90px;">
-          <option>10개씩 보기</option>
-          <option>20개씩 보기</option>
-          <option>50개씩 보기</option>
-          <option>100개씩 보기</option>
+        <select style="width:90px;" id="per_page" name="per_page" onchange="searchSubmit()">
+          <option value="10" <%= WebUtil.isSelected("10", request.getParameter("per_page"))%>>10개씩 보기</option>
+          <option value="20" <%= WebUtil.isSelected("20", request.getParameter("per_page"))%>>20개씩 보기</option>
+          <option value="50" <%= WebUtil.isSelected("50", request.getParameter("per_page"))%>>50개씩 보기</option>
+          <option value="100" <%= WebUtil.isSelected("100", request.getParameter("per_page"))%>>100개씩 보기</option>
         </select>
       </p>
     </h4>
@@ -76,7 +76,7 @@
       <%  for(int i=0;i<supplyList.size();i++){ %>
 	      <tr>
 	        <td><input type="checkbox" class="chk" name="chk" /></td>
-	        <td>1</td>
+	        <td><%= ((Integer.parseInt(totalCount) - ((Integer.parseInt(page_index)-1) * 10))- i)%></td>
 	        <td><%= RsUtil.checkNull(supplyList.get(i).get("SP_ID"))%></td>
 	        <td><%= RsUtil.checkNull(supplyList.get(i).get("SP_BUSINM"))%></td>
 	        <td><%= RsUtil.checkNull(supplyList.get(i).get("SP_NAME"))%></td>
