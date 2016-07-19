@@ -14,7 +14,8 @@
     <h2>ㆍ상품공급자 관리</h2>
     <!-- search -->
     <form id="searchForm">
-    <input type="hidden" id="page_index" name="page_index"  value="<%=page_index%>">
+    <input type="hidden" id="page_index" name="page_index"  value="<%=page_index%>" />
+    <input type="hidden" id="sp_seq" name="sp_seq" />
     <div class="search">
       <ul>
         <li class="fl"> <span>업체명</span>
@@ -84,7 +85,7 @@
 	        <td><a href="mailto:<%= RsUtil.checkNull(supplyList.get(i).get("SP_EMAIL"))%>"><%= RsUtil.checkNull(supplyList.get(i).get("SP_EMAIL"))%></a></td>
 	        <td><%= RsUtil.checkNull(supplyList.get(i).get("SP_REGDATE"))%></td>
 	        <td><%= RsUtil.checkNull(supplyList.get(i).get("SP_USERATING"))%></td>
-	        <td><input value="상세보기" type="button" class="btns01" /></td>
+	        <td><input value="상세보기" type="button" class="btns01" onclick="supplyView('<%= RsUtil.checkNull(supplyList.get(i).get("SP_SEQ"))%>')"/></td>
 	      </tr>
 	  <%} %>
       </tbody>
@@ -292,6 +293,10 @@
 	            	}
 				}
 			})
+		}
+		
+		function supplyView(seq){
+			location.href="supplyModifyView.do?sp_seq="+seq;
 		}
 	</script> 
     <!--/탭버튼--> 
