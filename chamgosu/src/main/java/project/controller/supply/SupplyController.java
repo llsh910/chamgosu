@@ -32,7 +32,12 @@ public class SupplyController {
 	@Resource(name="supplyService")
 	private SupplyService supplyService;
 	
-	
+	/**
+	 * ID Chk
+	 * @param map
+	 * @param response
+	 * @throws Exception
+	 */
 	@RequestMapping(value="/supplyIdChk.do")
 	public void supplyIdChk(CommandMap map, HttpServletResponse response) throws Exception{
 		PrintWriter pw = null;
@@ -112,6 +117,13 @@ public class SupplyController {
 		}
 	}
 	
+	/**
+	 * 공급처 리스트
+	 * @param map
+	 * @param response
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value="/supplyList.do")
 	public ModelAndView supplyList(CommandMap map, HttpServletResponse response) throws Exception{
 		
