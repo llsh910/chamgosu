@@ -128,7 +128,7 @@
 			, SP_PWD
 			, SP_BUSINM
 			, SP_NAME
-			, SP_USERATING
+			, case SP_USERATING when '0' then '무료회원' when '1' then '유료회원' when '2' then '승인대기' end as SP_USERATING
 			, SP_POST
 			, SP_ADDRESS
 			, SP_DETAILADDRESS
@@ -162,7 +162,7 @@
 			, SP_LOGOIMG
 			, SP_GRADE
 			, SP_GRADECHK
-			, CAST( DATE_FORMAT( SP_REGDATE,'%Y-%m-%d' ) AS CHAR(10) ) as SP_REGDATE
+			, CAST( DATE_FORMAT( SP_REGDATE,'%Y-%m-%d' ) ) as SP_REGDATE
 			, 
 		from 
 		(
