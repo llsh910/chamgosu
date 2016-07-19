@@ -67,127 +67,21 @@
         </tr>
       </thead>
       <tbody>
-      <tr>
-        <td><input type="checkbox" class="chk" name="chk" /></td>
-        <td>1</td>
-        <td>111-11-12345</td>
-        <td>아이러브스터디</td>
-        <td>홍길동</td>
-        <td>011-123-1256</td>
-        <td><a href="mailto:chamgosu@chamgosu.com">chamgosu@chamgosu.com</a></td>
-        <td>2016.07.30</td>
-        <td>유료업체</td>
-        <td><input value="상세보기" type="button" class="btns01" /></td>
-      </tr>
-      <tr>
-        <td><input type="checkbox" class="chk" name="chk" /></td>
-        <td>1</td>
-        <td>111-11-12345</td>
-        <td>아이러브스터디</td>
-        <td>홍길동</td>
-        <td>011-123-1256</td>
-        <td><a href="mailto:chamgosu@chamgosu.com">chamgosu@chamgosu.com</a></td>
-        <td>2016.07.30</td>
-        <td>유료업체</td>
-        <td><input value="상세보기" type="button" class="btns01" /></td>
-      </tr>
-      <tr>
-        <td><input type="checkbox" class="chk" name="chk" /></td>
-        <td>1</td>
-        <td>111-11-12345</td>
-        <td>아이러브스터디</td>
-        <td>홍길동</td>
-        <td>011-123-1256</td>
-        <td><a href="mailto:chamgosu@chamgosu.com">chamgosu@chamgosu.com</a></td>
-        <td>2016.07.30</td>
-        <td>유료업체</td>
-        <td><input value="상세보기" type="button" class="btns01" /></td>
-      </tr>
-      <tr>
-        <td><input type="checkbox" class="chk" name="chk" /></td>
-        <td>1</td>
-        <td>111-11-12345</td>
-        <td>아이러브스터디</td>
-        <td>홍길동</td>
-        <td>011-123-1256</td>
-        <td><a href="mailto:chamgosu@chamgosu.com">chamgosu@chamgosu.com</a></td>
-        <td>2016.07.30</td>
-        <td>유료업체</td>
-        <td><input value="상세보기" type="button" class="btns01" /></td>
-      </tr>
-      <tr>
-        <td><input type="checkbox" class="chk" name="chk" /></td>
-        <td>1</td>
-        <td>111-11-12345</td>
-        <td>아이러브스터디</td>
-        <td>홍길동</td>
-        <td>011-123-1256</td>
-        <td><a href="mailto:chamgosu@chamgosu.com">chamgosu@chamgosu.com</a></td>
-        <td>2016.07.30</td>
-        <td>유료업체</td>
-        <td><input value="상세보기" type="button" class="btns01" /></td>
-      </tr>
-      <tr>
-        <td><input type="checkbox" class="chk" name="chk" /></td>
-        <td>1</td>
-        <td>111-11-12345</td>
-        <td>아이러브스터디</td>
-        <td>홍길동</td>
-        <td>011-123-1256</td>
-        <td><a href="mailto:chamgosu@chamgosu.com">chamgosu@chamgosu.com</a></td>
-        <td>2016.07.30</td>
-        <td>유료업체</td>
-        <td><input value="상세보기" type="button" class="btns01" /></td>
-      </tr>
-      <tr>
-        <td><input type="checkbox" class="chk" name="chk" /></td>
-        <td>1</td>
-        <td>111-11-12345</td>
-        <td>아이러브스터디</td>
-        <td>홍길동</td>
-        <td>011-123-1256</td>
-        <td><a href="mailto:chamgosu@chamgosu.com">chamgosu@chamgosu.com</a></td>
-        <td>2016.07.30</td>
-        <td>유료업체</td>
-        <td><input value="상세보기" type="button" class="btns01" /></td>
-      </tr>
-      <tr>
-        <td><input type="checkbox" class="chk" name="chk" /></td>
-        <td>1</td>
-        <td>111-11-12345</td>
-        <td>아이러브스터디</td>
-        <td>홍길동</td>
-        <td>011-123-1256</td>
-        <td><a href="mailto:chamgosu@chamgosu.com">chamgosu@chamgosu.com</a></td>
-        <td>2016.07.30</td>
-        <td>유료업체</td>
-        <td><input value="상세보기" type="button" class="btns01" /></td>
-      </tr>
-      <tr>
-        <td><input type="checkbox" class="chk" name="chk" /></td>
-        <td>1</td>
-        <td>111-11-12345</td>
-        <td>아이러브스터디</td>
-        <td>홍길동</td>
-        <td>011-123-1256</td>
-        <td><a href="mailto:chamgosu@chamgosu.com">chamgosu@chamgosu.com</a></td>
-        <td>2016.07.30</td>
-        <td>유료업체</td>
-        <td><input value="상세보기" type="button" class="btns01" /></td>
-      </tr>
-      <tr>
-        <td><input type="checkbox" class="chk" name="chk" /></td>
-        <td>1</td>
-        <td>111-11-12345</td>
-        <td>아이러브스터디</td>
-        <td>홍길동</td>
-        <td>011-123-1256</td>
-        <td><a href="mailto:chamgosu@chamgosu.com">chamgosu@chamgosu.com</a></td>
-        <td>2016.07.30</td>
-        <td>유료업체</td>
-        <td><input value="상세보기" type="button" class="btns01" /></td>
-      </tr>
-        </tbody>
+      <%  for(int i=0;i<supplyList.size();i++){ %>
+	      <tr>
+	        <td><input type="checkbox" class="chk" name="chk" /></td>
+	        <td>1</td>
+	        <td><%= RsUtil.checkNull(supplyList.get(i).get("SP_ID"))%></td>
+	        <td><%= RsUtil.checkNull(supplyList.get(i).get("SP_BUSINM"))%></td>
+	        <td><%= RsUtil.checkNull(supplyList.get(i).get("SP_NAME"))%></td>
+	        <td><%= RsUtil.checkNull(supplyList.get(i).get("SP_TEL"))%></td>
+	        <td><a href="mailto:<%= RsUtil.checkNull(supplyList.get(i).get("SP_EMAIL"))%>"><%= RsUtil.checkNull(supplyList.get(i).get("SP_EMAIL"))%></a></td>
+	        <td><%= RsUtil.checkNull(supplyList.get(i).get("SP_REGDATE"))%></td>
+	        <td>유료업체</td>
+	        <td><input value="상세보기" type="button" class="btns01" /></td>
+	      </tr>
+	  <%} %>
+      </tbody>
       
     </table>
     
@@ -372,7 +266,11 @@
 	            	"sp_id" : $("#sp_id").val()
 	            },
 	            success: function(data){
-	            	console.log(data);
+	            	if(data.msg == "success"){
+	            		alert("사용가능한 아이디(사업자등록번호) 입니다.");
+	            	}else{
+	            		alert("이미 존재하는 아이디(사업자등록번호) 입니다.");
+	            	}
 				}
 			})
 		}
