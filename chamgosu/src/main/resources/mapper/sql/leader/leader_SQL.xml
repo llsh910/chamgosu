@@ -285,7 +285,8 @@
 		update 
 			CG_SUPPLIER
 		set
-			SP_BUSINM = #{sp_businm}
+			SP_PWD=#{sp_pwd}
+			, SP_BUSINM = #{sp_businm}
 			, SP_NAME = #{sp_name}
 			, SP_USERATING = #{sp_userating}
 			, SP_POST = #{sp_post}
