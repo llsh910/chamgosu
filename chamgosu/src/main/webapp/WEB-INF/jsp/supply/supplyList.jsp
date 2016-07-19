@@ -18,14 +18,14 @@
     <div class="search">
       <ul>
         <li class="fl"> <span>업체명</span>
-          <input type="text" class="inputTxt" style="width:230px;" />
+          <input type="text" class="inputTxt" style="width:230px;" id="search_businm" name="search_businm" value="<%= RsUtil.checkNull(request.getParameter("search_businm"))%>"/>
           <select style="width:100px;" title="업체유형">
             <option>전체보기</option>
             <option>유료업체</option>
             <option>무료업체</option>
             <option>승인대기</option>
           </select>
-          <input value="검색하기" type="button" class="btnm" />
+          <input value="검색하기" type="button" class="btnm" onclick="searchSubmit()"/>
         </li>
       </ul>
     </div>
