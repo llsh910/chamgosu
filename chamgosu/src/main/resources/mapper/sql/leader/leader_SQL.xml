@@ -370,18 +370,20 @@
 	</select>
 	
 	<select id="leaderUserNoList" parameterType="hashmap" resultType="hashmap">
-		select 
+		 SELECT 
 			UB_SEQ
 			, UB_LEADERID
-			, case UB_LEADERGUBN when '0' then '학원' when '1' then '교습소' when '2' then '공부방' when '3' then '교육단체' when '4' then '일반리더' end as UB_LEADERGUBN
+			, CASE UB_LEADERGUBN WHEN '0' THEN '학원' WHEN '1' THEN '교습소' WHEN '2' THEN '공부방' WHEN '3' THEN '교육단체' WHEN '4' THEN '일반리더' END AS UB_LEADERGUBN
 			, UB_NAME
 			, UB_TELNO1
 			, UB_SCHOOLINFO
 			, UB_DESC
-			, DATE_FORMAT( REGDATE,'%Y-%m-%d' ) as REGDATE
-		from
+			, LD_ID
+			, LD_GROUPNM
+			, DATE_FORMAT( REGDATE,'%Y-%m-%d' ) AS REGDATE
+		FROM
 		(
-			select
+			SELECT
 				UB_SEQ
 				, UB_LEADERID
 				, UB_LEADERGUBN
@@ -389,16 +391,20 @@
 				, UB_TELNO1
 				, UB_SCHOOLINFO
 				, UB_DESC
-				, REGDATE
-				, @rnum := @rnum + 1 as rn
-			from
+				, U.REGDATE
+				, L.LD_ID
+				, L.LD_GROUPNM
+				, @rnum := @rnum + 1 AS rn
+			FROM
 				(SELECT @rnum := 0) r,
-				CG_USER_BUYINFO
-			where
+				CG_USER_BUYINFO U
+				LEFT JOIN CG_LEADER L
+				ON U.UB_LEADERID = L.LD_SEQ
+			WHERE
 				1=1
 				
-			order by REGDATE desc
-		) as list
+			ORDER BY REGDATE DESC
+		) AS LIST
 		where list.rn between #{start} and #{end}
 	</select>
 	

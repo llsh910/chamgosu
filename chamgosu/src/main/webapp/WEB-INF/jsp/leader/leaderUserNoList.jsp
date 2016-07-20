@@ -60,9 +60,8 @@
         <tr>
           <th scope="col"><input type="checkbox" class="chk" id="checkall" /></th>
           <th scope="col">번호</th>
-          <th scope="col">구매자 ID</th>
+          <th scope="col">리더 ID</th>
           <th scope="col">소속단체명</th>
-          <th scope="col">구매자 ID</th>
           <th scope="col">구매자 이름</th>
           <th scope="col">휴대폰번호</th>
           <th scope="col">학교정보</th>
@@ -70,116 +69,27 @@
         </tr>
       </thead>
       <tbody>
+      <%
+      	if(userList.size() > 0){
+      		for(int i=0; i<userList.size(); i++)
+      		{
+      	
+      %>
       <tr>
         <td><input type="checkbox" class="chk" name="chk" /></td>
         <td>1</td>
         <td>ilovestudy</td>
         <td>아이러브스터디</td>
-        <td>ilovestudy</td>
         <td>홍길동</td>
         <td>010-1234-5678</td>
         <td>대한민국대학교</td>
         <td>2016.07.30</td>
       </tr>
-      <tr>
-        <td><input type="checkbox" class="chk" name="chk" /></td>
-        <td>1</td>
-        <td>ilovestudy</td>
-        <td>아이러브스터디</td>
-        <td>ilovestudy</td>
-        <td>홍길동</td>
-        <td>010-1234-5678</td>
-        <td>대한민국대학교</td>
-        <td>2016.07.30</td>
-      </tr>
-      <tr>
-        <td><input type="checkbox" class="chk" name="chk" /></td>
-        <td>1</td>
-        <td>ilovestudy</td>
-        <td>아이러브스터디</td>
-        <td>ilovestudy</td>
-        <td>홍길동</td>
-        <td>010-1234-5678</td>
-        <td>대한민국대학교</td>
-        <td>2016.07.30</td>
-      </tr>
-      <tr>
-        <td><input type="checkbox" class="chk" name="chk" /></td>
-        <td>1</td>
-        <td>ilovestudy</td>
-        <td>아이러브스터디</td>
-        <td>ilovestudy</td>
-        <td>홍길동</td>
-        <td>010-1234-5678</td>
-        <td>대한민국대학교</td>
-        <td>2016.07.30</td>
-      </tr>
-      <tr>
-        <td><input type="checkbox" class="chk" name="chk" /></td>
-        <td>1</td>
-        <td>ilovestudy</td>
-        <td>아이러브스터디</td>
-        <td>ilovestudy</td>
-        <td>홍길동</td>
-        <td>010-1234-5678</td>
-        <td>대한민국대학교</td>
-        <td>2016.07.30</td>
-      </tr>
-      <tr>
-        <td><input type="checkbox" class="chk" name="chk" /></td>
-        <td>1</td>
-        <td>ilovestudy</td>
-        <td>아이러브스터디</td>
-        <td>ilovestudy</td>
-        <td>홍길동</td>
-        <td>010-1234-5678</td>
-        <td>대한민국대학교</td>
-        <td>2016.07.30</td>
-      </tr>
-      <tr>
-        <td><input type="checkbox" class="chk" name="chk" /></td>
-        <td>1</td>
-        <td>ilovestudy</td>
-        <td>아이러브스터디</td>
-        <td>ilovestudy</td>
-        <td>홍길동</td>
-        <td>010-1234-5678</td>
-        <td>대한민국대학교</td>
-        <td>2016.07.30</td>
-      </tr>
-      <tr>
-        <td><input type="checkbox" class="chk" name="chk" /></td>
-        <td>1</td>
-        <td>ilovestudy</td>
-        <td>아이러브스터디</td>
-        <td>ilovestudy</td>
-        <td>홍길동</td>
-        <td>010-1234-5678</td>
-        <td>대한민국대학교</td>
-        <td>2016.07.30</td>
-      </tr>
-      <tr>
-        <td><input type="checkbox" class="chk" name="chk" /></td>
-        <td>1</td>
-        <td>ilovestudy</td>
-        <td>아이러브스터디</td>
-        <td>ilovestudy</td>
-        <td>홍길동</td>
-        <td>010-1234-5678</td>
-        <td>대한민국대학교</td>
-        <td>2016.07.30</td>
-      </tr>
-      <tr>
-        <td><input type="checkbox" class="chk" name="chk" /></td>
-        <td>1</td>
-        <td>ilovestudy</td>
-        <td>아이러브스터디</td>
-        <td>ilovestudy</td>
-        <td>홍길동</td>
-        <td>010-1234-5678</td>
-        <td>대한민국대학교</td>
-        <td>2016.07.30</td>
-      </tr>
+      <%}}else{ %>
+      	<tr>
+      		<td colspan="8">비회원이 존재하지 않습니다.</td>
+      	</tr>
+      <%} %>
         </tbody>
       
     </table>
