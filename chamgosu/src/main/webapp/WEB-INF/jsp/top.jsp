@@ -40,9 +40,9 @@
         <a href="<%= realPath%>/supplyRegionList.do">공급자 취급품목 관리</a> </div>
       <h1>회원관리</h1>
       <div> <a href="<%= realPath%>/leaderTrustList.do">위탁영업 리더 관리</a><br>
-        <a href="#">비사업자 리더 관리</a><br>
-        <a href="#">구매회원 관리</a><br>
-        <a href="#">비회원 관리</a><br>
+        <a href="<%= realPath%>/leaderNoList.do">비사업자 리더 관리</a><br>
+        <a href="<%= realPath%>/leaderUserList.do">구매회원 관리</a><br>
+        <a href="<%= realPath%>/leaderUserNoList.do">비회원 관리</a><br>
       </div>
       <h1>매출통계</h1>
       <div> <a href="#">조건별 매출통계</a> </div>

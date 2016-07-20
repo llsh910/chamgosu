@@ -95,10 +95,10 @@
 	        <td><%= RsUtil.checkNull(leaderList.get(i).get("LD_HP"))%></td>
 	        <td><a href="mailto:<%= RsUtil.checkNull(leaderList.get(i).get("LD_EMAIL"))%>"><%= RsUtil.checkNull(leaderList.get(i).get("LD_EMAIL"))%></a></td>
 	        <td><%= RsUtil.checkNull(leaderList.get(i).get("REGDATE"))%></td>
-	        <td>유료업체</td>
+	        <td><%= RsUtil.checkNull(leaderList.get(i).get("LD_GROUPGUBN"))%></td>
 	        <td>10,000,000원</td>
 	        <td><%= RsUtil.checkNull(leaderList.get(i).get("LD_COMGUBN"))%></td>
-	        <td><input value="보기" type="button" class="btns01" /></td>
+	        <td><input value="보기" type="button" class="btns01" onclick="location.href='leaderModifyData.do'"/></td>
 	      </tr>
 	      <%}}else{ %>
 	      	<tr>

@@ -258,11 +258,11 @@
 	
 	<!-- 회원 -->
 	<select id="leaderUserListCntAll" parameterType="hashmap" resultType="int">
-		select count(*) from CG_USER where 1=1
+		select count(*) from CG_USER where US_MASTER != 'T'
 	</select>
 
 	<select id="leaderUserListCnt" parameterType="hashmap" resultType="int">
-		select count(*) from CG_USER where 1=1
+		select count(*) from CG_USER where US_MASTER != 'T'
 	</select>
 	
 	<select id="leaderUserList" parameterType="hashmap" resultType="hashmap">
@@ -319,7 +319,7 @@
 				(SELECT @rnum := 0) r,
 				CG_USER
 			where
-				1=1
+				US_MASTER != 'T'
 				
 			order by REGDATE desc
 		) as list
