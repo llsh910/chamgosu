@@ -29,7 +29,7 @@
     <!-- /search -->
     
     <!--리스트 테이블영역--> 
-    <h4><span>총 회원수 : 100명</span> 검색 회원 수 : 100명
+    <h4><span>총 회원수 : <%= totalCount%>명</span> 검색 회원 수 : <%= totalCount%>명
       <p>
         <select style="width:90px;">
           <option>10개씩 보기</option>
@@ -69,116 +69,25 @@
         </tr>
       </thead>
       <tbody>
+      <% 
+      if(userList.size() > 0){
+      	for(int i=0; i<userList.size(); i++){%>
       <tr>
         <td><input type="checkbox" class="chk" name="chk" /></td>
         <td>1</td>
-        <td>ilovestudy</td>
-        <td>홍길동</td>
-        <td>011-123-1256</td>
-        <td><a href="mailto:chamgosu@chamgosu.com">chamgosu@chamgosu.com</a></td>
-        <td>2016.07.30</td>
-        <td>10,000,000원</td>
+        <td><%= RsUtil.checkNull(userList.get(i).get("US_LOGINID"))%></td>
+        <td><%= RsUtil.checkNull(userList.get(i).get("US_NAME"))%></td>
+        <td><%= RsUtil.checkNull(userList.get(i).get("US_TELNO2"))%></td>
+        <td><a href="mailto:<%= RsUtil.checkNull(userList.get(i).get("US_EMAIL"))%>"><%= RsUtil.checkNull(userList.get(i).get("US_EMAIL"))%></a></td>
+        <td><%= RsUtil.checkNull(userList.get(i).get("REGDATE"))%></td>
+        <td><%= RsUtil.checkNull(userList.get(i).get("US_INPOINT"))%>원</td>
         <td><input value="보기" type="button" class="btns01" /></td>
       </tr>
-      <tr>
-        <td><input type="checkbox" class="chk" name="chk" /></td>
-        <td>1</td>
-        <td>ilovestudy</td>
-        <td>홍길동</td>
-        <td>011-123-1256</td>
-        <td><a href="mailto:chamgosu@chamgosu.com">chamgosu@chamgosu.com</a></td>
-        <td>2016.07.30</td>
-        <td>10,000,000원</td>
-        <td><input value="보기" type="button" class="btns01" /></td>
-      </tr>
-      <tr>
-        <td><input type="checkbox" class="chk" name="chk" /></td>
-        <td>1</td>
-        <td>ilovestudy</td>
-        <td>홍길동</td>
-        <td>011-123-1256</td>
-        <td><a href="mailto:chamgosu@chamgosu.com">chamgosu@chamgosu.com</a></td>
-        <td>2016.07.30</td>
-        <td>10,000,000원</td>
-        <td><input value="보기" type="button" class="btns01" /></td>
-      </tr>
-      <tr>
-        <td><input type="checkbox" class="chk" name="chk" /></td>
-        <td>1</td>
-        <td>ilovestudy</td>
-        <td>홍길동</td>
-        <td>011-123-1256</td>
-        <td><a href="mailto:chamgosu@chamgosu.com">chamgosu@chamgosu.com</a></td>
-        <td>2016.07.30</td>
-        <td>10,000,000원</td>
-        <td><input value="보기" type="button" class="btns01" /></td>
-      </tr>
-      <tr>
-        <td><input type="checkbox" class="chk" name="chk" /></td>
-        <td>1</td>
-        <td>ilovestudy</td>
-        <td>홍길동</td>
-        <td>011-123-1256</td>
-        <td><a href="mailto:chamgosu@chamgosu.com">chamgosu@chamgosu.com</a></td>
-        <td>2016.07.30</td>
-        <td>10,000,000원</td>
-        <td><input value="보기" type="button" class="btns01" /></td>
-      </tr>
-      <tr>
-        <td><input type="checkbox" class="chk" name="chk" /></td>
-        <td>1</td>
-        <td>ilovestudy</td>
-        <td>홍길동</td>
-        <td>011-123-1256</td>
-        <td><a href="mailto:chamgosu@chamgosu.com">chamgosu@chamgosu.com</a></td>
-        <td>2016.07.30</td>
-        <td>10,000,000원</td>
-        <td><input value="보기" type="button" class="btns01" /></td>
-      </tr>
-      <tr>
-        <td><input type="checkbox" class="chk" name="chk" /></td>
-        <td>1</td>
-        <td>ilovestudy</td>
-        <td>홍길동</td>
-        <td>011-123-1256</td>
-        <td><a href="mailto:chamgosu@chamgosu.com">chamgosu@chamgosu.com</a></td>
-        <td>2016.07.30</td>
-        <td>10,000,000원</td>
-        <td><input value="보기" type="button" class="btns01" /></td>
-      </tr>
-      <tr>
-        <td><input type="checkbox" class="chk" name="chk" /></td>
-        <td>1</td>
-        <td>ilovestudy</td>
-        <td>홍길동</td>
-        <td>011-123-1256</td>
-        <td><a href="mailto:chamgosu@chamgosu.com">chamgosu@chamgosu.com</a></td>
-        <td>2016.07.30</td>
-        <td>10,000,000원</td>
-        <td><input value="보기" type="button" class="btns01" /></td>
-      </tr>
-      <tr>
-        <td><input type="checkbox" class="chk" name="chk" /></td>
-        <td>1</td>
-        <td>ilovestudy</td>
-        <td>홍길동</td>
-        <td>011-123-1256</td>
-        <td><a href="mailto:chamgosu@chamgosu.com">chamgosu@chamgosu.com</a></td>
-        <td>2016.07.30</td>
-        <td>10,000,000원</td>
-        <td><input value="보기" type="button" class="btns01" /></td>
-      </tr>
-      <tr>
-        <td><input type="checkbox" class="chk" name="chk" /></td>
-        <td>1</td>
-        <td>ilovestudy</td>
-        <td>홍길동</td>
-        <td>011-123-1256</td>
-        <td><a href="mailto:chamgosu@chamgosu.com">chamgosu@chamgosu.com</a></td>
-        <td>2016.07.30</td>
-        <td>10,000,000원</td>
-        <td><input value="보기" type="button" class="btns01" /></td>
-      </tr>
+      <%}}else{ %>
+      	<tr>
+      		<td colspan="9">구매회원이 존재하지 않습니다.</td>
+      	</tr>
+      <%} %>
         </tbody>
       
     </table>
@@ -190,7 +99,7 @@
 		</script> 
     
     <!-- paging -->
-    <div class="paging"> <a href="#" class="btn"><img src="../img/btn_page_prev02.gif" alt="처음 페이지로 가기" /></a> <a href="#" class="btn"><img src="../img/btn_page_prev.gif" alt="이전 페이지로 가기" /></a> <span> <a href="#"><strong>1</strong></a> <a href="#">2</a> <a href="#">3</a> <a href="#">4</a> <a href="#">5</a> </span> <a href="#" class="btn"><img src="../img/btn_page_next.gif" alt="다음 페이지로 가기" /></a> <a href="#" class="btn"><img src="../img/btn_page_next02.gif" alt="마지막 페이지로 가기" /></a> </div>
+    <div class="paging"><%= WebUtil.printPageIndex4("", Integer.parseInt(page_index), Integer.parseInt(totalCount), Integer.parseInt(per_page), 10, "pageSearch", realPath) %></div>
     <!-- //paging --> 
     
     <!--탭버튼-->
@@ -296,3 +205,14 @@ $(function () {
   </div>
   <!--/contents--> 
 <%@ include file="../bottom.jsp" %>
+<script>
+	var searchSubmit = function(){
+		jQuery("#searchForm").submit();
+	};
+	
+	var pageSearch = function(page_index){
+		jQuery("#page_index").val(page_index);
+		
+		searchSubmit();
+	};
+</script>

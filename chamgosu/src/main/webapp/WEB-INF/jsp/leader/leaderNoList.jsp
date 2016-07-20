@@ -99,7 +99,7 @@
 		</script> 
     
     <!-- paging -->
-    <div class="paging"> <a href="#" class="btn"><img src="../img/btn_page_prev02.gif" alt="처음 페이지로 가기" /></a> <a href="#" class="btn"><img src="../img/btn_page_prev.gif" alt="이전 페이지로 가기" /></a> <span> <a href="#"><strong>1</strong></a> <a href="#">2</a> <a href="#">3</a> <a href="#">4</a> <a href="#">5</a> </span> <a href="#" class="btn"><img src="../img/btn_page_next.gif" alt="다음 페이지로 가기" /></a> <a href="#" class="btn"><img src="../img/btn_page_next02.gif" alt="마지막 페이지로 가기" /></a> </div>
+    <div class="paging"><%= WebUtil.printPageIndex4("", Integer.parseInt(page_index), Integer.parseInt(totalCount), Integer.parseInt(per_page), 10, "pageSearch", realPath) %></div>
     <!-- //paging --> 
     
     <!--탭버튼-->
@@ -205,3 +205,14 @@ $(function () {
   </div>
   <!--/contents--> 
 <%@ include file="../bottom.jsp" %>
+<script>
+	var searchSubmit = function(){
+		jQuery("#searchForm").submit();
+	};
+	
+	var pageSearch = function(page_index){
+		jQuery("#page_index").val(page_index);
+		
+		searchSubmit();
+	};
+</script>
