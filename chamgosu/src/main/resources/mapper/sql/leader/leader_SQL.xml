@@ -260,7 +260,7 @@
 		select count(*) from CG_USER where 1=1
 	</select>
 	
-	<select id="leaderNoList" parameterType="hashmap" resultType="hashmap">
+	<select id="leaderUserList" parameterType="hashmap" resultType="hashmap">
 		select 
 			US_USERID
 			, US_LOGINID
