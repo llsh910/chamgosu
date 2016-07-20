@@ -345,6 +345,7 @@
 			, US_TELNO1
 			, US_TELNO2
 			, US_SMS
+			, US_EMAILCHK
 			, US_EMAIL
 			, US_POINT
 			, US_OUTPOINT
@@ -430,6 +431,26 @@
 		where
 			UB_SEQ=#{ub_seq}
 	</select>
+	
+	<update id="leaderUserModifyData" parameterType="hashmap">
+		UPDATE
+			CG_USER
+		SET
+			US_LOGINID = #{us_loginid}
+			,US_NAME = #{us_name}
+			,US_LOGINPASS = #{us_loginpass}
+			,US_ZIP = #{us_zip}
+			,US_ADDR1 = #{us_addr1}
+			,US_ADDR2 = #{us_addr2}
+			,US_TELNO1 = #{us_telno1}
+			,US_TELNO2 = #{us_telno2}
+			,US_EMAIL = #{us_email}
+			,US_INPOINT = #{us_inpoint}
+			,US_EMAILCHK = #{us_emailchk}
+			,US_SMS = #{us_sms}
+		WHERE
+			US_USERID = #{us_userid}
+	</update>
 	
 	
 	

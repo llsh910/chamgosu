@@ -103,6 +103,13 @@ public class LeaderServiceImpl implements LeaderService {
 		return leaderDAO.leaderUserNoView(map);
 	}
 	
+	@Override
+	public int leaderUserModifyData(Map<String, Object> map) throws Exception {
+		return leaderDAO.leaderUserModifyData(map);
+	}
+	
+	
+	
 	
 
 
