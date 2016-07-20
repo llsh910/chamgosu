@@ -340,12 +340,15 @@
 	<select id="supplyRegionList" parameterType="hashmap" resultType="hashmap">
 		select
 			PR_SEQ
-			, PR_SPID
-			, PR_PBS
+			, UDF_SELECT_SUPPLYNM(PR_SPID) as PR_SPID
+			, UDF_SELECT_CODE1NAME('01', PR_PBS) as PR_PBS
+			, UDF_SELECT_CODE1NAME('01', REGION1) as REGION1NAME
+			, UDF_SELECT_CODE1NAME('01', REGION1, REGION2) as REGION2NAME
 			, REGION1
 			, REGION2
 			, REGION3
 			, PR_STATE
+			, DATE_FORMAT( PR_OKDATE,'%Y-%m-%d' ) as PR_OKDATE
 			, DATE_FORMAT( PR_REGDATE,'%Y-%m-%d' ) as PR_REGDATE
 		from
 		(
