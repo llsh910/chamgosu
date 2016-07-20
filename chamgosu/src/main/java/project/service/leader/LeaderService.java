@@ -13,6 +13,10 @@ public interface LeaderService {
 	int leaderNoListCnt(Map<String, Object> map) throws Exception;
 	List<Map<String, Object>> leaderNoList(Map<String, Object> map) throws Exception;
 	
+	int leaderUserListCntAll(Map<String, Object> map) throws Exception;
+	int leaderUserListCnt(Map<String, Object> map) throws Exception;
+	List<Map<String, Object>> leaderUserList(Map<String, Object> map) throws Exception;
+	
 	Map<String, Object> leaderModifyData(Map<String, Object> map) throws Exception;
 	int leaderModifySave(Map<String, Object> map) throws Exception;
 }

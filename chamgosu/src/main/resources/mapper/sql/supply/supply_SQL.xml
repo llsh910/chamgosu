@@ -346,7 +346,7 @@
 			, REGION2
 			, REGION3
 			, PR_STATE
-			, DATE_FORMAT( SP_REGDATE,'%Y-%m-%d' ) as SP_REGDATE
+			, DATE_FORMAT( PR_REGDATE,'%Y-%m-%d' ) as PR_REGDATE
 		from
 		(
 			select
@@ -357,7 +357,7 @@
 				, REGION2
 				, REGION3
 				, PR_STATE
-				, SP_REGDATE
+				, PR_REGDATE
 				, @rnum := @rnum + 1 as rn
 			from
 				(SELECT @rnum := 0) r,
