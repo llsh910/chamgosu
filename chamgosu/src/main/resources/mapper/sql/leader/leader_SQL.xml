@@ -20,7 +20,7 @@
 			, LD_ID
 			, LD_PWD
 			, LD_GROUPNM
-			, LD_GROUPGUBN
+			, case LD_GROUPGUBN when '0' then '학원' when '1' then '교습소' when '2' then '공부방' when '3' then '교육단체' when '4' then '일반리더' end as LD_GROUPGUBN
 			, LD_NAME
 			, LD_AUTHCODE
 			, LD_AUTHCHK
@@ -110,7 +110,7 @@
 			, LD_ID
 			, LD_PWD
 			, LD_GROUPNM
-			, LD_GROUPGUBN
+			, case LD_GROUPGUBN when '0' then '학원' when '1' then '교습소' when '2' then '공부방' when '3' then '교육단체' when '4' then '일반리더' end as LD_GROUPGUBN
 			, LD_NAME
 			, LD_AUTHCODE
 			, LD_AUTHCHK
