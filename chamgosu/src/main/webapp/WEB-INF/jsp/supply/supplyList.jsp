@@ -74,7 +74,9 @@
         </tr>
       </thead>
       <tbody>
-      <%  for(int i=0;i<supplyList.size();i++){ %>
+      <%  
+      if(supplyList.size() > 0){
+      		for(int i=0;i<supplyList.size();i++){ %>
 	      <tr>
 	        <td><input type="checkbox" class="chk" name="chk" /></td>
 	        <td><%= ((Integer.parseInt(totalCount) - ((Integer.parseInt(page_index)-1) * 10))- i)%></td>
@@ -87,6 +89,12 @@
 	        <td><%= RsUtil.checkNull(supplyList.get(i).get("SP_USERATING"))%></td>
 	        <td><input value="상세보기" type="button" class="btns01" onclick="supplyView('<%= RsUtil.checkNull(supplyList.get(i).get("SP_SEQ"))%>')"/></td>
 	      </tr>
+	  <%}}else{%>
+	  	<tr>
+	  		<td colspan="10">
+	  			공급자가 존재하지 않습니다.
+	  		</td>
+	  	</tr>
 	  <%} %>
       </tbody>
       

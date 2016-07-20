@@ -111,7 +111,9 @@
         </tr>
       </thead>
       <tbody>
-      	<% for(int i=0; i < administorList.size(); i++){ %>
+      	<% 
+      		if(administorList.size() > 0){
+      		for(int i=0; i < administorList.size(); i++){ %>
         <tr>
           <td><%= ((Integer.parseInt(totalCount) - ((Integer.parseInt(page_index)-1) * 10))- i)%></td>
           <td><%= RsUtil.checkNull(administorList.get(i).get("US_LEV"))%></td>
@@ -122,6 +124,12 @@
           <td><input value="수정" type="button" class="btns01" onclick="selectAdmin('<%= RsUtil.checkNull(administorList.get(i).get("US_USERID"))%>')"/>
             <input value="삭제" type="button" class="btns" onclick="deleteAdmin('<%= RsUtil.checkNull(administorList.get(i).get("US_USERID"))%>')"/></td>
         </tr>
+        <%}}else{ %>
+       	<tr>
+       		<td>
+       			관리자가 존재하지 않습니다.
+       		</td>
+       	</tr>
         <%} %>
       </tbody>
     </table>

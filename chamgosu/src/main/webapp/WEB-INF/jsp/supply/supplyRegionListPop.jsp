@@ -62,7 +62,10 @@
 	          <th scope="col">개별선택메뉴</th>
 	        </tr>
 	      </thead>
-	      <%for(int i=0; i<supplyRegionList.size(); i++){ %>
+	      <%
+	      	if(supplyRegionList.size() > 0){
+	      		for(int i=0; i<supplyRegionList.size(); i++){ %>
+	      	
 		      <tr>
 		        <td><input type="checkbox" class="chk" name="chk01" /></td>
 		        <td>1</td>
@@ -76,6 +79,12 @@
 		        <td><input value="저장" type="button" class="btns01" />
 		              <input value="삭제" type="button" class="btns" /></td>
 		      </tr>
+	      <%}}else{%>
+	      	<tr>
+	      		<td colspan="10">
+	      			출판사가 존재하지 않습니다.
+	      		</td>
+	      	</tr>
 	      <%} %>
 	        </tbody>
 	    </table>
