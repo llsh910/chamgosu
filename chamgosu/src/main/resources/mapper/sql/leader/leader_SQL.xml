@@ -2,6 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
 <mapper namespace="leader">
+	<select id="leaderIdChk" parameterType="hashmap" resultType="int">
+		select count(*) from CG_LEADER where LD_ID=#{ld_id}
+	</select>
 
 	<select id="leaderTrustListCntAll" parameterType="hashmap" resultType="int">
 		select count(*) from CG_LEADER where LD_GROUPGUBN in ('0', '1', '2', '3')
@@ -85,6 +88,76 @@
 		) as list
 		where list.rn between #{start} and #{end}
 	</select>
+	
+	
+	<select id="leaderModifyData" parameterType="hashmap" resultType="hashmap">
+		select 
+			LD_SEQ
+			, LD_ID
+			, LD_PWD
+			, LD_GROUPNM
+			, LD_GROUPGUBN
+			, LD_NAME
+			, LD_AUTHCODE
+			, LD_AUTHCHK
+			, LD_POST
+			, LD_ADDRESS
+			, LD_ADDRESSDETAIL
+			, LD_TEL
+			, LD_FAX
+			, LD_HP
+			, LD_SNSCHK
+			, LD_EMAIL
+			, LD_EMAILSENDCHK
+			, LD_GROUPINFO
+			, LD_REGION
+			, LD_ORGSALERATE
+			, LD_ORGMILEGERATE
+			, LD_BANKNM
+			, LD_BANKNUM
+			, LD_BANKMEMNM
+			, LD_BANKBOOKIMG
+			, LD_LOGOIMG
+			, LD_COMPNUMIMG
+			, DATE_FORMAT( REGDATE,'%Y-%m-%d' ) as REGDATE
+			, LD_COMGUBN
+		from
+			CG_LEADER
+		where
+			LD_SEQ=#{ld_seq}
+	</select>
+	
+	
+	<update id="leaderModifySave" parameterType="hashmap">
+		update
+			LD_PWD = #{ld_pwd}
+			, LD_GROUPNM = #{ld_groupnm}
+			, LD_NAME = #{ld_name}
+			, LD_AUTHCODE = #{ld_authcode}
+			, LD_AUTHCHK = #{ld_authchk}
+			, LD_POST = #{ld_post}
+			, LD_ADDRESS = #{ld_address}
+			, LD_ADDRESSDETAIL = #{ld_addressdetail}
+			, LD_TEL = #{ld_tel}
+			, LD_FAX = #{ld_fax}
+			, LD_HP = #{ld_hp}
+			, LD_SNSCHK = #{ld_snschk}
+			, LD_EMAIL = #{ld_email}
+			, LD_EMAILSENDCHK = #{ld_emailsendchk}
+			, LD_GROUPINFO = #{ld_groupinfo}
+			, LD_REGION = #{ld_region}
+			, LD_ORGSALERATE = #{ld_orgsalerate}
+			, LD_ORGMILEGERATE = #{ld_orgmilegerate}
+			, LD_BANKNM = #{ld_banknm}
+			, LD_BANKNUM = #{ld_banknum}
+			, LD_BANKMEMNM = #{ld_bankmemnm}
+			, LD_BANKBOOKIMG = #{ld_bankbookimg}
+			, LD_LOGOIMG = #{ld_logoimg}
+			, LD_COMPNUMIMG = #{ld_compnumimg}
+			, LD_COMGUBN = #{ld_comgubn}
+		where
+			LD_SEQ=#{ld_seq}
+	</update>
 	
 	
 	

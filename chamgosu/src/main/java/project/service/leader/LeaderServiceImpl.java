@@ -33,5 +33,10 @@ public class LeaderServiceImpl implements LeaderService {
 		return leaderDAO.leaderTrustListCntAll(map);
 	}
 
+	@Override
+	public int leaderIdChk(Map<String, Object> map) throws Exception {
+		return leaderDAO.leaderIdChk(map);
+	}
+
 
 }

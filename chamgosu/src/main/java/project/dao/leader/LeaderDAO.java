@@ -10,7 +10,9 @@ import project.config.dao.TempletDAO;
 @Repository("leaderDAO")
 public class LeaderDAO extends TempletDAO {
 
-	
+	public int leaderIdChk(Map<String, Object> map) throws Exception{
+		return (Integer)selectOne("leader.leaderIdChk", map);
+	}
 	
 	public int leaderTrustListCntAll(Map<String, Object> map) throws Exception{
 		return (Integer)selectOne("leader.leaderTrustListCntAll", map);
@@ -23,6 +25,10 @@ public class LeaderDAO extends TempletDAO {
 	@SuppressWarnings("unchecked")
 	public List<Map<String, Object>> leaderTrustList(Map<String, Object> map) throws Exception{
 		return (List<Map<String, Object>>)selectList("leader.leaderTrustList", map);
+	}
+	
+	public int leaderModifySave(Map<String, Object> map) throws Exception{
+		return (Integer)update("leader.leaderModifySave", map);
 	}
 	
 	
