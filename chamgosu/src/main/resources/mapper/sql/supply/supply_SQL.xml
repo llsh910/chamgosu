@@ -340,6 +340,7 @@
 	<select id="supplyRegionList" parameterType="hashmap" resultType="hashmap">
 		select
 			PR_SEQ
+			, UDF_SELECT_SUPPLYNM(PR_SPID) AS PR_SPID
 			, UDF_SELECT_CODE1NAME('02', PR_PBS) as PR_PBS
 			, UDF_SELECT_CODE1NAME('01', REGION1) as REGION1NAME
 			, UDF_SELECT_CODE2NAME('01', REGION1, REGION2) as REGION2NAME
