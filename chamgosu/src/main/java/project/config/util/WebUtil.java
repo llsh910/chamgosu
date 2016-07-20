@@ -438,7 +438,7 @@ public class WebUtil {
 	 */
 	public static String tel(String paramString){
 		//File localFile = new File("E:/web/jsp/phonebook.txt");
-		File localFile = new File("E:/eclipseLuna/project/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/MCARD/WEB-INF/classes/lsh/tel_properties.txt");
+		File localFile = new File("C:/dev/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp1/wtpwebapps/chamgosu/WEB-INF/classes/project/config/properties/tel_properties.txt");
 		//File localFile = new File("/home/hosting_users/llsh910card/tomcat/webapps/ROOT/WEB-INF/classes/lsh/tel_properties.txt");
 
 		FileInputStream localFileInputStream = null;
@@ -545,7 +545,6 @@ public class WebUtil {
 				try { localFileInputStream2.close(); }
 			catch (Exception localException2) { }
 		}
-
 		return str2;
 	}
 

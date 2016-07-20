@@ -3,6 +3,49 @@
 <%
 
 	Map<String, Object> supplyData = (Map<String, Object>)request.getAttribute("supplyData");
+	String phone1 = RsUtil.checkNull(supplyData.get("SP_HP"));
+	String tel1 = RsUtil.checkNull(supplyData.get("SP_TEL"));
+	String fax1 = RsUtil.checkNull(supplyData.get("SP_FAX"));
+	phone1 = WebUtil.tel(WebUtil.MaskClearString(phone1));
+	String []phone = new String[3];
+	if(!phone1.equals("")){
+		phone = phone1.split("-");
+	}else{
+		phone[0] = "";
+		phone[1] = "";
+		phone[2] = "";
+	}
+	
+	tel1 = WebUtil.tel(WebUtil.MaskClearString(tel1));
+	String []tel = new String[3];
+	if(!tel1.equals("")){
+		tel = tel1.split("-");
+	}else{
+		tel[0] = "";
+		tel[1] = "";
+		tel[2] = "";
+	}
+	
+	fax1 = WebUtil.tel(WebUtil.MaskClearString(fax1));
+	String []fax = new String[3];
+	if(!fax1.equals("")){
+		fax = fax1.split("-");
+	}else{
+		fax[0] = "";
+		fax[1] = "";
+		fax[2] = "";
+	}
+	
+	String email1 = RsUtil.checkNull(supplyData.get("SP_EMAIL"));
+	
+	String [] email = new String[2];
+
+	if(email1.indexOf("@") > -1){
+		email = email1.split("@");		
+	}else{
+		email[0] = "";
+		email[1] = "";
+	}
 %>
 	<!--contents-->
   <div id="contents">
@@ -68,89 +111,89 @@
 	        <tr>
 	          <th scope="row">* 전화번호</th>
 	          <td colspan="3"><select style="width:70px;" id="tel1">
-	              <option value=''>선택</option>
-	              <option value='02'>02</option>
-	              <option value='031'>031</option>
-	              <option value='032'>032</option>
-	              <option value='033'>033</option>
-	              <option value='041'>041</option>
-	              <option value='042'>042</option>
-	              <option value='043'>043</option>
-	              <option value='051'>051</option>
-	              <option value='052'>052</option>
-	              <option value='053'>053</option>
-	              <option value='054'>054</option>
-	              <option value='055'>055</option>
-	              <option value='061'>061</option>
-	              <option value='062'>062</option>
-	              <option value='063'>063</option>
-	              <option value='064'>064</option>
-	              <option value='070'>070</option>
-	              <option value='080'>080</option>
-	              <option value='0502'>0502</option>
-	              <option value='0505'>0505</option>
-	              <option value='0506'>0506</option>
-	              <option value='0303'>0303</option>
+	              <option value='' <%= WebUtil.isSelected("", RsUtil.checkNull(tel[0]))%>>선택</option>
+	              <option value='02' <%= WebUtil.isSelected("02", RsUtil.checkNull(tel[0]))%>>02</option>
+	              <option value='031' <%= WebUtil.isSelected("031", RsUtil.checkNull(tel[0]))%>>031</option>
+	              <option value='032' <%= WebUtil.isSelected("032", RsUtil.checkNull(tel[0]))%>>032</option>
+	              <option value='033' <%= WebUtil.isSelected("033", RsUtil.checkNull(tel[0]))%>>033</option>
+	              <option value='041' <%= WebUtil.isSelected("041", RsUtil.checkNull(tel[0]))%>>041</option>
+	              <option value='042' <%= WebUtil.isSelected("042", RsUtil.checkNull(tel[0]))%>>042</option>
+	              <option value='043' <%= WebUtil.isSelected("043", RsUtil.checkNull(tel[0]))%>>043</option>
+	              <option value='051' <%= WebUtil.isSelected("051", RsUtil.checkNull(tel[0]))%>>051</option>
+	              <option value='052' <%= WebUtil.isSelected("052", RsUtil.checkNull(tel[0]))%>>052</option>
+	              <option value='053' <%= WebUtil.isSelected("053", RsUtil.checkNull(tel[0]))%>>053</option>
+	              <option value='054' <%= WebUtil.isSelected("054", RsUtil.checkNull(tel[0]))%>>054</option>
+	              <option value='055' <%= WebUtil.isSelected("055", RsUtil.checkNull(tel[0]))%>>055</option>
+	              <option value='061' <%= WebUtil.isSelected("061", RsUtil.checkNull(tel[0]))%>>061</option>
+	              <option value='062' <%= WebUtil.isSelected("062", RsUtil.checkNull(tel[0]))%>>062</option>
+	              <option value='063' <%= WebUtil.isSelected("063", RsUtil.checkNull(tel[0]))%>>063</option>
+	              <option value='064' <%= WebUtil.isSelected("064", RsUtil.checkNull(tel[0]))%>>064</option>
+	              <option value='070' <%= WebUtil.isSelected("070", RsUtil.checkNull(tel[0]))%>>070</option>
+	              <option value='080' <%= WebUtil.isSelected("080", RsUtil.checkNull(tel[0]))%>>080</option>
+	              <option value='0502' <%= WebUtil.isSelected("0502", RsUtil.checkNull(tel[0]))%>>0502</option>
+	              <option value='0505' <%= WebUtil.isSelected("0505", RsUtil.checkNull(tel[0]))%>>0505</option>
+	              <option value='0506' <%= WebUtil.isSelected("0506", RsUtil.checkNull(tel[0]))%>>0506</option>
+	              <option value='0303' <%= WebUtil.isSelected("0303", RsUtil.checkNull(tel[0]))%>>0303</option>
 	            </select>
-	            <input type="number" style="ime-mode:disabled; width:70px;" id="tel2" onkeypress="return digit_check(event)" onkeyup="ChkByte(this,4);" class="inputTxt" />
-	            <input type="number" style="ime-mode:disabled; width:70px;" id="tel3" onkeypress="return digit_check(event)" onkeyup="ChkByte(this,4);" class="inputTxt" />
+	            <input type="number" style="ime-mode:disabled; width:70px;" id="tel2" onkeypress="return digit_check(event)" onkeyup="ChkByte(this,4);" class="inputTxt" value="<%= RsUtil.checkNull(tel[1])%>"/>
+	            <input type="number" style="ime-mode:disabled; width:70px;" id="tel3" onkeypress="return digit_check(event)" onkeyup="ChkByte(this,4);" class="inputTxt" value="<%= RsUtil.checkNull(tel[2])%>"/>
 	            <input type="hidden" id="sp_tel" name="sp_tel" value="<%= RsUtil.checkNull(supplyData.get("SP_TEL"))%>" />
 	            </td>
 	        </tr>
 	        <tr>
 	          <th scope="row">* 휴대폰 번호</th>
 	          <td colspan="3"><select style="width:70px;" id="hp1">
-	              <option value=''>선택</option>
-	              <option value='010'>010</option>
-	              <option value='011'>011</option>
-	              <option value='016'>016</option>
-	              <option value='017'>017</option>
-	              <option value='018'>018</option>
-	              <option value='019'>019</option>
+	              <option value='' <%= WebUtil.isSelected("", RsUtil.checkNull(phone[0]))%>>선택</option>
+	              <option value='010' <%= WebUtil.isSelected("010", RsUtil.checkNull(phone[0]))%>>010</option>
+	              <option value='011' <%= WebUtil.isSelected("011", RsUtil.checkNull(phone[0]))%>>011</option>
+	              <option value='016' <%= WebUtil.isSelected("016", RsUtil.checkNull(phone[0]))%>>016</option>
+	              <option value='017' <%= WebUtil.isSelected("017", RsUtil.checkNull(phone[0]))%>>017</option>
+	              <option value='018' <%= WebUtil.isSelected("018", RsUtil.checkNull(phone[0]))%>>018</option>
+	              <option value='019' <%= WebUtil.isSelected("019", RsUtil.checkNull(phone[0]))%>>019</option>
 	            </select>
-	            <input type="number" style="ime-mode:disabled; width:70px;" id="hp2" onkeypress="return digit_check(event)" onkeyup="ChkByte(this,4);" class="inputTxt" />
-	            <input type="number" style="ime-mode:disabled; width:70px;" id="hp3" onkeypress="return digit_check(event)" onkeyup="ChkByte(this,4);" class="inputTxt" />
+	            <input type="number" style="ime-mode:disabled; width:70px;" id="hp2" onkeypress="return digit_check(event)" onkeyup="ChkByte(this,4);" class="inputTxt" value="<%= RsUtil.checkNull(phone[1])%>" />
+	            <input type="number" style="ime-mode:disabled; width:70px;" id="hp3" onkeypress="return digit_check(event)" onkeyup="ChkByte(this,4);" class="inputTxt" value="<%= RsUtil.checkNull(phone[2])%>"/>
 	            <input type="hidden" id="sp_hp" name="sp_hp" value="<%= RsUtil.checkNull(supplyData.get("SP_HP"))%>" />
 	            </td>
 	        </tr>
 	        <tr>
 	          <th scope="row">FAX 번호</th>
 	          <td colspan="3"><select style="width:70px;" id="fax1">
-	              <option value=''>선택</option>
-	              <option value='02'>02</option>
-	              <option value='031'>031</option>
-	              <option value='032'>032</option>
-	              <option value='033'>033</option>
-	              <option value='041'>041</option>
-	              <option value='042'>042</option>
-	              <option value='043'>043</option>
-	              <option value='051'>051</option>
-	              <option value='052'>052</option>
-	              <option value='053'>053</option>
-	              <option value='054'>054</option>
-	              <option value='055'>055</option>
-	              <option value='061'>061</option>
-	              <option value='062'>062</option>
-	              <option value='063'>063</option>
-	              <option value='064'>064</option>
-	              <option value='070'>070</option>
-	              <option value='080'>080</option>
-	              <option value='0502'>0502</option>
-	              <option value='0505'>0505</option>
-	              <option value='0506'>0506</option>
-	              <option value='0303'>0303</option>
+	              <option value='' <%= WebUtil.isSelected("", RsUtil.checkNull(fax[0]))%>>선택</option>
+	              <option value='02' <%= WebUtil.isSelected("02", RsUtil.checkNull(fax[0]))%>>02</option>
+	              <option value='031' <%= WebUtil.isSelected("031", RsUtil.checkNull(fax[0]))%>>031</option>
+	              <option value='032' <%= WebUtil.isSelected("032", RsUtil.checkNull(fax[0]))%>>032</option>
+	              <option value='033' <%= WebUtil.isSelected("033", RsUtil.checkNull(fax[0]))%>>033</option>
+	              <option value='041' <%= WebUtil.isSelected("041", RsUtil.checkNull(fax[0]))%>>041</option>
+	              <option value='042' <%= WebUtil.isSelected("042", RsUtil.checkNull(fax[0]))%>>042</option>
+	              <option value='043' <%= WebUtil.isSelected("043", RsUtil.checkNull(fax[0]))%>>043</option>
+	              <option value='051' <%= WebUtil.isSelected("051", RsUtil.checkNull(fax[0]))%>>051</option>
+	              <option value='052' <%= WebUtil.isSelected("052", RsUtil.checkNull(fax[0]))%>>052</option>
+	              <option value='053' <%= WebUtil.isSelected("053", RsUtil.checkNull(fax[0]))%>>053</option>
+	              <option value='054' <%= WebUtil.isSelected("054", RsUtil.checkNull(fax[0]))%>>054</option>
+	              <option value='055' <%= WebUtil.isSelected("055", RsUtil.checkNull(fax[0]))%>>055</option>
+	              <option value='061' <%= WebUtil.isSelected("061", RsUtil.checkNull(fax[0]))%>>061</option>
+	              <option value='062' <%= WebUtil.isSelected("062", RsUtil.checkNull(fax[0]))%>>062</option>
+	              <option value='063' <%= WebUtil.isSelected("063", RsUtil.checkNull(fax[0]))%>>063</option>
+	              <option value='064' <%= WebUtil.isSelected("064", RsUtil.checkNull(fax[0]))%>>064</option>
+	              <option value='070' <%= WebUtil.isSelected("070", RsUtil.checkNull(fax[0]))%>>070</option>
+	              <option value='080' <%= WebUtil.isSelected("080", RsUtil.checkNull(fax[0]))%>>080</option>
+	              <option value='0502' <%= WebUtil.isSelected("0502", RsUtil.checkNull(fax[0]))%>>0502</option>
+	              <option value='0505' <%= WebUtil.isSelected("0505", RsUtil.checkNull(fax[0]))%>>0505</option>
+	              <option value='0506' <%= WebUtil.isSelected("0506", RsUtil.checkNull(fax[0]))%>>0506</option>
+	              <option value='0303' <%= WebUtil.isSelected("0303", RsUtil.checkNull(fax[0]))%>>0303</option>
 	            </select>
-	            <input type="number" style="ime-mode:disabled; width:70px;" id="fax2" onkeypress="return digit_check(event)" onkeyup="ChkByte(this,4);" class="inputTxt" />
-	            <input type="number" style="ime-mode:disabled; width:70px;" id="fax3" onkeypress="return digit_check(event)" onkeyup="ChkByte(this,4);" class="inputTxt" />
+	            <input type="number" style="ime-mode:disabled; width:70px;" id="fax2" onkeypress="return digit_check(event)" onkeyup="ChkByte(this,4);" class="inputTxt" value="<%= RsUtil.checkNull(fax[1])%>"/>
+	            <input type="number" style="ime-mode:disabled; width:70px;" id="fax3" onkeypress="return digit_check(event)" onkeyup="ChkByte(this,4);" class="inputTxt" value="<%= RsUtil.checkNull(fax[2])%>"/>
 	            <input type="hidden" id="sp_fax" name="sp_fax" value="<%= RsUtil.checkNull(supplyData.get("SP_FAX"))%>" />
 	           </td>
 	            
 	        </tr>
 	        <tr>
 	          <th scope="row">* 이메일(계산서발급률)</th>
-	          <td colspan="3"><input type="text" name="email1" id="email1" class="inputTxt" style="width:100px;" />
+	          <td colspan="3"><input type="text" name="email1" id="email1" class="inputTxt" style="width:100px;" value="<%= RsUtil.checkNull(email[0])%>"/>
 	            @
-	            <input type="text" class="inputTxt" id="email2" name="email2" style="width:100px;" />
+	            <input type="text" class="inputTxt" id="email2" name="email2" style="width:100px;" value="<%= RsUtil.checkNull(email[1])%>"/>
 	            <select style="width:110px;" id="email3" name="email3" onchange="domainChange()">
 	              <option value=''>직접입력</option>
 	              <option value='chollian.net'>chollian.net</option>
@@ -212,46 +255,46 @@
 	        <tr>
 	          <th scope="row">배송정책</th>
 	          <td colspan="3"><div class="delivery"><strong>배송방법 : </strong>
-	              <input type="radio" class="rdo mgl10" name="sp_dvrType" value="0"/>
+	              <input type="radio" class="rdo mgl10" name="sp_dvrType" value="0" <%= WebUtil.isChecked("0", RsUtil.checkNull(supplyData.get("SP_DVRTYPE")))%> onclick="dvrChange(this.value)"/>
 	              직원방문
-	              <input type="radio" class="rdo mgl20" name="sp_dvrType" value="1"/>
+	              <input type="radio" class="rdo mgl20" name="sp_dvrType" value="1" <%= WebUtil.isChecked("1", RsUtil.checkNull(supplyData.get("SP_DVRTYPE")))%> onclick="dvrChange(this.value)"/>
 	              택배수령
-	              <input type="text" class="inputTxt" style="width:90px;" value="<%= RsUtil.checkNull(supplyData.get("SP_DVRPRICE2"))%>" />
-	              <select style="width:70px;" id="sp_sendType" name="sp_sendType">
+	              <input type="text" class="inputTxt" style="width:90px;" id="sp_dvrPrice2" name="sp_dvrPrice2" value="<%= RsUtil.checkNull(supplyData.get("SP_DVRPRICE2"))%>" disabled="disabled"/>
+	              <select style="width:70px;" id="sp_sendType" name="sp_sendType" disabled="disabled">
 	                <option value="0" <%= WebUtil.isSelected("0", RsUtil.checkNull(supplyData.get("SP_SENDTYPE")))%>>선불</option>
 	                <option value="1" <%= WebUtil.isSelected("1", RsUtil.checkNull(supplyData.get("SP_SENDTYPE")))%>>착불</option>
 	              </select>
-	              <input type="radio" class="rdo mgl20" name="sp_dvrType" value="2"/>
+	              <input type="radio" class="rdo mgl20" name="sp_dvrType" value="2" <%= WebUtil.isChecked("2", RsUtil.checkNull(supplyData.get("SP_DVRTYPE")))%> onclick="dvrChange(this.value)"/>
 	              방문수령
-	              <input type="radio" class="rdo mgl20" name="sp_dvrType" value="3"/>
+	              <input type="radio" class="rdo mgl20" name="sp_dvrType" value="3" <%= WebUtil.isChecked("3", RsUtil.checkNull(supplyData.get("SP_DVRTYPE")))%> onclick="dvrChange(this.value)"/>
 	              기타
-	              <input type="text" class="inputTxt" style="width:120px;" value="<%= RsUtil.checkNull(supplyData.get("SP_DVRTYPEETC"))%>"/>
+	              <input type="text" class="inputTxt" style="width:120px;" id="sp_dvrTypeEtc" name="sp_dvrTypeEtc" value="<%= RsUtil.checkNull(supplyData.get("SP_DVRTYPEETC"))%>"  disabled="disabled"/>
 	            </div>
 	            <strong>배송기준 : </strong>
-	            <input type="radio" class="rdo mgl10" name="sp_dvrStandard"  value="0"/>
+	            <input type="radio" class="rdo mgl10" name="sp_dvrStandard"  value="0" <%= WebUtil.isChecked("0", RsUtil.checkNull(supplyData.get("SP_DVRSTANDARD")))%> onclick="dvrStandardChange(this.value)"/>
 	            무료배송
-	            <input type="radio" class="rdo mgl20" name="sp_dvrStandard"  value="1"/>
-	            <input type="number" style="ime-mode:disabled; width:90px;" onkeypress="return digit_check(event)" class="inputTxt"  value="<%= RsUtil.checkNull(supplyData.get("SP_DVRPRICE"))%>"/>
+	            <input type="radio" class="rdo mgl20" name="sp_dvrStandard"  value="1" <%= WebUtil.isChecked("1", RsUtil.checkNull(supplyData.get("SP_DVRSTANDARD")))%> onclick="dvrStandardChange(this.value)"/>
+	            <input type="number" style="ime-mode:disabled; width:90px;" id="sp_dvrPrice" name="sp_dvrPrice" onkeypress="return digit_check(event)" class="inputTxt" disabled="disabled" value="<%= RsUtil.checkNull(supplyData.get("SP_DVRPRICE"))%>"/>
 	            원 이상 무료배송
-	            <input type="radio" class="rdo mgl20" name="sp_dvrStandard"  value="2"/>
+	            <input type="radio" class="rdo mgl20" name="sp_dvrStandard"  value="2" <%= WebUtil.isChecked("2", RsUtil.checkNull(supplyData.get("SP_DVRSTANDARD")))%> onclick="dvrStandardChange(this.value)"/>
 	            착불 </td>
 	        </tr>
 	        <tr>
 	          <th scope="row">교환 및 반품정책</th>
-	          <td colspan="3"><input type="radio" class="rdo" name="sp_dvrReturn" value="0"/>
+	          <td colspan="3"><input type="radio" class="rdo" name="sp_dvrReturn" value="0"  <%= WebUtil.isChecked("0", RsUtil.checkNull(supplyData.get("SP_DVRRETURN")))%> onclick="dvrReChange(this.value)"/>
 	            직원방문
-	            <input type="radio" class="rdo mgl33" name="sp_dvrReturn"  value="1"/>
+	            <input type="radio" class="rdo mgl33" name="sp_dvrReturn"  value="1"  <%= WebUtil.isChecked("1", RsUtil.checkNull(supplyData.get("SP_DVRRETURN")))%> onclick="dvrReChange(this.value)"/>
 	            택배수령
-	            <input type="text" class="inputTxt" style="width:90px;"  value="<%= RsUtil.checkNull(supplyData.get("SP_DVRREPRICE"))%>"/>
-	            <select style="width:70px;" id="sp_dvrReType" name="sp_dvrReType">
+	            <input type="text" class="inputTxt" style="width:90px;"  id="sp_dvrRePrice" name="sp_dvrRePrice" value="<%= RsUtil.checkNull(supplyData.get("SP_DVRREPRICE"))%>"  disabled="disabled" />
+	            <select style="width:70px;" id="sp_dvrReType" name="sp_dvrReType" disabled="disabled">
 	              <option value="0" <%= WebUtil.isSelected("0", RsUtil.checkNull(supplyData.get("SP_DVRRETYPE")))%>>선불</option>
 	              <option value="1" <%= WebUtil.isSelected("1", RsUtil.checkNull(supplyData.get("SP_DVRRETYPE")))%>>착불</option>
 	            </select>
-	            <input type="radio" class="rdo mgl33" name="sp_dvrReturn"  value="2"/>
+	            <input type="radio" class="rdo mgl33" name="sp_dvrReturn"  value="2"  <%= WebUtil.isChecked("2", RsUtil.checkNull(supplyData.get("SP_DVRRETURN")))%> onclick="dvrReChange(this.value)"/>
 	            당사 직접방문
-	            <input type="radio" class="rdo mgl33" name="sp_dvrReturn"  value="3"/>
+	            <input type="radio" class="rdo mgl33" name="sp_dvrReturn"  value="3"  <%= WebUtil.isChecked("3", RsUtil.checkNull(supplyData.get("SP_DVRRETURN")))%> onclick="dvrReChange(this.value)"/>
 	            기타
-	            <input type="text" class="inputTxt" style="width:150px;" /></td>
+	            <input type="text" class="inputTxt" style="width:150px;" id="sp_dvrReturnEtc" name="sp_dvrReturnEtc" value="<%= RsUtil.checkNull(supplyData.get("SP_DVRRETURNETC"))%>" disabled="disabled"/></td>
 	        </tr>
 	      </tbody>
 	    </table>
@@ -267,6 +310,17 @@
   <!--/contents--> 
 <%@ include file="../bottom.jsp" %>
 <script>
+	$(document).ready(function(){
+		var dvrType = $(":input:radio[name='sp_dvrType']:checked").val();
+		var dvrStandardType =  $(":input:radio[name='sp_dvrStandard']:checked").val();
+		var dvrReType =  $(":input:radio[name='sp_dvrReturn']:checked").val();
+		dvrChange(dvrType);
+		dvrStandardChange(dvrStandardType);
+		dvrReChange(dvrReType);
+	})
+	//************
+	//수정함수-S.D.W
+	//************
 	function updateSP(){
 		var f = document.updateForm;
 		f.sp_hp.value = f.hp1.value + f.hp2.value + f.hp3.value;
@@ -281,7 +335,6 @@
 		}else{
 			f.sp_email.value = f.email1.value + "@" + f.email3.value;
 		}
-		console.log(f.sp_email.value);
 		
 		var Url = "supplyModifySave.do";
 		jQuery.ajax({
@@ -300,6 +353,9 @@
 		})
 	}
 	
+	//************
+	//아이디체크 함수ㅜ-S.D.W
+	//************
 	function idChk(){
 		var Url = "supplyIdChk.do";
 		jQuery.ajax({
@@ -317,6 +373,10 @@
 			}
 		})
 	}
+	
+	//************
+	//이메일 체인지 함수ㅜ-S.D.W
+	//************
 	function domainChange(){
 		if($("#email3").val() != ""){
 			$("#email2").attr("disabled", "disabled");
@@ -328,6 +388,10 @@
 		}
 	}
 	
+	
+	//************
+	//파일 변경 함수ㅜ-S.D.W
+	//************
 	function fileChange(name){
 		var columnName = "#" + name; 
 		/* $(columnName).val(Filename); */
@@ -342,6 +406,58 @@
 		};
 		jQuery("#updateForm").ajaxForm(options).submit();
 	}
+	
+	//************
+	//배송방법 radio 박스-S.D.W
+	//************
+	function dvrChange(val){
+		console.log(123);
+		if(val == "1"){
+			$("#sp_dvrPrice2").removeAttr("disabled");
+			$("#sp_sendType").removeAttr("disabled");
+			$("#sp_dvrTypeEtc").attr("disabled", "disabled");
+		}else if(val == "3"){
+			$("#sp_dvrTypeEtc").removeAttr("disabled");
+			$("#sp_dvrPrice2").attr("disabled", "disabled");
+			$("#sp_sendType").attr("disabled", "disabled");
+		}else{
+			$("#sp_dvrTypeEtc").attr("disabled", "disabled");
+			$("#sp_dvrPrice2").attr("disabled", "disabled");
+			$("#sp_sendType").attr("disabled", "disabled");
+		}
+	}
+	
+	//************
+	//배송기준 radio 박스-S.D.W
+	//************
+	function dvrStandardChange(val){
+		if(val == "1"){
+			$("#sp_dvrPrice").removeAttr("disabled");
+		}else{
+			$("#sp_dvrPrice").attr("disabled", "disabled");
+		}
+	}
+	
+	//************
+	//교환반품 radio 박스-S.D.W
+	//************
+	
+	function dvrReChange(val){
+		if(val == "1"){
+			$("#sp_dvrRePrice").removeAttr("disabled");
+			$("#sp_dvrReType").removeAttr("disabled");
+			$("#sp_dvrReturnEtc").attr("disabled", "disabled");
+		}else if(val == "3"){
+			$("#sp_dvrReturnEtc").removeAttr("disabled");
+			$("#sp_dvrRePrice").attr("disabled", "disabled");
+			$("#sp_dvrReType").attr("disabled", "disabled");
+		}else{
+			$("#sp_dvrReturnEtc").attr("disabled", "disabled");
+			$("#sp_dvrRePrice").attr("disabled", "disabled");
+			$("#sp_dvrReType").attr("disabled", "disabled");
+		}
+	}
+	
 	
 	
 </script>
