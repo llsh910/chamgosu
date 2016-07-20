@@ -86,6 +86,9 @@
 				<if test="ld_groupgubn != null and ld_groupgubn != ''">
 					and LD_GROUPGUBN = #{ld_groupgubn}
 				</if>
+				<if test="ld_comgubn != null and ld_comgubn != ''">
+					and LD_COMGUBN = #{ld_comgubn}
+				</if>
 			order by REGDATE desc
 		) as list
 		where list.rn between #{start} and #{end}

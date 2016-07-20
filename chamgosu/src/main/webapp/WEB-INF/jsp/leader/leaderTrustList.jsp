@@ -12,113 +12,115 @@
 	<!--contents-->
   <div id="contents">
     <h2>ㆍ위탁영업 리더관리</h2>
-    <!-- search -->
-    <div class="search">
-      <ul>
-        <li class="fl"> <span>리더명</span>
-          <input type="text" class="inputTxt" style="width:230px;" />
-          <select style="width:100px;">
-            <option>전체보기</option>
-            <option>학원</option>
-            <option>교습소</option>
-            <option>공부방</option>
-            <option>교육단체</option>
-          </select>
-          <select style="width:100px;">
-            <option>승인대기</option>
-            <option>승인완료</option>
-          </select> 
-          <input value="검색하기" type="button" class="btnm" />
-        </li>
-      </ul>
-    </div>
-    <!-- /search -->
-    
-    <!--리스트 테이블영역--> 
-    <h4><span>총 리더수 : 100명</span> 조회 리더 수 : 100명
-      <p>
-        <select style="width:90px;">
-          <option>10개씩 보기</option>
-          <option>20개씩 보기</option>
-          <option>50개씩 보기</option>
-          <option>100개씩 보기</option>
-        </select>
-      </p>
-    </h4>
-    <table class="bbs_list01">
-      <caption>
-      리더 리스트
-      </caption>
-      <colgroup>
-      <col width="30" />
-      <col width="30" />
-      <col width="*" />
-      <col width="100" />
-      <col width="70" />
-      <col width="110" />
-      <col width="160" />
-      <col width="80" />
-      <col width="65" />
-      <col width="90" />
-      <col width="65" />
-      <col width="60" />
-      </colgroup>
-      
-      <thead>
-        <tr>
-          <th scope="col"><input type="checkbox" class="chk" id="checkall" /></th>
-          <th scope="col">번호</th>
-          <th scope="col">리더 ID</th>
-          <th scope="col">단체명</th>
-          <th scope="col">대표자명</th>
-          <th scope="col">연락처</th>
-          <th scope="col">메일주소</th>
-          <th scope="col">가입일</th>
-          <th scope="col">회원구분</th>
-          <th scope="col">총 수수료</th>
-          <th scope="col">승인여부</th>
-          <th scope="col">상세정보</th>
-        </tr>
-      </thead>
-      <tbody>
-      <%
-      	if(leaderList.size() > 0){	
-      	for(int i=0; i<leaderList.size(); i++){ %>
-      <tr>
-        <td><input type="checkbox" class="chk" name="chk" /></td>
-        <td>1</td>
-        <td><%= RsUtil.checkNull(leaderList.get(i).get("LD_ID"))%></td>
-        <td><%= RsUtil.checkNull(leaderList.get(i).get("LD_GROUPNM"))%></td>
-        <td><%= RsUtil.checkNull(leaderList.get(i).get("LD_NAME"))%></td>
-        <td><%= RsUtil.checkNull(leaderList.get(i).get("LD_HP"))%></td>
-        <td><a href="mailto:<%= RsUtil.checkNull(leaderList.get(i).get("LD_EMAIL"))%>"><%= RsUtil.checkNull(leaderList.get(i).get("LD_EMAIL"))%></a></td>
-        <td><%= RsUtil.checkNull(leaderList.get(i).get("REGDATE"))%></td>
-        <td>유료업체</td>
-        <td>10,000,000원</td>
-        <td><%= RsUtil.checkNull(leaderList.get(i).get("LD_COMGUBN"))%></td>
-        <td><input value="보기" type="button" class="btns01" /></td>
-      </tr>
-      <%}}else{ %>
-      	<tr>
-      		<td colspan="12">
-      			외탁엽업 리더가 존재하지 않습니다.
-      		</td>
-      	</tr>
-      <%} %>
-        </tbody>
-      
-    </table>
-    
-    <!--/리스트 테이블영역--> 
-    <script>
-			$('.bbs_list01 tr:even').css("background","#f4f4f4");
-			$('.bbs_list02 tr:even').css("background","#f4f4f4");
-		</script> 
-    
-    <!-- paging -->
-    <div class="paging"> <a href="#" class="btn"><img src="../img/btn_page_prev02.gif" alt="처음 페이지로 가기" /></a> <a href="#" class="btn"><img src="../img/btn_page_prev.gif" alt="이전 페이지로 가기" /></a> <span> <a href="#"><strong>1</strong></a> <a href="#">2</a> <a href="#">3</a> <a href="#">4</a> <a href="#">5</a> </span> <a href="#" class="btn"><img src="../img/btn_page_next.gif" alt="다음 페이지로 가기" /></a> <a href="#" class="btn"><img src="../img/btn_page_next02.gif" alt="마지막 페이지로 가기" /></a> </div>
-    <!-- //paging --> 
-    
+    <form id="searchForm">
+	    <input type="hidden" id="page_index" name="page_index"  value="<%=page_index%>" />
+	    <!-- search -->
+	    <div class="search">
+	      <ul>
+	        <li class="fl"> <span>리더명</span>
+	          <input type="text" class="inputTxt" style="width:230px;" />
+	          <select style="width:100px;" id="ld_groupgubn" name="ld_groupgubn">
+	            <option value="">전체보기</option>
+	            <option value="0" <%= WebUtil.isSelected("0", request.getParameter("ld_groupgubn"))%>>학원</option>
+	            <option value="1" <%= WebUtil.isSelected("1", request.getParameter("ld_groupgubn"))%>>교습소</option>
+	            <option value="2" <%= WebUtil.isSelected("2", request.getParameter("ld_groupgubn"))%>>공부방</option>
+	            <option value="3" <%= WebUtil.isSelected("3", request.getParameter("ld_groupgubn"))%>>교육단체</option>
+	          </select>
+	          <select style="width:100px;" id="ld_comgubn" name="ld_comgubn">
+	            <option value="0" <%= WebUtil.isSelected("0", request.getParameter("ld_comgubn"))%>>승인대기</option>
+	            <option value="1" <%= WebUtil.isSelected("1", request.getParameter("ld_comgubn"))%>>승인완료</option>
+	          </select> 
+	          <input value="검색하기" type="button" class="btnm" onclick="searchSubmit()"/>
+	        </li>
+	      </ul>
+	    </div>
+	    <!-- /search -->
+	    
+	    <!--리스트 테이블영역--> 
+	    <h4><span>총 리더수 : 100명</span> 조회 리더 수 : 100명
+	      <p>
+	        <select style="width:90px;">
+	          <option>10개씩 보기</option>
+	          <option>20개씩 보기</option>
+	          <option>50개씩 보기</option>
+	          <option>100개씩 보기</option>
+	        </select>
+	      </p>
+	    </h4>
+	    <table class="bbs_list01">
+	      <caption>
+	      리더 리스트
+	      </caption>
+	      <colgroup>
+	      <col width="30" />
+	      <col width="30" />
+	      <col width="*" />
+	      <col width="100" />
+	      <col width="70" />
+	      <col width="110" />
+	      <col width="160" />
+	      <col width="80" />
+	      <col width="65" />
+	      <col width="90" />
+	      <col width="65" />
+	      <col width="60" />
+	      </colgroup>
+	      
+	      <thead>
+	        <tr>
+	          <th scope="col"><input type="checkbox" class="chk" id="checkall" /></th>
+	          <th scope="col">번호</th>
+	          <th scope="col">리더 ID</th>
+	          <th scope="col">단체명</th>
+	          <th scope="col">대표자명</th>
+	          <th scope="col">연락처</th>
+	          <th scope="col">메일주소</th>
+	          <th scope="col">가입일</th>
+	          <th scope="col">회원구분</th>
+	          <th scope="col">총 수수료</th>
+	          <th scope="col">승인여부</th>
+	          <th scope="col">상세정보</th>
+	        </tr>
+	      </thead>
+	      <tbody>
+	      <%
+	      	if(leaderList.size() > 0){	
+	      	for(int i=0; i<leaderList.size(); i++){ %>
+	      <tr>
+	        <td><input type="checkbox" class="chk" name="chk" /></td>
+	        <td>1</td>
+	        <td><%= RsUtil.checkNull(leaderList.get(i).get("LD_ID"))%></td>
+	        <td><%= RsUtil.checkNull(leaderList.get(i).get("LD_GROUPNM"))%></td>
+	        <td><%= RsUtil.checkNull(leaderList.get(i).get("LD_NAME"))%></td>
+	        <td><%= RsUtil.checkNull(leaderList.get(i).get("LD_HP"))%></td>
+	        <td><a href="mailto:<%= RsUtil.checkNull(leaderList.get(i).get("LD_EMAIL"))%>"><%= RsUtil.checkNull(leaderList.get(i).get("LD_EMAIL"))%></a></td>
+	        <td><%= RsUtil.checkNull(leaderList.get(i).get("REGDATE"))%></td>
+	        <td>유료업체</td>
+	        <td>10,000,000원</td>
+	        <td><%= RsUtil.checkNull(leaderList.get(i).get("LD_COMGUBN"))%></td>
+	        <td><input value="보기" type="button" class="btns01" /></td>
+	      </tr>
+	      <%}}else{ %>
+	      	<tr>
+	      		<td colspan="12">
+	      			위탁엽업 리더가 존재하지 않습니다.
+	      		</td>
+	      	</tr>
+	      <%} %>
+	        </tbody>
+	      
+	    </table>
+	    
+	    <!--/리스트 테이블영역--> 
+	    <script>
+				$('.bbs_list01 tr:even').css("background","#f4f4f4");
+				$('.bbs_list02 tr:even').css("background","#f4f4f4");
+			</script> 
+	    
+	    <!-- paging -->
+	    <div class="paging"> <a href="#" class="btn"><img src="../img/btn_page_prev02.gif" alt="처음 페이지로 가기" /></a> <a href="#" class="btn"><img src="../img/btn_page_prev.gif" alt="이전 페이지로 가기" /></a> <span> <a href="#"><strong>1</strong></a> <a href="#">2</a> <a href="#">3</a> <a href="#">4</a> <a href="#">5</a> </span> <a href="#" class="btn"><img src="../img/btn_page_next.gif" alt="다음 페이지로 가기" /></a> <a href="#" class="btn"><img src="../img/btn_page_next02.gif" alt="마지막 페이지로 가기" /></a> </div>
+	    <!-- //paging --> 
+    </form>
     <!--탭버튼-->
     <div id="tabwrap01">
       <ul class="tabs01">
@@ -222,3 +224,14 @@ $(function () {
   </div>
   <!--/contents--> 
 <%@ include file="../bottom.jsp" %>
+<script>
+	var searchSubmit = function(){
+		jQuery("#searchForm").submit();
+	};
+	
+	var pageSearch = function(page_index){
+		jQuery("#page_index").val(page_index);
+		
+		searchSubmit();
+	};
+</script>
