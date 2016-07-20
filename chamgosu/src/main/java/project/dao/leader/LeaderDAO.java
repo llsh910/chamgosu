@@ -27,6 +27,22 @@ public class LeaderDAO extends TempletDAO {
 		return (List<Map<String, Object>>)selectList("leader.leaderTrustList", map);
 	}
 	
+	
+	public int leaderNoListCntAll(Map<String, Object> map) throws Exception{
+		return (Integer)selectOne("leader.leaderNoListCntAll", map);
+	}
+	
+	public int leaderNoListCnt(Map<String, Object> map) throws Exception{
+		return (Integer)selectOne("leader.leaderNoListCnt", map);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Map<String, Object>> leaderNoList(Map<String, Object> map) throws Exception{
+		return (List<Map<String, Object>>)selectList("leader.leaderNoList", map);
+	}
+	
+	
+	
 	public int leaderModifySave(Map<String, Object> map) throws Exception{
 		return (Integer)update("leader.leaderModifySave", map);
 	}
