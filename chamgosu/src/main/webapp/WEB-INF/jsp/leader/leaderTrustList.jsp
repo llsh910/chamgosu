@@ -88,7 +88,7 @@
 	      	for(int i=0; i<leaderList.size(); i++){ %>
 	      <tr>
 	        <td><input type="checkbox" class="chk" name="chk" /></td>
-	        <td>1</td>
+	        <td><%= ((Integer.parseInt(totalCount) - ((Integer.parseInt(page_index)-1) * 10))- i)%></td>
 	        <td><%= RsUtil.checkNull(leaderList.get(i).get("LD_ID"))%></td>
 	        <td><%= RsUtil.checkNull(leaderList.get(i).get("LD_GROUPNM"))%></td>
 	        <td><%= RsUtil.checkNull(leaderList.get(i).get("LD_NAME"))%></td>

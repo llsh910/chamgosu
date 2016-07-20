@@ -404,7 +404,7 @@
 				1=1
 				
 			ORDER BY REGDATE DESC
-		) AS LIST
+		) AS list
 		where list.rn between #{start} and #{end}
 	</select>
 	

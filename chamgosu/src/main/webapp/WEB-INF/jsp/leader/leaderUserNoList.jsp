@@ -77,13 +77,13 @@
       %>
       <tr>
         <td><input type="checkbox" class="chk" name="chk" /></td>
-        <td>1</td>
-        <td>ilovestudy</td>
-        <td>아이러브스터디</td>
-        <td>홍길동</td>
-        <td>010-1234-5678</td>
-        <td>대한민국대학교</td>
-        <td>2016.07.30</td>
+        <td><%= ((Integer.parseInt(totalCount) - ((Integer.parseInt(page_index)-1) * 10))- i)%></td>
+        <td><%= RsUtil.checkNull(userList.get(i).get("LD_ID"))%></td>
+        <td><%= RsUtil.checkNull(userList.get(i).get("LD_GROUPNM"))%></td>
+        <td><%= RsUtil.checkNull(userList.get(i).get("UB_NAME"))%></td>
+        <td><%= RsUtil.checkNull(userList.get(i).get("UB_TELNO1"))%></td>
+        <td><%= RsUtil.checkNull(userList.get(i).get("UB_SCHOOLINFO"))%></td>
+        <td><%= RsUtil.checkNull(userList.get(i).get("REGDATE"))%></td>
       </tr>
       <%}}else{ %>
       	<tr>
