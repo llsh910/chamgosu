@@ -476,7 +476,10 @@ public class SupplyController {
     	JSONObject json = new JSONObject();
     	try {
     		UtilMultiFileUp fileup = new UtilMultiFileUp(request);
-    		String imageName = fileup.getFileNameOne("file_1");
+    		String inputName = fileup.getParameter("inputName");
+    		
+    		String imageName = fileup.getFileNameOne(inputName);
+    		
         	String addName = Long.toString(new Date().getTime());
         	String fileReName = addName + "_" + imageName;
         	
@@ -486,7 +489,7 @@ public class SupplyController {
         	
         	String filePath = path + fileReName;
         	if(!imageName.equals("")){
-    			fileup.saveFile("MB_FILENAME", filePath);
+    			fileup.saveFile(inputName, filePath);
     			MultiUtil.createThumbImage(path, fileReName, "thumnail_" + fileReName, 200, 200);
     			json.put("imageName", fileReName);
     		}else{

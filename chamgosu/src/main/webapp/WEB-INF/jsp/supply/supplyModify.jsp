@@ -46,6 +46,37 @@
 		email[0] = "";
 		email[1] = "";
 	}
+	
+	String sp_compNumImg1 = RsUtil.checkNull(supplyData.get("SP_COMPNUMIMG"));
+	String [] sp_compNumImg = new String[2];
+	
+	if(!sp_compNumImg1.equals("")){
+		sp_compNumImg[1] = sp_compNumImg1.substring(14);
+	}else{
+		sp_compNumImg[0] = "";
+		sp_compNumImg[1] = "";
+	}
+	
+	
+	String sp_bankBookImg1 = RsUtil.checkNull(supplyData.get("SP_BANKBOOKIMG"));
+	String [] sp_bankBookImg = new String[2];
+	
+	if(!sp_bankBookImg1.equals("")){
+		sp_bankBookImg[1] = sp_bankBookImg1.substring(14);
+	}else{
+		sp_bankBookImg[0] = "";
+		sp_bankBookImg[1] = "";
+	}
+	
+	String sp_logoImg1 = RsUtil.checkNull(supplyData.get("SP_LOGOIMG"));
+	String [] sp_logoImg = new String[2];
+	
+	if(!sp_logoImg1.equals("")){
+		sp_logoImg[1] = sp_logoImg1.substring(14);
+	}else{
+		sp_logoImg[0] = "";
+		sp_logoImg[1] = "";
+	}
 %>
 	<!--contents-->
   <div id="contents">
@@ -53,6 +84,9 @@
     <h3>상품공급자 상세보기</h3>
     <form id="updateForm" name="updateForm">
     	<input type="hidden" id="sp_seq" name="sp_seq" value="<%= RsUtil.checkNull(supplyData.get("SP_SEQ"))%>" />
+    	<input type="hidden" id="sp_compNumImg" name="sp_compNumImg" value="<%= sp_compNumImg1%>" />
+    	<input type="hidden" id="sp_bankBookImg" name="sp_bankBookImg" value="<%= sp_bankBookImg1%>" />
+    	<input type="hidden" id="sp_logoImg" name="sp_logoImg" value="<%= sp_logoImg1%>" />
 	    <table class="bbs_write01">
 	      <caption>
 	      사업자 정보
@@ -239,17 +273,17 @@
 	        </tr>
 	        <tr>
 	          <th scope="row">* 증빙서류</th>
-	          <td colspan="3"><input type="text" class="file_input_textbox" id="fileName" style="width:300px" value="사업자등록증 사본" readonly >
+	          <td colspan="3"><input type="text" class="file_input_textbox" id="fileName" style="width:300px" value="<%= (sp_compNumImg[1].equals("")?"사업자등록증 사본" : sp_compNumImg[1])%>" readonly >
 	            <div class="file_input_div mgr15" style="width:80px"> <img src="<%= realPath%>/img/open.gif" class="file_input_img_btn" alt="open" />
-	              <input type="file" name="file_1" class="file_input_hidden" onchange="javascript: document.getElementById('fileName').value = this.value; javascript:fileChange();"/>
+	              <input type="file" name="file_1" class="file_input_hidden" onchange="javascript: document.getElementById('fileName').value = this.value; javascript:fileChange('sp_compNumImg', this.name);"/>
 	            </div>
-	            <input type="text" class="file_input01_textbox" id="fileName01" style="width:300px" value="통장사본" readonly >
+	            <input type="text" class="file_input01_textbox" id="fileName01" style="width:300px" value="<%= (sp_bankBookImg[1].equals("")?"통장사본" : sp_bankBookImg[1])%>" readonly >
 	            <div class="file_input01_div mgr15" style="width:80px"> <img src="<%= realPath%>/img/open.gif" class="file_input01_img_btn" alt="open" />
-	              <input type="file" name="file_2" class="file_input01_hidden" onchange="javascript: document.getElementById('fileName01').value = this.value"/>
+	              <input type="file" name="file_2" class="file_input01_hidden" onchange="javascript: document.getElementById('fileName01').value = this.value; javascript:fileChange('sp_bankBookImg', this.name);"/>
 	            </div>
-	            <input type="text" class="file_input02_textbox" id="fileName02" style="width:300px" value="회사로고" readonly >
+	            <input type="text" class="file_input02_textbox" id="fileName02" style="width:300px" value="<%= (sp_logoImg[1].equals("")?"회사로고" : sp_logoImg[1])%>" readonly >
 	            <div class="file_input02_div mgr15" style="width:80px"> <img src="<%= realPath%>/img/open.gif" class="file_input02_img_btn" alt="open" />
-	              <input type="file" name="file_3" class="file_input02_hidden" onchange="javascript: document.getElementById('fileName02').value = this.value"/>
+	              <input type="file" name="file_3" class="file_input02_hidden" onchange="javascript: document.getElementById('fileName02').value = this.value; javascript:fileChange('sp_logoImg', this.name);"/>
 	            </div></td>
 	        </tr>
 	        <tr>
@@ -392,16 +426,23 @@
 	//************
 	//파일 변경 함수ㅜ-S.D.W
 	//************
-	function fileChange(name){
-		var columnName = "#" + name; 
-		/* $(columnName).val(Filename); */
+	function fileChange(name, thisName){
+		var columnName = "#" + name;
+		
 		var options = {
 	    	url : 'spFileUpload.do',
 	    	type: 'post',
 	    	contentType: 'application/x-www-form-urlencoded; charset=utf-8',
 	    	dataType : "json",
+	    	data : {
+	    		"inputName" : thisName
+	    	},
 	    	success:function(data){
-	    		console.log(data);
+	    		if(data.msg == "success"){
+	    			$(columnName).val(data.imageName);
+	    		}else{
+	    			alert("파일 업로드 시스템 오류 ::");
+	    		}
 	    	}
 		};
 		jQuery("#updateForm").ajaxForm(options).submit();
