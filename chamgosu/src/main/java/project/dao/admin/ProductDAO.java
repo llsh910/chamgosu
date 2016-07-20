@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import project.config.dao.TempletDAO;
 
 @Repository("productDAO")
-public class productDAO extends TempletDAO {
+public class ProductDAO extends TempletDAO {
 	
 	@SuppressWarnings("unchecked")
 	public int insertProduct(Map<String, Object> map) throws Exception{

@@ -17,7 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import net.sf.json.JSONObject;
 import project.config.common.CommandMap;
 import project.config.util.RsUtil;
-import project.service.admin.administrator_setService;
+import project.service.admin.Administrator_setService;
 
 /**
  * Created By S.D.W 2016-07-12 17:22:00
@@ -29,7 +29,7 @@ public class Administrator_setController {
 	Logger log = Logger.getLogger(this.getClass());
 
 	@Resource(name="administrator_setService")
-	private administrator_setService administrator_setService;
+	private Administrator_setService administrator_setService;
 
 	@RequestMapping(value="/administrator_set.do")
 	public ModelAndView administratorPage(CommandMap map, HttpServletRequest request, HttpServletResponse response) throws Exception{

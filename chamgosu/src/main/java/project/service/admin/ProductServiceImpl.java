@@ -6,12 +6,12 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import project.dao.admin.productDAO;
+import project.dao.admin.ProductDAO;
 @Service("productService")
-public class productServiceImpl implements productService {
+public class ProductServiceImpl implements ProductService {
 
 	@Resource(name="productDAO")
-	private productDAO productDAO;
+	private ProductDAO productDAO;
 	
 	
 	@Override

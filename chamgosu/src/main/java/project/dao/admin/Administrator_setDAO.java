@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import project.config.dao.TempletDAO;
 
 @Repository("administrator_setDAO")
-public class administrator_setDAO extends TempletDAO {
+public class Administrator_setDAO extends TempletDAO {
 	
 	@SuppressWarnings("unchecked")
 	public int insertAdministrator(Map<String, Object> map) throws Exception{

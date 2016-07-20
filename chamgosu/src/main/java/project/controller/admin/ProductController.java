@@ -14,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import net.sf.json.JSONObject;
 import project.config.common.CommandMap;
-import project.service.admin.productService;
+import project.service.admin.ProductService;
 
 /**
  * Created By S.D.W 2016-07-15 11:42:00
@@ -22,11 +22,11 @@ import project.service.admin.productService;
  *
  */
 @Controller
-public class productController {
+public class ProductController {
 	Logger log = Logger.getLogger(this.getClass());
 
 	@Resource(name="productService")
-	private productService productService;
+	private ProductService productService;
 	
 	@RequestMapping(value="/product_update.do")
 	public ModelAndView administratorPage(CommandMap map, HttpServletRequest request, HttpServletResponse response) throws Exception{

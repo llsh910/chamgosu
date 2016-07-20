@@ -7,12 +7,12 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import project.dao.admin.administrator_setDAO;
+import project.dao.admin.Administrator_setDAO;
 @Service("administrator_setService")
-public class administrator_setServiceImpl implements administrator_setService {
+public class Administrator_setServiceImpl implements Administrator_setService {
 
 	@Resource(name="administrator_setDAO")
-	private administrator_setDAO administrator_setDAO;
+	private Administrator_setDAO administrator_setDAO;
 	
 	@Override
 	public int insertAdministrator(Map<String, Object> map) throws Exception {
