@@ -42,6 +42,11 @@ public class LeaderServiceImpl implements LeaderService {
 	public int leaderModifySave(Map<String, Object> map) throws Exception {
 		return leaderDAO.leaderModifySave(map);
 	}
+
+	@Override
+	public Map<String, Object> leaderModifyData(Map<String, Object> map) throws Exception {
+		return leaderDAO.leaderModifyData(map);
+	}
 	
 	
 

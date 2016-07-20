@@ -249,5 +249,79 @@
 	
 	
 	
+	
+	
+	<!-- 회원 -->
+	<select id="leaderUserListCntAll" parameterType="hashmap" resultType="int">
+		select count(*) from CG_USER where 1=1
+	</select>
+
+	<select id="leaderUserListCnt" parameterType="hashmap" resultType="int">
+		select count(*) from CG_USER where 1=1
+	</select>
+	
+	<select id="leaderNoList" parameterType="hashmap" resultType="hashmap">
+		select 
+			US_USERID
+			, US_LOGINID
+			, US_LOGINPASS
+			, US_NAME
+			, US_ZIP
+			, US_ADDR1
+			, US_ADDR2
+			, US_TELNO1
+			, US_TELNO2
+			, US_SMS
+			, US_EMAIL
+			, US_POINT
+			, US_OUTPOINT
+			, US_INPOINT
+			, US_CER
+			, US_SCHOOLINFO
+			, US_LEADERID
+			, US_LEV
+			, US_MASTER
+			, US_MEMO
+			, US_MEMO2
+			, DATE_FORMAT( REGDATE,'%Y-%m-%d' ) as REGDATE
+		from
+		(
+			select
+				US_USERID
+				, US_LOGINID
+				, US_LOGINPASS
+				, US_NAME
+				, US_ZIP
+				, US_ADDR1
+				, US_ADDR2
+				, US_TELNO1
+				, US_TELNO2
+				, US_SMS
+				, US_EMAIL
+				, US_POINT
+				, US_OUTPOINT
+				, US_INPOINT
+				, US_CER
+				, US_SCHOOLINFO
+				, US_LEADERID
+				, US_LEV
+				, US_MASTER
+				, US_MEMO
+				, US_MEMO2
+				, REGDATE
+				, @rnum := @rnum + 1 as rn
+			from
+				(SELECT @rnum := 0) r,
+				CG_USER
+			where
+				1=1
+				
+			order by REGDATE desc
+		) as list
+		where list.rn between #{start} and #{end}
+	</select>
+	<!-- end 회원 -->
+	
+	
    
 </mapper>

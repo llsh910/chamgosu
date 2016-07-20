@@ -1,11 +1,14 @@
 package project.controller.leader;
 
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
+
+import net.sf.json.JSONObject;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -24,6 +27,13 @@ public class LeaderController {
 	private LeaderService leaderService;
 
 
+	/**
+	 * 위탁영업리더 리스트
+	 * @param map
+	 * @param response
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value="/leaderTrustList.do")
 	public ModelAndView leaderTrustList(CommandMap map, HttpServletResponse response) throws Exception{
 
@@ -55,8 +65,10 @@ public class LeaderController {
 		pageInfo.put("page_index", page_index);
 		pageInfo.put("totalCount", totalCount);
 		pageInfo.put("per_page", per_page);
-
-
+		
+		int allCount = leaderService.leaderTrustListCntAll(searchMap);
+		pageInfo.put("allCount", allCount);
+		
 		try{
 
 			List<Map<String, Object>> leaderList = leaderService.leaderTrustList(searchMap);
@@ -73,5 +85,63 @@ public class LeaderController {
 		}
 
 		return mav;
+	}
+	
+	/**
+	 * 수정 데이터 가져오기
+	 * 상세페이지 가져오기
+	 * @param map
+	 * @param response
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/leaderModifyData.do")
+	public ModelAndView leaderModifyData(CommandMap map, HttpServletResponse response) throws Exception{
+		ModelAndView mav = new ModelAndView("/leader/leaderView");
+		
+		try{
+			Map<String, Object> leaderViewData = leaderService.leaderModifyData(map.getMap());
+			
+			mav.addObject("leaderViewData", leaderViewData);
+			
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}finally{
+			
+		}
+		return mav;
+	}
+	
+	/**
+	 * 리더 수정
+	 * @param map
+	 * @param response
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/leaderModifySave.do")
+	public void leaderModifySave(CommandMap map, HttpServletResponse response) throws Exception{
+		PrintWriter pw = null;
+
+		JSONObject json = new JSONObject();
+		String msg = "success";
+
+		
+
+		try{
+			
+			
+			leaderService.leaderModifySave(map.getMap());			
+
+		}catch(Exception ex){
+			ex.printStackTrace();
+			msg = "error";
+		}finally{
+			response.setContentType("application/x-json; charset=UTF-8");
+			json.put("msg", msg);
+			pw = response.getWriter();
+			pw.print(json);
+			pw.flush();
+			pw.close();
+		}
 	}
 }
