@@ -112,6 +112,43 @@ public class LeaderController {
 		return mav;
 	}
 	
+	
+	@RequestMapping(value="/leaderUserView.do")
+	public ModelAndView leaderUserView(CommandMap map, HttpServletResponse response) throws Exception{
+		ModelAndView mav = new ModelAndView("/leader/leaderUserView");
+		
+		try{
+			Map<String, Object> userView = leaderService.leaderUserView(map.getMap());
+			
+			mav.addObject("userView", userView);
+			
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}finally{
+			
+		}
+		return mav;
+	}
+	
+	@RequestMapping(value="/leaderUserNoView.do")
+	public ModelAndView leaderUserNoView(CommandMap map, HttpServletResponse response) throws Exception{
+		ModelAndView mav = new ModelAndView("/leader/leaderUserNoView");
+		
+		try{
+			Map<String, Object> userView = leaderService.leaderUserNoView(map.getMap());
+			
+			mav.addObject("userView", userView);
+			
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}finally{
+			
+		}
+		return mav;
+	}
+	
+	
+	
 	/**
 	 * 리더 수정
 	 * @param map
