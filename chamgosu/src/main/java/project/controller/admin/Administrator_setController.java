@@ -25,7 +25,7 @@ import project.service.admin.administrator_setService;
  *
  */
 @Controller
-public class administrator_setController {
+public class Administrator_setController {
 	Logger log = Logger.getLogger(this.getClass());
 
 	@Resource(name="administrator_setService")
