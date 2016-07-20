@@ -62,6 +62,21 @@ public class LeaderServiceImpl implements LeaderService {
 	public List<Map<String, Object>> leaderNoList(Map<String, Object> map) throws Exception {
 		return leaderDAO.leaderNoList(map);
 	}
+
+	@Override
+	public int leaderUserListCntAll(Map<String, Object> map) throws Exception {
+		return leaderDAO.leaderUserListCntAll(map);
+	}
+
+	@Override
+	public int leaderUserListCnt(Map<String, Object> map) throws Exception {
+		return leaderDAO.leaderUserListCnt(map);
+	}
+
+	@Override
+	public List<Map<String, Object>> leaderUserList(Map<String, Object> map) throws Exception {
+		return leaderDAO.leaderUserList(map);
+	}
 	
 	
 
