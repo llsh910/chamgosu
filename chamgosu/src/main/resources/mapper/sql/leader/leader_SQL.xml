@@ -88,6 +88,93 @@
 		) as list
 		where list.rn between #{start} and #{end}
 	</select>
+
+
+	<!-- 비영업자 리더 -->
+	<select id="leaderNoListCntAll" parameterType="hashmap" resultType="int">
+		select count(*) from CG_LEADER where LD_GROUPGUBN in ('4')
+	</select>
+
+	<select id="leaderNoListCnt" parameterType="hashmap" resultType="int">
+		select count(*) from CG_LEADER where LD_GROUPGUBN in ('4')
+	</select>
+	
+	<select id="leaderNoList" parameterType="hashmap" resultType="hashmap">
+		select 
+			LD_SEQ
+			, LD_ID
+			, LD_PWD
+			, LD_GROUPNM
+			, LD_GROUPGUBN
+			, LD_NAME
+			, LD_AUTHCODE
+			, LD_AUTHCHK
+			, LD_POST
+			, LD_ADDRESS
+			, LD_ADDRESSDETAIL
+			, LD_TEL
+			, LD_FAX
+			, LD_HP
+			, LD_SNSCHK
+			, LD_EMAIL
+			, LD_EMAILSENDCHK
+			, LD_GROUPINFO
+			, LD_REGION
+			, LD_ORGSALERATE
+			, LD_ORGMILEGERATE
+			, LD_BANKNM
+			, LD_BANKNUM
+			, LD_BANKMEMNM
+			, LD_BANKBOOKIMG
+			, LD_LOGOIMG
+			, LD_COMPNUMIMG
+			, DATE_FORMAT( REGDATE,'%Y-%m-%d' ) as REGDATE
+			, LD_COMGUBN
+		from
+		(
+			select
+				LD_SEQ
+				, LD_ID
+				, LD_PWD
+				, LD_GROUPNM
+				, LD_GROUPGUBN
+				, LD_NAME
+				, LD_AUTHCODE
+				, LD_AUTHCHK
+				, LD_POST
+				, LD_ADDRESS
+				, LD_ADDRESSDETAIL
+				, LD_TEL
+				, LD_FAX
+				, LD_HP
+				, LD_SNSCHK
+				, LD_EMAIL
+				, LD_EMAILSENDCHK
+				, LD_GROUPINFO
+				, LD_REGION
+				, LD_ORGSALERATE
+				, LD_ORGMILEGERATE
+				, LD_BANKNM
+				, LD_BANKNUM
+				, LD_BANKMEMNM
+				, LD_BANKBOOKIMG
+				, LD_LOGOIMG
+				, LD_COMPNUMIMG
+				, REGDATE
+				, LD_COMGUBN
+				, @rnum := @rnum + 1 as rn
+			from
+				(SELECT @rnum := 0) r,
+				CG_LEADER
+			where
+				LD_GROUPGUBN in ('4')
+				
+			order by REGDATE desc
+		) as list
+		where list.rn between #{start} and #{end}
+	</select>
+	<!-- end 비영업자 리더 -->
+	
 	
 	
 	<select id="leaderModifyData" parameterType="hashmap" resultType="hashmap">

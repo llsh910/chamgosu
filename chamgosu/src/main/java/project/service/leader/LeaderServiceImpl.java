@@ -9,7 +9,7 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import project.dao.leader.LeaderDAO;
-@Service("supplyService")
+@Service("leaderService")
 public class LeaderServiceImpl implements LeaderService {
 
 	Logger log = Logger.getLogger(this.getClass());
@@ -37,6 +37,13 @@ public class LeaderServiceImpl implements LeaderService {
 	public int leaderIdChk(Map<String, Object> map) throws Exception {
 		return leaderDAO.leaderIdChk(map);
 	}
+
+	@Override
+	public int leaderModifySave(Map<String, Object> map) throws Exception {
+		return leaderDAO.leaderModifySave(map);
+	}
+	
+	
 
 
 }

@@ -8,4 +8,5 @@ public interface LeaderService {
 	int leaderTrustListCntAll(Map<String, Object> map) throws Exception;
 	int leaderTrustListCnt(Map<String, Object> map) throws Exception;
 	List<Map<String, Object>> leaderTrustList(Map<String, Object> map) throws Exception;
+	int leaderModifySave(Map<String, Object> map) throws Exception;
 }
