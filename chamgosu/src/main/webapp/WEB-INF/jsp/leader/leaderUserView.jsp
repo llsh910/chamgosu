@@ -3,7 +3,6 @@
 <%
 	Map<String, Object> userView = (Map<String, Object>)request.getAttribute("userView");
 %>
-<%= userView %>
 <!--contents-->
   <div id="contents">
     <h2>ㆍ구매회원 관리</h2>
