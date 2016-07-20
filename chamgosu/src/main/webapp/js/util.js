@@ -61,3 +61,10 @@ function toNumber(str){
    }
   }
  } 
+ 
+ //팝업띄위기(Window)
+ function popupOpen(Url){
+	var popUrl = Url;	//팝업창에 출력될 페이지 URL
+	var popOption = "width=900, height=600, resizable=no, scrollbars=no, status=no;";    //팝업창 옵션(optoin)
+		window.open(popUrl,"",popOption);
+}

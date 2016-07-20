@@ -2,7 +2,7 @@
 @charset "UTF-8";
 @import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
 
-html{height:100%}
+html{height:100%;}
 html {scrollbar-3dLight-Color: #fff; scrollbar-arrow-color: #333; scrollbar-base-color: #fff; scrollbar-Face-Color: #dfdfdf; scrollbar-Track-Color: #fff; scrollbar-DarkShadow-Color: #fff; scrollbar-Highlight-Color: #fff; scrollbar-Shadow-Color: #fff}
 
 body {
@@ -13,6 +13,7 @@ body {
 	color:#454545;
 	height:100%;
 	width:100%;
+	min-width:100%;
 	line-height:24px;
 	-webkit-font-smoothing: antialiased;
 }
@@ -60,6 +61,7 @@ input.inputTxt {height:23px; font-size:12px; padding:0 3px 0 3px; line-height:18
 input.btns {height:25px;  border-radius:4px; background:#eaeaea; border:1px solid #bbb; font-size:12px; color:#000; cursor:pointer}
 input.btns01 {height:25px;  border-radius:4px; background:#61646c; border:1px solid #61646c; font-size:12px; color:#fff; cursor:pointer}
 input.btnm {height:29px;  border-radius:4px; background:#3d3f44; border:1px solid #3d3f44; padding:0 10px; font-size:12px; color:#ddd; cursor:pointer}
+input.btnmb {height:29px;  border-radius:4px; background:#2a69b0; border:1px solid #2a69b0; padding:0 10px; font-size:12px; color:#efefef; cursor:pointer}
 input.btnm01 {height:29px;  border-radius:4px; background:#eaeaea; border:1px solid #bbb; font-size:12px; color:#000; padding:0 10px; cursor:pointer}
 input.btn01 {height:35px; background:#91969c; font-size:14px; border:1px solid #91969c; color:#ffffff; cursor:pointer; padding:0 20px; border-radius:4px}
 input.btn02 {height:35px; background:#2d2f33; font-size:14spx; border:1px solid #2d2f33; color:#ffffff; cursor:pointer; padding:0 20px; border-radius:4px}
@@ -158,6 +160,7 @@ caption {visibility:hidden; margin:0; padding:0; width:0; height:0; overflow:hid
 /* none */
 .hidden {display:none;}
 .blind {overflow:hidden; position:absolute; top:0; left:-3000px; width:1%; height:1%; line-height:1%; font-size:1%;}
+.bon {border:0 !important; background:#fff}
 .botn {border-top:0 !important;}
 .bobn {border-bottom:0 !important;}
 .bgn {background:none !important;}
