@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import project.config.common.CommandMap;
 import project.config.util.MultiUtil;
 import project.config.util.RsUtil;
+import project.config.util.UrlUtil;
 import project.config.util.UtilMultiFileUp;
 import project.service.supply.SupplyService;
 
@@ -32,7 +33,7 @@ import project.service.supply.SupplyService;
 @Controller
 public class SupplyController {
 	Logger log = Logger.getLogger(this.getClass());
-	private String asPath = "C:/dev/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp1/wtpwebapps/chamgosu/spimg/";
+	//private String asPath = "C:/dev/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp1/wtpwebapps/chamgosu/spimg/";
 	@Resource(name="supplyService")
 	private SupplyService supplyService;
 	
@@ -478,10 +479,15 @@ public class SupplyController {
     		String imageName = fileup.getFileNameOne("file_1");
         	String addName = Long.toString(new Date().getTime());
         	String fileReName = addName + "_" + imageName;
-        	String filePath = asPath + fileReName;
+        	
+        	
+        	
+        	String path = MultiUtil.loadPropertyKey(UrlUtil.URLPROPPATH, "spURL");
+        	
+        	String filePath = path + fileReName;
         	if(!imageName.equals("")){
     			fileup.saveFile("MB_FILENAME", filePath);
-    			MultiUtil.createThumbImage(asPath, fileReName, "thumnail_" + fileReName, 200, 200);
+    			MultiUtil.createThumbImage(path, fileReName, "thumnail_" + fileReName, 200, 200);
     			json.put("imageName", fileReName);
     		}else{
     			msg = "error";
