@@ -30,7 +30,7 @@
     <!-- /search -->
     
     <!--리스트 테이블영역-->
-    <h4><span>총 등록자 수 : 100명</span> 검색자 수 : 100명
+    <h4><span>총 등록자 수 : <%= totalCount%>명</span> 검색자 수 : <%= totalCount%>명
       <p>
         <select style="width:90px;">
           <option>10개씩 보기</option>

@@ -24,7 +24,7 @@
     <!-- /search -->
     
     <!--리스트 테이블영역--> 
-    <h4><span>총 리더수 : 100명</span> 조회 리더 수 : 100명
+    <h4><span>총 리더수 : <%= totalCount%>명</span> 조회 리더 수 : <%= totalCount%>명
       <p>
         <select style="width:90px;">
           <option>10개씩 보기</option>
