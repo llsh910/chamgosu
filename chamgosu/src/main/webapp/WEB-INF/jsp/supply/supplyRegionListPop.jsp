@@ -17,6 +17,7 @@
     <!--업체 개별 리스트-->
     <form id="searchForm">
 	    <input type="hidden" id="page_index" name="page_index"  value="<%=page_index%>" />
+	    
 	    <h4>업체명 : 아이러브스터디 (111-12-50135)  <select style="width:80px;">
 	          <option>승인</option>
 	          <option>미승인</option>
@@ -67,15 +68,17 @@
 	      		for(int i=0; i<supplyRegionList.size(); i++){ %>
 	      	
 		      <tr>
-		        <td><input type="checkbox" class="chk" name="chk01" /></td>
+		        <td>
+		        	<input type="checkbox" class="chk" name="chk01" value="<%= supplyRegionList.get(i).get("PR_SEQ")%>"/>
+		        </td>
 		        <td>1</td>
 		        <td><%= RsUtil.checkNull(supplyRegionList.get(i).get("PR_PBS"))%></td>
 		        <td><%= RsUtil.checkNull(supplyRegionList.get(i).get("REGION1NAME"))%></td>
 		        <td><%= RsUtil.checkNull(supplyRegionList.get(i).get("REGION2NAME"))%></td>
 		        <td><%= RsUtil.checkNull(supplyRegionList.get(i).get("PR_REGDATE"))%></td>
 		        <td><%= RsUtil.checkNull(supplyRegionList.get(i).get("PR_OKDATE"))%></td>
-		        <td><input type="checkbox" class="chk" name="chk02" /></td>
-		        <td><input type="checkbox" class="chk" name="chk03" /></td>
+		        <td><input type="checkbox" class="chk" name="chk02" value="0"/></td>
+		        <td><input type="checkbox" class="chk" name="chk03" value="1"/></td>
 		        <td><input value="저장" type="button" class="btns01" />
 		              <input value="삭제" type="button" class="btns" /></td>
 		      </tr>
@@ -100,7 +103,7 @@
     </form>
     <!-- 버튼 -->
     <div class="btnarea">
-      <input value="저장" type="button" class="btn02 mgr10" />
+      <input value="저장" type="button" class="btn02 mgr10" onclick="supplyPubSave()"/>
       <input value="삭제" type="button" class="btn01" />
     </div>
     <!-- /버튼 -->
@@ -118,6 +121,46 @@
 		
 		searchSubmit();
 	};
+	
+	//**************
+	//체크된 출판사 지역저장
+	//**************
+	function supplyPubSave(){
+		var pr_seq = [];
+		var pr_state = [];
+		$("input[name=chk01]:checked").each(function(idx) {
+			var chk02 = jQuery(this).parent().parent().find("input[name='chk02']").is(":checked");
+			var chk03 = jQuery(this).parent().parent().find("input[name='chk03']").is(":checked");
+			
+			if(chk02 == true){
+				pr_state.push("Y");
+			}else{
+				pr_state.push("N");
+			}
+			
+			var seq = $(this).val();
+			pr_seq.push(seq);
+		});
+		console.log(pr_state);
+		console.log(pr_seq);
+		/* var Url = "supplyPubSave.do";
+		jQuery.ajax({
+            url: Url,
+            type:'POST',
+            data : {
+            	"US_USERID" : US_USERID
+            }
+            ,
+            success: function(data){
+            	if(data.msg == "success"){
+            		alert("관리자가 삭제 되었습니다.");	
+            		location.reload();
+            	}else{
+            		alert("관리자를 삭제하는데 시스템오류가 발생하였습니다.");
+            	}
+			}
+		});  */
+	}
 	
 	
 </script>
