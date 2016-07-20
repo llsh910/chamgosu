@@ -12,17 +12,19 @@
 	<!--contents-->
   <div id="contents">
     <h2>ㆍ구매회원 관리</h2>
+    <form id="searchForm">
     <!-- search -->
     <div class="search">
       <ul>
         <li class="fl">
-          <input type="text" class="inputTxt" style="width:230px;" />
-          <select style="width:100px;">
-            <option>구매자ID</option>
-            <option>이름</option>
-            <option>연락처</option>
+          <input type="text" class="inputTxt" style="width:230px;" id="keyVal" name="keyVal" value="<%= RsUtil.checkNull(request.getParameter("keyVal"))%>"/>
+          <select style="width:100px;" id="keyNm" name="keyNm">
+          	<option value="">선택</option>
+            <option value="US_LOGINID" <%= WebUtil.isSelected("US_LOGINID", RsUtil.checkNull(request.getParameter("keyNm"))) %>>구매자ID</option>
+            <option value="US_NAME" <%= WebUtil.isSelected("US_NAME", RsUtil.checkNull(request.getParameter("keyNm"))) %>>이름</option>
+            <option value="US_TELNO1" <%= WebUtil.isSelected("US_TELNO1", RsUtil.checkNull(request.getParameter("keyNm"))) %>>연락처</option>
           </select>
-          <input value="검색하기" type="button" class="btnm" />
+          <input value="검색하기" type="button" class="btnm" onclick="searchSubmit()"/>
         </li>
       </ul>
     </div>
@@ -77,11 +79,12 @@
         <td><%= ((Integer.parseInt(totalCount) - ((Integer.parseInt(page_index)-1) * 10))- i)%></td>
         <td><%= RsUtil.checkNull(userList.get(i).get("US_LOGINID"))%></td>
         <td><%= RsUtil.checkNull(userList.get(i).get("US_NAME"))%></td>
-        <td><%= RsUtil.checkNull(userList.get(i).get("US_TELNO2"))%></td>
+        <%--  <td><%= WebUtil.tel(RsUtil.checkNull(userList.get(i).get("US_TELNO1")))%></td> --%>
+        <td><%= RsUtil.checkNull(userList.get(i).get("US_TELNO1"))%></td>
         <td><a href="mailto:<%= RsUtil.checkNull(userList.get(i).get("US_EMAIL"))%>"><%= RsUtil.checkNull(userList.get(i).get("US_EMAIL"))%></a></td>
         <td><%= RsUtil.checkNull(userList.get(i).get("REGDATE"))%></td>
         <td><%= RsUtil.checkNull(userList.get(i).get("US_INPOINT"))%>원</td>
-        <td><input value="보기" type="button" class="btns01" /></td>
+        <td><input value="보기" type="button" class="btns01" onclick="location.href='leaderUserView.do?us_userid=<%= RsUtil.checkNull(userList.get(i).get("US_USERID"))%>'"/></td>
       </tr>
       <%}}else{ %>
       	<tr>
@@ -100,7 +103,8 @@
     
     <!-- paging -->
     <div class="paging"><%= WebUtil.printPageIndex4("", Integer.parseInt(page_index), Integer.parseInt(totalCount), Integer.parseInt(per_page), 10, "pageSearch", realPath) %></div>
-    <!-- //paging --> 
+    <!-- //paging -->
+    </form> 
     
     <!--탭버튼-->
     <div id="tabwrap01">

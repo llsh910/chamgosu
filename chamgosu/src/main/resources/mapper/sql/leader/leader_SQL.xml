@@ -262,7 +262,10 @@
 	</select>
 
 	<select id="leaderUserListCnt" parameterType="hashmap" resultType="int">
-		select count(*) from CG_USER where US_MASTER != 'T'
+		select count(*) from CG_USER where US_MASTER != 'T' 
+		<if test="keyVal != null and keyVal != '' and keyNm != null and keyNm != ''">
+			and ${keyNm} like CONCAT('%', #{keyVal}, '%')
+		</if>
 	</select>
 	
 	<select id="leaderUserList" parameterType="hashmap" resultType="hashmap">
@@ -320,6 +323,9 @@
 				CG_USER
 			where
 				US_MASTER != 'T'
+				<if test="keyVal != null and keyVal != '' and keyNm != null and keyNm != ''">
+					and ${keyNm} like CONCAT('%', #{keyVal}, '%')
+				</if>
 				
 			order by REGDATE desc
 		) as list

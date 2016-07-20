@@ -249,6 +249,8 @@ public class LeaderController {
 		Map<String, Object> searchMap = new HashMap<String, Object>();
 
 		searchMap = map.getMap();
+		
+		
 
 		String per_page_param = RsUtil.checkNull(map.get("per_page"));
 
@@ -265,7 +267,8 @@ public class LeaderController {
 		searchMap.put("start", start);
 		searchMap.put("end", end);
 
-
+		log.debug(searchMap);
+		
 		totalCount = leaderService.leaderUserListCnt(searchMap);
 		Map<String, Object> pageInfo = new HashMap<String, Object>();
 		pageInfo.put("page_index", page_index);
