@@ -70,8 +70,8 @@
 		        <td><input type="checkbox" class="chk" name="chk01" /></td>
 		        <td>1</td>
 		        <td><%= RsUtil.checkNull(supplyRegionList.get(i).get("PR_PBS"))%></td>
-		        <td><%= RsUtil.checkNull(supplyRegionList.get(i).get("REGION1"))%></td>
-		        <td><%= RsUtil.checkNull(supplyRegionList.get(i).get("REGION2"))%></td>
+		        <td><%= RsUtil.checkNull(supplyRegionList.get(i).get("REGION1NAME"))%></td>
+		        <td><%= RsUtil.checkNull(supplyRegionList.get(i).get("REGION2NAME"))%></td>
 		        <td><%= RsUtil.checkNull(supplyRegionList.get(i).get("PR_REGDATE"))%></td>
 		        <td><%= RsUtil.checkNull(supplyRegionList.get(i).get("PR_OKDATE"))%></td>
 		        <td><input type="checkbox" class="chk" name="chk02" /></td>

@@ -87,7 +87,7 @@
 	        <td><a href="mailto:<%= RsUtil.checkNull(supplyList.get(i).get("SP_EMAIL"))%>"><%= RsUtil.checkNull(supplyList.get(i).get("SP_EMAIL"))%></a></td>
 	        <td><%= RsUtil.checkNull(supplyList.get(i).get("SP_REGDATE"))%></td>
 	        <td><%= RsUtil.checkNull(supplyList.get(i).get("SP_USERATING"))%></td>
-	        <td><input value="조회 및 관리" type="button" class="btns01" onclick="popupOpen('supplyRegionListPop.do')" /></td>
+	        <td><input value="조회 및 관리" type="button" class="btns01" onclick="popupOpen('supplyRegionListPop.do?sp_seq=<%= RsUtil.checkNull(supplyList.get(i).get("SP_SEQ"))%>')" /></td>
       	</tr>
       <%} %>
         </tbody>
