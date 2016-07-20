@@ -5,11 +5,11 @@
 	//출판지역관리 팝업페이지
 	List<Map<String, Object>> supplyRegionList = (List<Map<String, Object>>)request.getAttribute("supplyRegionList");
 	
-	/* Map<String, Object> pageInfo = (Map<String, Object>)request.getAttribute("pageInfo");
+	Map<String, Object> pageInfo = (Map<String, Object>)request.getAttribute("pageInfo");
 	String page_index = RsUtil.checkNull(pageInfo.get("page_index"));
 	String totalCount = RsUtil.checkNull(pageInfo.get("totalCount"));
 	String per_page = RsUtil.checkNull(pageInfo.get("per_page"));
-	if(page_index.equals("")) page_index = "1"; */
+	if(page_index.equals("")) page_index = "1";
 %>
 
  <!--contents-->
@@ -60,19 +60,21 @@
           <th scope="col">개별선택메뉴</th>
         </tr>
       </thead>
-      <tr>
-        <td><input type="checkbox" class="chk" name="chk01" /></td>
-        <td>1</td>
-        <td>천재교육(교판)</td>
-        <td>경기도</td>
-        <td>광명시</td>
-        <td>2016.07.30</td>
-        <td>2016.07.30</td>
-        <td><input type="checkbox" class="chk" name="chk02" /></td>
-        <td><input type="checkbox" class="chk" name="chk03" /></td>
-        <td><input value="저장" type="button" class="btns01" />
-              <input value="삭제" type="button" class="btns" /></td>
-      </tr>
+      <%for(int i=0; i<supplyRegionList.size(); i++){ %>
+	      <tr>
+	        <td><input type="checkbox" class="chk" name="chk01" /></td>
+	        <td>1</td>
+	        <td><%= RsUtil.checkNull(supplyRegionList.get(i).get("PR_PBS"))%></td>
+	        <td><%= RsUtil.checkNull(supplyRegionList.get(i).get("REGION1"))%></td>
+	        <td><%= RsUtil.checkNull(supplyRegionList.get(i).get("REGION2"))%></td>
+	        <td><%= RsUtil.checkNull(supplyRegionList.get(i).get("PR_REGDATE"))%></td>
+	        <td><%= RsUtil.checkNull(supplyRegionList.get(i).get("PR_OKDATE"))%></td>
+	        <td><input type="checkbox" class="chk" name="chk02" /></td>
+	        <td><input type="checkbox" class="chk" name="chk03" /></td>
+	        <td><input value="저장" type="button" class="btns01" />
+	              <input value="삭제" type="button" class="btns" /></td>
+	      </tr>
+      <%} %>
         </tbody>
     </table>
 

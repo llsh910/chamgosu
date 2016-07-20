@@ -357,12 +357,16 @@
 				, REGION2
 				, REGION3
 				, PR_STATE
+				, PR_OKDATE
 				, PR_REGDATE
 				, @rnum := @rnum + 1 as rn
 			from
 				(SELECT @rnum := 0) r,
 				CG_PBSREGION
 			where PR_SPID=#{sp_seq}
+			<if test="pr_state != null and pr_state != ''">
+			and PR_STATE = #{pr_state}
+			</if>
 		) as list
 		
 		where list.rn between #{start} and #{end}
