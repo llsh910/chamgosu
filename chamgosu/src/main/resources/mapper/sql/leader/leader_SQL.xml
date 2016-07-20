@@ -20,7 +20,7 @@
 			, LD_ID
 			, LD_PWD
 			, LD_GROUPNM
-			, LD_GROUPGUBN
+			, case LD_GROUPGUBN when '0' then '학원' when '1' then '교습소' when '2' then '공부방' when '3' then '교육단체' when '4' then '일반리더' end as LD_GROUPGUBN
 			, LD_NAME
 			, LD_AUTHCODE
 			, LD_AUTHCHK
@@ -110,7 +110,7 @@
 			, LD_ID
 			, LD_PWD
 			, LD_GROUPNM
-			, LD_GROUPGUBN
+			, case LD_GROUPGUBN when '0' then '학원' when '1' then '교습소' when '2' then '공부방' when '3' then '교육단체' when '4' then '일반리더' end as LD_GROUPGUBN
 			, LD_NAME
 			, LD_AUTHCODE
 			, LD_AUTHCHK
@@ -326,6 +326,99 @@
 		where list.rn between #{start} and #{end}
 	</select>
 	<!-- end 회원 -->
+	
+	<select id="leaderUserView" parameterType="hashmap" resultType="hashmap">
+		select 
+			US_USERID
+			, US_LOGINID
+			, US_LOGINPASS
+			, US_NAME
+			, US_ZIP
+			, US_ADDR1
+			, US_ADDR2
+			, US_TELNO1
+			, US_TELNO2
+			, US_SMS
+			, US_EMAIL
+			, US_POINT
+			, US_OUTPOINT
+			, US_INPOINT
+			, US_CER
+			, US_SCHOOLINFO
+			, US_LEADERID
+			, US_LEV
+			, US_MASTER
+			, US_MEMO
+			, US_MEMO2
+			, DATE_FORMAT( REGDATE,'%Y-%m-%d' ) as REGDATE
+		from 
+			CG_USER
+		where
+			US_USERID=#{us_userid}
+	</select>
+	
+	
+	
+	
+	
+	<select id="leaderUserNoListCntAll" parameterType="hashmap" resultType="int">
+		select count(*) from CG_USER_BUYINFO where 1=1
+	</select>
+
+	<select id="leaderUserNoListCnt" parameterType="hashmap" resultType="int">
+		select count(*) from CG_USER_BUYINFO where 1=1
+	</select>
+	
+	<select id="leaderUserNoList" parameterType="hashmap" resultType="hashmap">
+		select 
+			UB_SEQ
+			, UB_LEADERID
+			, case UB_LEADERGUBN when '0' then '학원' when '1' then '교습소' when '2' then '공부방' when '3' then '교육단체' when '4' then '일반리더' end as UB_LEADERGUBN
+			, UB_NAME
+			, UB_TELNO1
+			, UB_SCHOOLINFO
+			, UB_DESC
+			, DATE_FORMAT( REGDATE,'%Y-%m-%d' ) as REGDATE
+		from
+		(
+			select
+				UB_SEQ
+				, UB_LEADERID
+				, UB_LEADERGUBN
+				, UB_NAME
+				, UB_TELNO1
+				, UB_SCHOOLINFO
+				, UB_DESC
+				, REGDATE
+				, @rnum := @rnum + 1 as rn
+			from
+				(SELECT @rnum := 0) r,
+				CG_USER_BUYINFO
+			where
+				1=1
+				
+			order by REGDATE desc
+		) as list
+		where list.rn between #{start} and #{end}
+	</select>
+	
+	
+	<select id="leaderUserNoView" parameterType="hashmap" resultType="hashmap">
+		select 
+			UB_SEQ
+			, UB_LEADERID
+			, case UB_LEADERGUBN when '0' then '학원' when '1' then '교습소' when '2' then '공부방' when '3' then '교육단체' when '4' then '일반리더' end as UB_LEADERGUBN
+			, UB_NAME
+			, UB_TELNO1
+			, UB_SCHOOLINFO
+			, UB_DESC
+			, DATE_FORMAT( REGDATE,'%Y-%m-%d' ) as REGDATE
+		from 
+			CG_USER
+		where
+			UB_SEQ=#{ub_seq}
+	</select>
+	
 	
 	
    
