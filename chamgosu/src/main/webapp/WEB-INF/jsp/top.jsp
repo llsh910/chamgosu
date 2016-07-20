@@ -39,7 +39,7 @@
       <div> <a href="<%= realPath%>/supplyList.do">상품공급자 관리</a><br>
         <a href="<%= realPath%>/supplyRegionList.do">공급자 취급품목 관리</a> </div>
       <h1>회원관리</h1>
-      <div> <a href="#">위탁영업 리더 관리</a><br>
+      <div> <a href="<%= realPath%>/leaderTrustList.do">위탁영업 리더 관리</a><br>
         <a href="#">비사업자 리더 관리</a><br>
         <a href="#">구매회원 관리</a><br>
         <a href="#">비회원 관리</a><br>

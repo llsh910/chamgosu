@@ -76,14 +76,16 @@
 				, LD_LOGOIMG
 				, LD_COMPNUMIMG
 				, REGDATE
-				, LD_COMGUBN
+				, case LD_COMGUBN when '0' then '승인대기' when '1' then '승인완료' end as LD_COMGUBN
 				, @rnum := @rnum + 1 as rn
 			from
 				(SELECT @rnum := 0) r,
 				CG_LEADER
 			where
 				LD_GROUPGUBN in ('0', '1', '2', '3')
-				
+				<if test="ld_groupgubn != null and ld_groupgubn != ''">
+					and LD_GROUPGUBN = #{ld_groupgubn}
+				</if>
 			order by REGDATE desc
 		) as list
 		where list.rn between #{start} and #{end}
@@ -129,7 +131,7 @@
 			, LD_LOGOIMG
 			, LD_COMPNUMIMG
 			, DATE_FORMAT( REGDATE,'%Y-%m-%d' ) as REGDATE
-			, LD_COMGUBN
+			, case LD_COMGUBN when '0' then '승인대기' when '1' then '승인완료' end as LD_COMGUBN 
 		from
 		(
 			select
