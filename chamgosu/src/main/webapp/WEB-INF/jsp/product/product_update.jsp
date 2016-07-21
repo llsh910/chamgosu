@@ -81,12 +81,19 @@
               </colgroup>
               <tr>
                 <th scope="col">출판사별</th>
-                <%for(int i=0; i<pbsCodeList.size(); i++){ %>
+                <% if(pbsCodeList.size() <= 5){ %>
+                <% for(int i=0; i<pbsCodeList.size(); i++){ %>
                 <td><input type="radio" class="chk" id="MG_PBS" name="MG_PBS" value="<%= RsUtil.checkNull(pbsCodeList.get(i).get("CODE_FIRST"))%>"/><%= RsUtil.checkNull(pbsCodeList.get(i).get("CODE_CODENAME"))%></td>
                 <%} %>
+                <% }else{ %>
+                <% for(int i=0; i<5; i++){ %>
+                <td><input type="radio" class="chk" id="MG_PBS" name="MG_PBS" value="<%= RsUtil.checkNull(pbsCodeList.get(i).get("CODE_FIRST"))%>"/><%= RsUtil.checkNull(pbsCodeList.get(i).get("CODE_CODENAME"))%></td>
+                <%} %>
+                <% } %>
               </tr>
             </table>
-            <a>40개 <img src="<%= realPath%>/css/images/more.gif" alt="more"/></a>
+            <%if(pbsCodeList.size() > 5){ %>
+            <a><%= pbsCodeList.size()%>개 <img src="<%= realPath%>/css/images/more.gif" alt="more"/></a>
             <ul class="hide">
               <li>
                 <table style="width:600px">
@@ -98,35 +105,23 @@
               <col width="97" />
               <col width="97" />
                   </colgroup>
-                  <tr>
-                    <th scope="col"></th>
-                    <td><input type="radio" class="chk" />
-                      천재교육</td>
-                    <td><input type="radio" class="chk" />
-                      비상교육</td>
-                    <td><input type="radio" class="chk" />
-                      신사고</td>
-                    <td><input type="radio" class="chk" />
-                      개념정리</td>
-                    <td><input type="radio" class="chk" />
-                      길벗</td>
-                  </tr>
-                  <tr>
-                    <th scope="col"></th>
-                    <td><input type="radio" class="chk" />
-                      천재교육</td>
-                    <td><input type="radio" class="chk" />
-                      비상교육</td>
-                    <td><input type="radio" class="chk" />
-                      신사고</td>
-                    <td><input type="radio" class="chk" />
-                      개념정리</td>
-                    <td><input type="radio" class="chk" />
-                      길벗</td>
-                  </tr>
+                  	<tr>
+                  		<th scope="col"></th>
+                  	<% for(int i=5; i<pbsCodeList.size(); i++){ int j=i; %>
+                  		<td><input type="radio" class="chk" value="<%= RsUtil.checkNull(pbsCodeList.get(i).get("CODE_FIRST"))%>"/><%= RsUtil.checkNull(pbsCodeList.get(i).get("CODE_CODENAME"))%></td>
+                  		
+                  		<% if(j != 5){ %>
+                  			<% if((j+1) % 5 == 0){ %>
+                  				</tr>
+                  				<tr>
+                  				<th scope="col"></th>
+                  			<% } %>
+                  		<% } %>	
+                  	<% } %>	
                 </table>
               </li>
             </ul>
+            <%} %>
           </li>
           <li class="popmenu">
             <table style="width:600px">
