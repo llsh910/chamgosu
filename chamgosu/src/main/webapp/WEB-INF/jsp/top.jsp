@@ -35,7 +35,7 @@
       <h1>DB 관리</h1>
       <div> <a href="<%= realPath%>/adminProductList.do">상품관리</a><br>
         <a href="<%= realPath%>/regionProductList.do">지역별 상품 관리</a><br>
-        <a href="#">코드 관리</a> </div>
+        <a href="<%=realPath%>/codeView.do">코드 관리</a> </div>
       <h1>거래처 관리</h1>
       <div> <a href="<%= realPath%>/supplyList.do">상품공급자 관리</a><br>
         <a href="<%= realPath%>/supplyRegionList.do">공급자 취급품목 관리</a> </div>
