@@ -20,56 +20,54 @@
       </colgroup>
       <tbody>
         <tr>
-          <th scope="row">* 아이디<br>
-            (사업자등록번호)</th>
-          <td>123-02-12345</td>
+          <th scope="row">* 아이디<br></th>
+          <td><%= RsUtil.checkNull(leaderViewData.get("LD_ID"))%></td>
           <th scope="row" class="bleft">승인여부</th>
-          <td><input name="rdo02" type="radio" class="rdo" checked />
+          <td><input name="ld_comgubn" type="radio" class="rdo" <%= WebUtil.isChecked("1", RsUtil.checkNull(leaderViewData.get("LD_COMGUBN")))%>  disabled="disabled"/>
             승인완료
-            <input type="radio" class="rdo mgl20" name="rdo" />
+            <input type="radio" class="rdo mgl20" name="ld_comgubn" <%= WebUtil.isChecked("0", RsUtil.checkNull(leaderViewData.get("LD_COMGUBN")))%>  disabled="disabled"/>
           승인대기</td>
         </tr>
         <tr>
           <th scope="row">* 단체명</th>
-          <td>천재수학</td>
+          <td><%= RsUtil.checkNull(leaderViewData.get("LD_GROUPNM"))%></td>
           <th scope="row" class="bleft">* 대표자명</th>
-          <td>최고수
+          <td><%= RsUtil.checkNull(leaderViewData.get("LD_NAME"))%>
             </td>
         </tr>
         <tr>
           <th scope="row">* 현재 비밀번호</th>
-          <td colspan="3">123546ky
-            <br>신규 등록시 아이디(사업자등록번호)와 동일하게 설정됩니다.</td>
+          <td colspan="3"><%= RsUtil.checkNull(leaderViewData.get("LD_PWD"))%></td>
         </tr>
         <tr>
           <th scope="row">* 전화번호</th>
-          <td>010-4565-1234</td>
+          <td><%= WebUtil.tel(RsUtil.checkNull(leaderViewData.get("LD_TEL")))%></td>
           <th scope="row" class="bleft">* 휴대폰번호</th>
-          <td>010-6354-1234</td>
+          <td><%= WebUtil.tel(RsUtil.checkNull(leaderViewData.get("LD_HP")))%></td>
         </tr>
         <tr>
           <th scope="row">* FAX번호</th>
-          <td>055-3654-1234</td>
+          <td><%= WebUtil.tel(RsUtil.checkNull(leaderViewData.get("LD_FAX")))%></td>
           <th scope="row">* 이메일</th>
-          <td>dgksdg@dfg.com</td>
+          <td><%= RsUtil.checkNull(leaderViewData.get("LD_EMAIL"))%></td>
         </tr>
         <tr>
           <th scope="row">* 주소</th>
-          <td colspan="3">서울시 강남구 대치동 은마아파트 1170-502</td>
+          <td colspan="3">(<%= RsUtil.checkNull(leaderViewData.get("LD_POST"))%>)<%= RsUtil.checkNull(leaderViewData.get("LD_ADDRESS")) + " " + RsUtil.checkNull(leaderViewData.get("LD_ADDRESSDETAIL"))%></td>
         </tr>
               <tr>
           <th scope="row">* 단체소개</th>
-          <td colspan="3">윈도우 10 무료 업그레이드 기간이 7월 29일까지로 마감됩니다. 그 이후 부터는 이전 버전의 윈도우 사용자는 무료가 아닌, 일정 금액(119달러, 약 13만원)을 지불하고 윈도우10으로 업그레이드해야 합니다. 아직 업그레이드를 하지 않은 분들은 서둘러야 합니다. 윈도우 10이 최종적인 운영체제이며, 지속적으로 공개될 업데이트와 신기능을 무료로 사용할 수 있습니다. </td>
+          <td colspan="3"><%= RsUtil.checkNull(leaderViewData.get("LD_GROUPINFO"))%></td>
         </tr>
         <tr>
           <th scope="row">* 지급계좌정보<br>
             (본인실명인증계좌)</th>
-          <td colspan="3">하나은행 123-0712-25916 이승민</td>
+          <td colspan="3"><%= RsUtil.checkNull(leaderViewData.get("LD_BANKNM"))%> <%= RsUtil.checkNull(leaderViewData.get("LD_BANKNUM"))%> <%= RsUtil.checkNull(leaderViewData.get("LD_BANKMEMNM"))%></td>
         </tr>
         <tr>
           <th scope="row">* 주민등록번호<br>
             또는 사업자등록번호</th>
-          <td colspan="3">871230-1264267</td>
+          <td colspan="3"><%= RsUtil.checkNull(leaderViewData.get("LD_JUMIN"))%></td>
         </tr>
         <tr>
           <th scope="row">총 수수료</th>
@@ -79,25 +77,44 @@
         </tr>
         <tr>
           <th scope="row">* 증빙서류</th>
-          <td colspan="3"><a href="#">사업자등록증.pdf</a><br><a href="#">우리네 통장사본.pdf</a><br><a href="#">로고이미지.pdf</a></td>
+          <td colspan="3">
+          	<%if(!RsUtil.checkNull(leaderViewData.get("LD_COMPNUMIMG")).equals("")) {%>
+          	<a href="<%=realPath%>/fileDown.do?filename=<%= RsUtil.checkNull(leaderViewData.get("LD_COMPNUMIMG"))%>">사업자등록증 이미지 다운로드</a><br>
+          	<%}else{%>
+          	사업자등록증 이미지가 없습니다.<br />
+          	<%}
+          	if(!RsUtil.checkNull(leaderViewData.get("LD_BANKBOOKIMG")).equals("")) {
+          	%>
+          	<a href="<%=realPath%>/fileDown.do?filename=<%= RsUtil.checkNull(leaderViewData.get("LD_BANKBOOKIMG"))%>">통장사본 이미지 다운로드</a><br>
+          	<%}else{%>
+          	통장사본 이미지가 없습니다.<br />
+          	<%
+          	}
+          	if(!RsUtil.checkNull(leaderViewData.get("LD_LOGOIMG")).equals("")) {
+          	%>
+          	<a href="<%=realPath%>/fileDown.do?filename=<%= RsUtil.checkNull(leaderViewData.get("LD_LOGOIMG"))%>">로고이미지 다운로드</a>
+          	<%}else{ %>
+          	로고이미지가 없습니다.
+          	<%} %>
+          	</td>
         </tr>
         <tr>
           <th scope="row">* 이메일 수신동의</th>
           <td colspan="2">메일 수신 회원에게는 매주 이메일 특가상품 등 다양한 이벤트 정보를 드립니다. <br>
             이벤트와 쇼핑에 대한 정보를 이메일로 받아보시겠습니까? <br>
             <span class="redtxt">(이메일 수신거부와 상관없이 거래 관련 이메일, 회사의 주요정책 관련 공지메일 등은 발송됩니다.)</span></td>
-          <td class="agr"><input type="radio" class="rdo" name="rdo01" checked />
+          <td class="agr"><input type="radio" class="rdo" name="rdo01" <%= WebUtil.isChecked("Y", RsUtil.checkNull(leaderViewData.get("LD_EMAILSENDCHK")))%> disabled="disabled" />
             예
-            <input type="radio" class="rdo mgl10" name="rdo" />
+            <input type="radio" class="rdo mgl10" name="rdo01" <%= WebUtil.isChecked("N", RsUtil.checkNull(leaderViewData.get("LD_EMAILSENDCHK")))%> disabled="disabled"/>
             아니오</td>
         </tr>
         <tr>
           <th scope="row">* 문자 수신동의</th>
           <td colspan="2">특가상품, 쿠폰, 이벤트 등에 대한 정보를 모바일 알림(Push)으로 받을 수 있습니다.<br>
             <span class="redtxt">(이메일 수신거부와 상관없이 거래 관련 이메일, 회사의 주요정책 관련 공지메일 등은 발송됩니다.)</span></td>
-          <td class="agr"><input type="radio" class="rdo" name="rdo" checked />
+          <td class="agr"><input type="radio" class="rdo" name="rdo" <%= WebUtil.isChecked("Y", RsUtil.checkNull(leaderViewData.get("LD_SNSCHK")))%>  disabled="disabled"/>
             예
-            <input type="radio" class="rdo mgl10" name="rdo" />
+            <input type="radio" class="rdo mgl10" name="rdo" <%= WebUtil.isChecked("N", RsUtil.checkNull(leaderViewData.get("LD_SNSCHK")))%> disabled="disabled"/>
             아니오</td>
         </tr>
       </tbody>

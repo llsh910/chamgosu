@@ -39,11 +39,11 @@
 	    <!--리스트 테이블영역--> 
 	    <h4><span>총 리더수 : <%= totalCount%>명</span> 조회 리더 수 : <%= totalCount%>명
 	      <p>
-	        <select style="width:90px;">
-	          <option>10개씩 보기</option>
-	          <option>20개씩 보기</option>
-	          <option>50개씩 보기</option>
-	          <option>100개씩 보기</option>
+	        <select style="width:90px;" id="per_page" name="per_page" onchange="searchSubmit()">
+	          <option value="10" <%= WebUtil.isSelected("10", request.getParameter("per_page"))%>>10개씩 보기</option>
+	          <option value="20" <%= WebUtil.isSelected("20", request.getParameter("per_page"))%>>20개씩 보기</option>
+	          <option value="50" <%= WebUtil.isSelected("50", request.getParameter("per_page"))%>>50개씩 보기</option>
+	          <option value="100" <%= WebUtil.isSelected("100", request.getParameter("per_page"))%>>100개씩 보기</option>
 	        </select>
 	      </p>
 	    </h4>
@@ -98,7 +98,7 @@
 	        <td><%= RsUtil.checkNull(leaderList.get(i).get("LD_GROUPGUBN"))%></td>
 	        <td>10,000,000원</td>
 	        <td><%= RsUtil.checkNull(leaderList.get(i).get("LD_COMGUBN"))%></td>
-	        <td><input value="보기" type="button" class="btns01" onclick="popupOpen('leaderModifyData.do')"/></td>
+	        <td><input value="보기" type="button" class="btns01" onclick="popupOpen('leaderModifyData.do?ld_seq=<%= RsUtil.checkNull(leaderList.get(i).get("LD_SEQ"))%>')"/></td>
 	      </tr>
 	      <%}}else{ %>
 	      	<tr>

@@ -189,6 +189,7 @@
 			, LD_PWD
 			, LD_GROUPNM
 			, LD_GROUPGUBN
+			, LD_JUMIN
 			, LD_NAME
 			, LD_AUTHCODE
 			, LD_AUTHCHK

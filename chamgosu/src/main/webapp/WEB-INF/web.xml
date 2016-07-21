@@ -50,4 +50,12 @@
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
+	<servlet>
+		<servlet-name>File Download</servlet-name>
+		<servlet-class>project.config.util.DownLoadUtil</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>File Download</servlet-name>
+		<url-pattern>/fileDown.do</url-pattern>
+	</servlet-mapping>
 </web-app>
