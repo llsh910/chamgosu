@@ -89,6 +89,9 @@
 				<if test="ld_comgubn != null and ld_comgubn != ''">
 					and LD_COMGUBN = #{ld_comgubn}
 				</if>
+				<if test="ld_name != null and ld_name != ''">
+					and LD_NAME like CONCAT('%', #{ld_name}, '%')
+				</if>
 			order by REGDATE desc
 		) as list
 		where list.rn between #{start} and #{end}
@@ -173,7 +176,9 @@
 				CG_LEADER
 			where
 				LD_GROUPGUBN in ('4')
-				
+				<if test="ld_name != null and ld_name != ''">
+					and LD_NAME like CONCAT('%', #{ld_name}, '%')
+				</if>
 			order by REGDATE desc
 		) as list
 		where list.rn between #{start} and #{end}

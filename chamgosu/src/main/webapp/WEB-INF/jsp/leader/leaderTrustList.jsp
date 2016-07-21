@@ -18,7 +18,7 @@
 	    <div class="search">
 	      <ul>
 	        <li class="fl"> <span>리더명</span>
-	          <input type="text" class="inputTxt" style="width:230px;" />
+	          <input type="text" class="inputTxt" style="width:230px;" id="ld_name" name="ld_name"/>
 	          <select style="width:100px;" id="ld_groupgubn" name="ld_groupgubn">
 	            <option value="">전체보기</option>
 	            <option value="0" <%= WebUtil.isSelected("0", request.getParameter("ld_groupgubn"))%>>학원</option>
@@ -27,6 +27,7 @@
 	            <option value="3" <%= WebUtil.isSelected("3", request.getParameter("ld_groupgubn"))%>>교육단체</option>
 	          </select>
 	          <select style="width:100px;" id="ld_comgubn" name="ld_comgubn">
+	          	<option value="" <%= WebUtil.isSelected("", request.getParameter("ld_comgubn"))%>>선택</option>
 	            <option value="0" <%= WebUtil.isSelected("0", request.getParameter("ld_comgubn"))%>>승인대기</option>
 	            <option value="1" <%= WebUtil.isSelected("1", request.getParameter("ld_comgubn"))%>>승인완료</option>
 	          </select> 

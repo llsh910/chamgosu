@@ -13,11 +13,12 @@
   <div id="contents">
     <h2>ㆍ비영업자 리더관리</h2>
     <!-- search -->
+    <form id="searchForm">
     <div class="search">
       <ul>
         <li class="fl"> <span>리더명</span>
-          <input type="text" class="inputTxt" style="width:230px;" />
-          <input value="검색하기" type="button" class="btnm" />
+          <input type="text" class="inputTxt" style="width:230px;" id="ld_name" name="ld_name"/>
+          <input value="검색하기" type="button" class="btnm" onclick="searchSubmit()"/>
         </li>
       </ul>
     </div>
@@ -101,7 +102,7 @@
     <!-- paging -->
     <div class="paging"><%= WebUtil.printPageIndex4("", Integer.parseInt(page_index), Integer.parseInt(totalCount), Integer.parseInt(per_page), 10, "pageSearch", realPath) %></div>
     <!-- //paging --> 
-    
+    </form>
     <!--탭버튼-->
     <div id="tabwrap01">
       <ul class="tabs01">
