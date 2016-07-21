@@ -91,7 +91,10 @@ public class ProductController {
 		
 		
 		try{
-			
+			Map<String, Object> param = new HashMap<String, Object>();
+			param.put("code_idx", "02");
+			List<Map<String, Object>> pbsCodeList = productService.codeList(param);
+			mav.addObject("pbsCodeList", pbsCodeList);
 		}catch(Exception ex){
 			ex.printStackTrace();
 		}finally{

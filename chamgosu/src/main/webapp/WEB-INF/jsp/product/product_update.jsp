@@ -1,9 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ include file="../url.jsp" %>
-<script src="../js/jquery.1.10.2.js"></script>
-<link rel="stylesheet" type="text/css" href="../css/contents.css" />
-<body>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ include file="../popup_top.jsp" %>
+<%
+	List<Map<String, Object>> pbsCodeList = (List<Map<String, Object>>)request.getAttribute("pbsCodeList");
+%>
 <div id="popup_wrap01"> 
   <h3 class="mgt10 mgb10 mgl10">개별상품 등록 및 수정</h3> 
   
@@ -44,15 +43,18 @@
           <th scope="row" class="bleft">상품등록일</th>
           <td><input type="text" class="inputTxt" id="REGDATE" name="REGDATE" style="width:80px;" /> </td>
         </tr>
-        <tr>
-        <th scope="row">상품이미지</th>
-          <td><img src="<%= realPath%>/css/images/book_noimage.jpg" alt="기본이미지" class="mgb10"><br><input type="text" class="inputTxt" style="width:120px;" /> <input value="찾아보기" type="button" class="btns" id="MG_BOOKIMG" name="MG_BOOKIMG"/><br>이미지 사이즈는 세로 상관없이 가로80px입니다.</td>
-          <th scope="row" class="bleft">상품승인</th>
-          <td><input type="radio" class="chk" id="MG_APPLYCHK" name="MG_APPLYCHK" value="T"/>
-              예
-              <input type="radio" class="chk" id="MG_APPLYCHK" name="MG_APPLYCHK" value="F"/>
-              아니오</td>
-        </tr>
+	       <tr>
+	        <th scope="row">상품이미지</th>
+	          <td><img src="../img/book_noimage.jpg" alt="기본이미지" class="mgb10"><br><input type="text" id="fileName" class="file_input_textbox" style="width:120px" readonly >
+	            <div class="file_input_div" style="width:80px"> <img src="../img/open.gif" class="file_input_img_btn" alt="open" />
+	              <input type="file" name="file_1" class="file_input_hidden" style="width:120px" onchange="javascript: document.getElementById('fileName').value = this.value"/>
+	            </div>이미지 사이즈는 세로 상관없이 가로80px입니다.</td>
+	          <th scope="row" class="bleft">상품승인</th>
+	          <td><input type="checkbox" class="chk" />
+	              예
+	              <input type="checkbox" class="chk" />
+	              아니오</td>
+	        </tr>
         <tr>
           <th scope="row">상세정보</th>
           <td colspan="3"><textarea rows="5" class="inputTxt" id="MG_MOREINF" name="MG_MOREINF" style="width:90%;"></textarea></td>
@@ -79,16 +81,9 @@
               </colgroup>
               <tr>
                 <th scope="col">출판사별</th>
-                <td><input type="radio" class="chk" id="MG_PBS" name="MG_PBS" value="00001"/>
-                  천재교육</td>
-                <td><input type="radio" class="chk" id="MG_PBS" name="MG_PBS" value="00002"/>
-                  비상교육</td>
-                <td><input type="radio" class="chk" id="MG_PBS" name="MG_PBS" value="00003"/>
-                  신사고</td>
-                <td><input type="radio" class="chk" id="MG_PBS" name="MG_PBS" value="00004"/>
-                  개념정리</td>
-                <td><input type="radio" class="chk" id="MG_PBS" name="MG_PBS" value="00005"/>
-                  길벗</td>
+                <%for(int i=0; i<pbsCodeList.size(); i++){ %>
+                <td><input type="radio" class="chk" id="MG_PBS" name="MG_PBS" value="<%= RsUtil.checkNull(pbsCodeList.get(i).get("CODE_FIRST"))%>"/><%= RsUtil.checkNull(pbsCodeList.get(i).get("CODE_CODENAME"))%></td>
+                <%} %>
               </tr>
             </table>
             <a>40개 <img src="<%= realPath%>/css/images/more.gif" alt="more"/></a>
@@ -403,8 +398,6 @@
     <!-- /버튼 --> 
 </form>
 </div>
- 
-</body>
 
 <script>
 	function updateProduct(){
@@ -426,3 +419,4 @@
 		})
 	}
 </script>
+<%@ include file="../popup_bottom.jsp" %>

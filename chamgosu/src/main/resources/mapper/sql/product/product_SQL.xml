@@ -111,11 +111,14 @@
 	<select id="codeList" parameterType="hashmap" resultType="hashmap">
 		select
 			CODE_IDX
+			,CODE_FIRST
+			,CODE_TWO
 			,CODE_CODENAME
 		from
 			CG_CODE
 		where
 			CODE_ISUSE = 'Y'
+			and CODE_FIRST != '#####'
 			and CODE_IDX = #{code_idx}
 	</select>
 </mapper>
