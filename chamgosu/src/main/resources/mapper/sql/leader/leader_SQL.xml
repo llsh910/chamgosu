@@ -420,6 +420,14 @@
 	</select>
 	
 	
+	<!-- 리더 상세주소 가져오기 -->
+	<select id="getLeaderAddr" parameterType="hashmap" resultType="string">
+		select LD_ADDRESS from CG_LEADER where LD_SEQ=#{ld_seq}
+	</select>
+	<!-- 해당리더 지역 코드 가져오기 -->
+	<select id="getLeaderGeoCode" parameterType="hashmap" resultType="hashmap">
+		select CODE_FIRST, CODE_TWO from CG_CODE where CODE_CODENAME=#{codeName}
+	</select>
 	
    
 </mapper>

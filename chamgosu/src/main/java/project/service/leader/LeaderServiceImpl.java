@@ -102,6 +102,11 @@ public class LeaderServiceImpl implements LeaderService {
 	public Map<String, Object> leaderUserNoView(Map<String, Object> map) throws Exception {
 		return leaderDAO.leaderUserNoView(map);
 	}
+
+	@Override
+	public String getLeaderAddr(Map<String, Object> map) throws Exception {
+		return leaderDAO.getLeaderAddr(map);
+	}
 	
 	
 

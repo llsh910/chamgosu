@@ -112,7 +112,13 @@ public class LeaderController {
 		return mav;
 	}
 	
-	
+	/**
+	 * 가입회원 상세보기
+	 * @param map
+	 * @param response
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value="/leaderUserView.do")
 	public ModelAndView leaderUserView(CommandMap map, HttpServletResponse response) throws Exception{
 		ModelAndView mav = new ModelAndView("/leader/leaderUserView");
@@ -130,6 +136,13 @@ public class LeaderController {
 		return mav;
 	}
 	
+	/**
+	 * 비회원 상세보기
+	 * @param map
+	 * @param response
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value="/leaderUserNoView.do")
 	public ModelAndView leaderUserNoView(CommandMap map, HttpServletResponse response) throws Exception{
 		ModelAndView mav = new ModelAndView("/leader/leaderUserNoView");
@@ -183,7 +196,13 @@ public class LeaderController {
 	}
 	
 	
-	
+	/**
+	 * 일반리더 리스트
+	 * @param map
+	 * @param response
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value="/leaderNoList.do")
 	public ModelAndView leaderNoList(CommandMap map, HttpServletResponse response) throws Exception{
 
@@ -239,7 +258,13 @@ public class LeaderController {
 	
 	
 	
-	
+	/**
+	 * 일반 회원 리스트
+	 * @param map
+	 * @param response
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value="/leaderUserList.do")
 	public ModelAndView leaderUserList(CommandMap map, HttpServletResponse response) throws Exception{
 
@@ -294,7 +319,13 @@ public class LeaderController {
 	}
 	
 	
-	
+	/**
+	 * 비회원 리스트
+	 * @param map
+	 * @param response
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value="/leaderUserNoList.do")
 	public ModelAndView leaderUserNoList(CommandMap map, HttpServletResponse response) throws Exception{
 
@@ -345,6 +376,37 @@ public class LeaderController {
 
 		}
 
+		return mav;
+	}
+	
+	/**
+	 * 리더 지역별 공급업체 리스트
+	 * @param map
+	 * @param response
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/leaderGeoSupplyList")
+	public ModelAndView leaderGeoSupplyList(CommandMap map, HttpServletResponse response) throws Exception{
+		ModelAndView mav = new ModelAndView("/leader/leaderGeoSupplyList");
+		
+		String ld_seq = RsUtil.checkNull(map.get("ld_seq"));
+		
+		Map<String, Object> leaderMap = new HashMap<String, Object>();
+		leaderMap.put("ld_seq", ld_seq);
+		
+		try{
+			
+			String ld_address = leaderService.getLeaderAddr(leaderMap);
+			
+			String[] addr_arr = ld_address.split(" ");
+			
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}finally{
+			
+		}
+		
 		return mav;
 	}
 	
