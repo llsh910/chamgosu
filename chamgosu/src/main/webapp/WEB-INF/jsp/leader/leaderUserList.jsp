@@ -84,7 +84,7 @@
         <td><a href="mailto:<%= RsUtil.checkNull(userList.get(i).get("US_EMAIL"))%>"><%= RsUtil.checkNull(userList.get(i).get("US_EMAIL"))%></a></td>
         <td><%= RsUtil.checkNull(userList.get(i).get("REGDATE"))%></td>
         <td><%= RsUtil.checkNull(userList.get(i).get("US_INPOINT"))%>원</td>
-        <td><input value="보기" type="button" class="btns01" onclick="location.href='leaderUserView.do?us_userid=<%= RsUtil.checkNull(userList.get(i).get("US_USERID"))%>'"/></td>
+        <td><input value="보기" type="button" class="btns01" onclick="popupOpen('leaderUserView.do?us_userid=<%= RsUtil.checkNull(userList.get(i).get("US_USERID"))%>')"/></td>
       </tr>
       <%}}else{ %>
       	<tr>

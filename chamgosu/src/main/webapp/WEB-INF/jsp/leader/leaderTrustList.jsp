@@ -98,7 +98,7 @@
 	        <td><%= RsUtil.checkNull(leaderList.get(i).get("LD_GROUPGUBN"))%></td>
 	        <td>10,000,000원</td>
 	        <td><%= RsUtil.checkNull(leaderList.get(i).get("LD_COMGUBN"))%></td>
-	        <td><input value="보기" type="button" class="btns01" onclick="location.href='leaderModifyData.do'"/></td>
+	        <td><input value="보기" type="button" class="btns01" onclick="popupOpen('leaderModifyData.do')"/></td>
 	      </tr>
 	      <%}}else{ %>
 	      	<tr>
