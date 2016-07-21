@@ -47,7 +47,8 @@
 			MG_SEQ
 			,MG_ISBN
 			,MG_BOOKNM
-			,MG_PBS
+			,BSN_NM
+			,UDF_SELECT_CODE1NAME('02', MG_PBS) as MG_PBS
 			,MG_BOOKWRITER
 			,MG_PRICE
 			,MG_SUBJECT
@@ -76,15 +77,26 @@
 				,MG_USERID
 				,MG_APPLYCHK
 				,MG_BOOKIMG
+				,S.BSN_NM
 				,REGDATE
 				, @rnum := @rnum + 1 as rn
 			from
 				(SELECT @rnum := 0) r,
-				CG_MARSTERGOODS
+				CG_MARSTERGOODS M
+				LEFT JOIN CG_BOOKSUBNM S
+				ON M.MG_SEQ = S.BSN_BOOK
 			where
 				1=1
 			order by REGDATE desc
 		) as list
 		where list.rn between #{start} and #{end}
+	</select>
+	
+	<select id="adminProductCnt" parameterType="hashmap" resultType="int">
+		select COUNT(*) from CG_MARSTERGOODS where	1=1
+	</select>
+	
+	<select id="adminProductAllCnt" parameterType="hashmap" resultType="int">
+		select COUNT(*) from CG_MARSTERGOODS
 	</select>
 </mapper>
