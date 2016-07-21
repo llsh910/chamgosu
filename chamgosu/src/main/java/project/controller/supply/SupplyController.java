@@ -381,8 +381,8 @@ public class SupplyController {
 		
 		
 		
-		String[] pr_seq = request.getParameterValues("pr_seq");
-		String[] pr_state = request.getParameterValues("pr_state");
+		String[] pr_seq = request.getParameterValues("pr_seq[]");
+		String[] pr_state = request.getParameterValues("pr_state[]");
 		
 
 		try{
@@ -438,11 +438,11 @@ public class SupplyController {
 		String[] pr_pbs = request.getParameterValues("pr_pbs");
 		String[] region1 = request.getParameterValues("region1");
 		String[] region2 = request.getParameterValues("region2");
-		
 
 		try{
 			
 			if(pr_pbs != null && pr_pbs.length > 0){
+				
 				for(int i=0; i<pr_pbs.length; i++){
 					supplyPubMap.clear();
 					supplyPubMap.put("pr_spid", pr_spid);

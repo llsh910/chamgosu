@@ -274,6 +274,8 @@ public class LeaderController {
 		Map<String, Object> searchMap = new HashMap<String, Object>();
 
 		searchMap = map.getMap();
+		
+		
 
 		String per_page_param = RsUtil.checkNull(map.get("per_page"));
 
@@ -290,7 +292,8 @@ public class LeaderController {
 		searchMap.put("start", start);
 		searchMap.put("end", end);
 
-
+		log.debug(searchMap);
+		
 		totalCount = leaderService.leaderUserListCnt(searchMap);
 		Map<String, Object> pageInfo = new HashMap<String, Object>();
 		pageInfo.put("page_index", page_index);
@@ -409,6 +412,40 @@ public class LeaderController {
 		
 		return mav;
 	}
+	/**
+	 * 구매자 수정(SDW)
+	 * @param map
+	 * @param response
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/leaderUserModifyData.do")
+	public void leaderUserModifyData(CommandMap map, HttpServletResponse response) throws Exception{
+		PrintWriter pw = null;
+
+		JSONObject json = new JSONObject();
+		String msg = "success";
+
+		
+
+		try{
+			
+			
+			leaderService.leaderUserModifyData(map.getMap());			
+
+		}catch(Exception ex){
+			ex.printStackTrace();
+			msg = "error";
+		}finally{
+			response.setContentType("application/x-json; charset=UTF-8");
+			json.put("msg", msg);
+			pw = response.getWriter();
+			pw.print(json);
+			pw.flush();
+			pw.close();
+		}
+	}
+	
+	
 	
 	
 	

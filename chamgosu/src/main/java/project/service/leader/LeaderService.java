@@ -29,4 +29,7 @@ public interface LeaderService {
 	int leaderModifySave(Map<String, Object> map) throws Exception;
 	
 	String getLeaderAddr(Map<String, Object> map) throws Exception;
+	int leaderUserModifyData(Map<String, Object> map) throws Exception;
+	
+	
 }

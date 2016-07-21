@@ -37,7 +37,7 @@
 	    <!-- /search -->
 	    
 	    <!--리스트 테이블영역--> 
-	    <h4><span>총 리더수 : 100명</span> 조회 리더 수 : 100명
+	    <h4><span>총 리더수 : <%= totalCount%>명</span> 조회 리더 수 : <%= totalCount%>명
 	      <p>
 	        <select style="width:90px;">
 	          <option>10개씩 보기</option>
@@ -88,17 +88,17 @@
 	      	for(int i=0; i<leaderList.size(); i++){ %>
 	      <tr>
 	        <td><input type="checkbox" class="chk" name="chk" /></td>
-	        <td>1</td>
+	        <td><%= ((Integer.parseInt(totalCount) - ((Integer.parseInt(page_index)-1) * 10))- i)%></td>
 	        <td><%= RsUtil.checkNull(leaderList.get(i).get("LD_ID"))%></td>
 	        <td><%= RsUtil.checkNull(leaderList.get(i).get("LD_GROUPNM"))%></td>
 	        <td><%= RsUtil.checkNull(leaderList.get(i).get("LD_NAME"))%></td>
 	        <td><%= RsUtil.checkNull(leaderList.get(i).get("LD_HP"))%></td>
 	        <td><a href="mailto:<%= RsUtil.checkNull(leaderList.get(i).get("LD_EMAIL"))%>"><%= RsUtil.checkNull(leaderList.get(i).get("LD_EMAIL"))%></a></td>
 	        <td><%= RsUtil.checkNull(leaderList.get(i).get("REGDATE"))%></td>
-	        <td>유료업체</td>
+	        <td><%= RsUtil.checkNull(leaderList.get(i).get("LD_GROUPGUBN"))%></td>
 	        <td>10,000,000원</td>
 	        <td><%= RsUtil.checkNull(leaderList.get(i).get("LD_COMGUBN"))%></td>
-	        <td><input value="보기" type="button" class="btns01" /></td>
+	        <td><input value="보기" type="button" class="btns01" onclick="location.href='leaderModifyData.do'"/></td>
 	      </tr>
 	      <%}}else{ %>
 	      	<tr>
@@ -118,7 +118,7 @@
 			</script> 
 	    
 	    <!-- paging -->
-	    <div class="paging"> <a href="#" class="btn"><img src="../img/btn_page_prev02.gif" alt="처음 페이지로 가기" /></a> <a href="#" class="btn"><img src="../img/btn_page_prev.gif" alt="이전 페이지로 가기" /></a> <span> <a href="#"><strong>1</strong></a> <a href="#">2</a> <a href="#">3</a> <a href="#">4</a> <a href="#">5</a> </span> <a href="#" class="btn"><img src="../img/btn_page_next.gif" alt="다음 페이지로 가기" /></a> <a href="#" class="btn"><img src="../img/btn_page_next02.gif" alt="마지막 페이지로 가기" /></a> </div>
+	    <div class="paging"><%= WebUtil.printPageIndex4("", Integer.parseInt(page_index), Integer.parseInt(totalCount), Integer.parseInt(per_page), 10, "pageSearch", realPath) %></div>
 	    <!-- //paging --> 
     </form>
     <!--탭버튼-->

@@ -143,23 +143,23 @@
 		});
 		console.log(pr_state);
 		console.log(pr_seq);
-		/* var Url = "supplyPubSave.do";
+		var Url = "supplyRegisonStateSave.do";
 		jQuery.ajax({
             url: Url,
             type:'POST',
             data : {
-            	"US_USERID" : US_USERID
-            }
-            ,
+            	"pr_seq[]" : pr_seq,
+            	"pr_state[]" : pr_state
+            },
             success: function(data){
             	if(data.msg == "success"){
-            		alert("관리자가 삭제 되었습니다.");	
+            		alert("저장되었습니다.");	
             		location.reload();
             	}else{
-            		alert("관리자를 삭제하는데 시스템오류가 발생하였습니다.");
+            		alert("저장하는 과정에서 시스템오류가 발생하였습니다.");
             	}
 			}
-		});  */
+		}); 
 	}
 	
 	

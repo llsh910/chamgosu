@@ -92,6 +92,11 @@ public class LeaderDAO extends TempletDAO {
 	public String getLeaderAddr(Map<String, Object> map) throws Exception{
 		return (String)selectOne("leader.getLeaderAddr", map);
 	}
+	public int leaderUserModifyData(Map<String, Object> map) throws Exception{
+		return (Integer)update("leader.leaderUserModifyData", map);
+	}
+	
+	
 	
 	
 }
