@@ -28,9 +28,31 @@ public class ProductController {
 	@Resource(name="productService")
 	private ProductService productService;
 	
+	/**
+	 * 본사 상품 리스트
+	*/
+	@RequestMapping(value="/adminProductList")
+	public ModelAndView adminProductList (CommandMap map, HttpServletRequest request, HttpServletResponse response)throws Exception{
+		ModelAndView mav = new ModelAndView("/product/adminProductList");
+		
+		try{
+			
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}finally{
+			
+			return mav;
+			
+		}
+
+
+	}
+	/**
+	 * 상품관리 -> 개인 상품등록 페이지 
+	*/
 	@RequestMapping(value="/product_update.do")
 	public ModelAndView administratorPage(CommandMap map, HttpServletRequest request, HttpServletResponse response) throws Exception{
-		ModelAndView mav = new ModelAndView("/admin/product_update");
+		ModelAndView mav = new ModelAndView("/product/product_update");
 		
 		
 		try{
@@ -44,6 +66,9 @@ public class ProductController {
 		}
 	}
 	
+	/**
+	 * 상품 수정
+	*/
 	@RequestMapping(value="/updateProduct.do")
 	public void updateProduct(CommandMap map, HttpServletRequest request, HttpServletResponse response) throws Exception{
 		
@@ -119,5 +144,25 @@ public class ProductController {
 			
 			
 		}
+	}
+	
+	/**
+	 * 지역 상품 리스트
+	*/
+	@RequestMapping(value="/regionProductList.do")
+	public ModelAndView regionProductList (CommandMap map, HttpServletRequest request, HttpServletResponse response)throws Exception{
+		ModelAndView mav = new ModelAndView("/product/regionProductList");
+		
+		try{
+			
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}finally{
+			
+			return mav;
+			
+		}
+
+
 	}
 }

@@ -8,6 +8,7 @@
 <title>참고수 본사 관리자페이지</title>
 <script src="<%=realPath%>/js/jquery.1.10.2.js"></script>
 <script src="<%=realPath%>/js/accordion.min.js"></script>
+<script src="<%=realPath%>/js/accordion01.min.js"></script>
 <script src="<%=realPath%>/js/util.js"></script>
 <script src="http://malsup.github.com/jquery.form.js"></script>
 <link rel="stylesheet" type="text/css" href="<%=realPath%>/css/contents.css" />
@@ -32,8 +33,8 @@
         <a href="<%= realPath%>/administrator_set.do">관리자 설정</a><br>
         <a href="#">이용약관 관리</a> </div>
       <h1>DB 관리</h1>
-      <div> <a href="#">상품관리</a><br>
-        <a href="#">지역별 상품 관리</a><br>
+      <div> <a href="<%= realPath%>/adminProductList.do">상품관리</a><br>
+        <a href="<%= realPath%>/regionProductList.do">지역별 상품 관리</a><br>
         <a href="#">코드 관리</a> </div>
       <h1>거래처 관리</h1>
       <div> <a href="<%= realPath%>/supplyList.do">상품공급자 관리</a><br>
