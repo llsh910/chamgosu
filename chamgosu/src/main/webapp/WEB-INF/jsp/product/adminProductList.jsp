@@ -19,7 +19,7 @@
           <input value="검색하기" type="button" class="btnm" />
         </li>
         <li class="fr">
-          <input value="개별 상품등록" type="button" class="btnm01" />
+          <input value="개별 상품등록" type="button" class="btnm01" onclick="popupOpen('product_update.do')"/>
           <input value="엑셀파일 가져오기" type="button" class="btnm01" />
           <input value="엑셀파일 저장하기" type="button" class="btnm01" />
         </li>
@@ -676,8 +676,8 @@
               4학년</td>
             <td>1학기 기말<br>
               2016</td>
-            <td>상세정보<br>
-              http://krdic.naver.com/detail.nhn?docid=36720500</td>
+            <td><%= RsUtil.checkNull(adminProductList.get(i).get("RG_MOREINF"))%><br>
+              <%= RsUtil.checkNull(adminProductList.get(i).get("RG_REFMAT"))%></td>
             <td>본사 담당자<br>
               <input type="checkbox" class="chk" name="chk01" />
              		 예

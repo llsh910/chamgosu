@@ -30,6 +30,11 @@ public class ProductDAO extends TempletDAO {
 		return (Integer)selectOne("product.adminProductAllCnt");
 	}
 	
+	@SuppressWarnings("unchecked")
+	public List<Map<String, Object>> codeList(Map<String, Object> map) throws Exception{
+		return (List<Map<String, Object>>) selectList("product.codeList", map);
+	}
+	
 	
 	
 }

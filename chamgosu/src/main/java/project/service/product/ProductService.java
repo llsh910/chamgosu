@@ -12,4 +12,6 @@ public interface ProductService {
 	
 	int adminProductAllCnt() throws Exception;
 	
+	List<Map<String, Object>> codeList(Map<String, Object> map) throws Exception;
+	
 }

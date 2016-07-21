@@ -59,6 +59,9 @@
 			,MG_USERID
 			,MG_APPLYCHK
 			,MG_BOOKIMG
+			,RG_MOREINF
+			,RG_REFMAT
+			,RG_APPLYCHK
 			,DATE_FORMAT( REGDATE,'%Y-%m-%d' ) as REGDATE
 		from
 		(
@@ -77,14 +80,19 @@
 				,MG_USERID
 				,MG_APPLYCHK
 				,MG_BOOKIMG
-				,S.BSN_NM
-				,REGDATE
+				,B.BSN_NM
+				,R.RG_MOREINF
+				,R.RG_REFMAT
+				,R.RG_APPLYCHK
+				,M.REGDATE
 				, @rnum := @rnum + 1 as rn
 			from
 				(SELECT @rnum := 0) r,
 				CG_MARSTERGOODS M
-				LEFT JOIN CG_BOOKSUBNM S
-				ON M.MG_SEQ = S.BSN_BOOK
+				LEFT JOIN CG_REGIONGOODS R
+				ON M.MG_SEQ = R.RG_BOOKSEQ
+				LEFT JOIN CG_BOOKSUBNM B
+				ON R.RG_BOOKSUBNM = B.BSN_SEQ
 			where
 				1=1
 			order by REGDATE desc
@@ -98,5 +106,16 @@
 	
 	<select id="adminProductAllCnt" parameterType="hashmap" resultType="int">
 		select COUNT(*) from CG_MARSTERGOODS
+	</select>
+	
+	<select id="codeList" parameterType="hashmap" resultType="hashmap">
+		select
+			CODE_IDX
+			,CODE_CODENAME
+		from
+			CG_CODE
+		where
+			CODE_ISUSE = 'Y'
+			and CODE_IDX = #{code_idx}
 	</select>
 </mapper>
