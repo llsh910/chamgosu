@@ -65,9 +65,11 @@
           <td colspan="3"><%= RsUtil.checkNull(leaderViewData.get("LD_BANKNM"))%> <%= RsUtil.checkNull(leaderViewData.get("LD_BANKNUM"))%> <%= RsUtil.checkNull(leaderViewData.get("LD_BANKMEMNM"))%></td>
         </tr>
         <tr>
-          <th scope="row">* 주민등록번호<br>
-            또는 사업자등록번호</th>
-          <td colspan="3"><%= RsUtil.checkNull(leaderViewData.get("LD_JUMIN"))%></td>
+          <th scope="row">* 사업자등록번호<br>
+          </th>
+          <td><%= RsUtil.checkNull(leaderViewData.get("LD_COMPNUM"))%></td>
+          <th>* 주민등록번호</th>
+          <td><%= RsUtil.checkNull(leaderViewData.get("LD_JUMIN"))%></td>
         </tr>
         <tr>
           <th scope="row">총 수수료</th>

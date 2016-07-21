@@ -212,6 +212,7 @@
 			, LD_BANKBOOKIMG
 			, LD_LOGOIMG
 			, LD_COMPNUMIMG
+			, LD_COMPNUM
 			, DATE_FORMAT( REGDATE,'%Y-%m-%d' ) as REGDATE
 			, LD_COMGUBN
 		from
