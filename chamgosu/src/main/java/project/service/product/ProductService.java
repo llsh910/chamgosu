@@ -1,4 +1,4 @@
-package project.service.admin;
+package project.service.product;
 
 import java.util.List;
 import java.util.Map;

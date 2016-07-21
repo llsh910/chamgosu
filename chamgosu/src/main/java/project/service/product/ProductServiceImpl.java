@@ -1,4 +1,4 @@
-package project.service.admin;
+package project.service.product;
 
 import java.util.Map;
 
@@ -6,7 +6,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import project.dao.admin.ProductDAO;
+import project.dao.product.ProductDAO;
 @Service("productService")
 public class ProductServiceImpl implements ProductService {
 

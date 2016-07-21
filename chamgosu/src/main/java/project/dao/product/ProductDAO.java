@@ -1,4 +1,4 @@
-package project.dao.admin;
+package project.dao.product;
 
 import java.util.List;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package project.controller.admin;
+package project.controller.product;
 
 import java.io.PrintWriter;
 import java.util.Map;
@@ -14,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import net.sf.json.JSONObject;
 import project.config.common.CommandMap;
-import project.service.admin.ProductService;
+import project.service.product.ProductService;
 
 /**
  * Created By S.D.W 2016-07-15 11:42:00
