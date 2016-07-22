@@ -50,7 +50,7 @@
 		                      </td>
 		                      <td><%=RsUtil.checkNull(code2List.get(i).get("USENAME"))%></td>
 		                      <td>
-		                      	<input value="<%=RsUtil.checkNull(code2List.get(i).get("BTNNAME"))%>" type="button" class="btns02" onclick="code2UseSave('<%=RsUtil.checkNull(code2List.get(i).get("CODE_IDX"))%>', '<%=RsUtil.checkNull(code2List.get(i).get("CODE_FIRST"))%>', '<%=RsUtil.checkNull(code2List.get(i).get("CODE_TWO"))%>', '<%=RsUtil.checkNull(code2List.get(i).get("CODE_ISUSE"))%>')" />
+		                      	<input value="<%=RsUtil.checkNull(code2List.get(i).get("BTNNAME"))%>" type="button" class="<%=RsUtil.checkNull(code2List.get(i).get("BTNCLNAME"))%>" onclick="code2UseSave('<%=RsUtil.checkNull(code2List.get(i).get("CODE_IDX"))%>', '<%=RsUtil.checkNull(code2List.get(i).get("CODE_FIRST"))%>', '<%=RsUtil.checkNull(code2List.get(i).get("CODE_TWO"))%>', '<%=RsUtil.checkNull(code2List.get(i).get("CODE_ISUSE"))%>')" />
 		                      	<input value="수정" type="button" class="btns" onclick="code2Modify('<%=i%>', '<%=code_idx%>', '<%=code_first%>')" />
 		
 		                      </td>

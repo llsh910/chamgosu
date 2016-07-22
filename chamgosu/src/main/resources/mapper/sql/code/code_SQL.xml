@@ -12,6 +12,7 @@
 			CODE_FIRST='#####'
 			and CODE_TWO='#####'
 			and CODE_IDX <![CDATA[<]]> 90
+		order by CODE_IDX asc
 	</select>
 	
 	<select id="code1View" parameterType="hashmap" resultType="hashmap">
@@ -19,6 +20,11 @@
 			CODE_IDX
 			, CODE_FIRST
 			, CODE_CODENAME
+			, CODE_ISUSE
+			, case CODE_ISUSE when 'Y' then '사용중' when 'N' then '미사용' end as USENAME
+			, case CODE_ISUSE when 'Y' then '사용중지' when 'N' then '사용시작' end as BTNNAME
+			, case CODE_ISUSE when 'Y' then 'btns02' when 'N' then 'btnsb' end as BTNCLNAME
+			
 		from
 			CG_CODE
 		where
@@ -30,8 +36,37 @@
 			</if>
 	</select>
 	
+	
+	<select id="code2View" parameterType="hashmap" resultType="hashmap">
+		select 
+			CODE_IDX
+			, CODE_FIRST
+			, CODE_TWO
+			, CODE_CODENAME
+			, CODE_ISUSE
+			, case CODE_ISUSE when 'Y' then '사용중' when 'N' then '미사용' end as USENAME
+			, case CODE_ISUSE when 'Y' then '사용중지' when 'N' then '사용시작' end as BTNNAME
+			, case CODE_ISUSE when 'Y' then 'btns02' when 'N' then 'btnsb' end as BTNCLNAME
+		from
+			CG_CODE
+		where
+			CODE_FIRST!='00000'
+			and CODE_TWO!='00000'
+			and CODE_IDX <![CDATA[<]]> 90
+			<if test=" code_idx != '' and code_idx != '' ">
+				and CODE_IDX=#{code_idx}
+				and CODE_FIRST=#{code_first}
+			</if>
+		order by CODE_CODENAME asc
+	</select>
+	
+	
 	<select id="indexCdName" parameterType="hashmap" resultType="string">
 		select CODE_CODENAME from CG_CODE where CODE_IDX=#{code_idx} and CODE_FIRST='#####'
+	</select>
+	
+	<select id="code1Name" parameterType="hashmap" resultType="string">
+		select CODE_CODENAME from CG_CODE where CODE_IDX=#{code_idx} and CODE_FIRST=#{code_first} and CODE_TWO='00000'
 	</select>
 	
 	<select id="code1Value" parameterType="hashmap" resultType="hashmap">
@@ -53,7 +88,7 @@
 			, CODE_ISUSE
 		) values (
 			#{code_idx}
-			, 
+			, UDF_MAKE_CODE1(#{code_idx})
 			, '00000'
 			, #{code_codeName}
 			, 'Y'
@@ -71,16 +106,33 @@
 		) values (
 			#{code_idx}
 			, #{code_first}
-			, 
+			, UDF_MAKE_CODE2(#{code_idx}, #{code_first})
 			, #{code_codeName}
 			, 'Y'
 		)
 	</insert>
 	
+	<update id="code1UseSave" parameterType="hashmap">
+		update CG_CODE set
+			CODE_ISUSE=#{code_isuse}
+		where
+			CODE_IDX=#{code_idx}
+			and CODE_FIRST=#{code_first}
+			and CODE_TWO='00000'
+	</update>
+	
+	<update id="code2UseSave" parameterType="hashmap">
+		update CG_CODE set
+			CODE_ISUSE=#{code_isuse}
+		where
+			CODE_IDX=#{code_idx}
+			and CODE_FIRST=#{code_first}
+			and CODE_TWO=#{code_two}
+	</update>
+	
 	<update id="code1ModifySave" parameterType="hashmap">
 		update CG_CODE set 
 			CODE_CODENAME=#{code_codeName}
-			, CODE_ISUSE=#{code_isuse}
 		where
 			CODE_IDX=#{code_idx}
 			and CODE_FIRST=#{code_first}
@@ -91,7 +143,6 @@
 	<update id="code2ModifySave" parameterType="hashmap">
 		update CG_CODE set 
 			CODE_CODENAME=#{code_codeName}
-			, CODE_ISUSE=#{code_isuse}
 		where
 			CODE_IDX=#{code_idx}
 			and CODE_FIRST=#{code_first}
