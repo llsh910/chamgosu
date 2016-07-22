@@ -19,13 +19,15 @@
     
    <div class="tabberlive" id="">
    	<ul class="tabbernav">
-   		<% for(int i=0; i<indexCodeList.size(); i++){ String tabactive = ""; %>
-   		<% if(i == 0){ tabactive = "tabberactive"; } %>
-	   	<li class="<%=tabactive%> nocssii" id="tabView<%=i%>"><a href="javascript:tabmenuClick('<%=RsUtil.checkNull(indexCodeList.get(i).get("CODE_IDX"))%>', '<%=i%>');" title="영업지역"><%=RsUtil.checkNull(indexCodeList.get(i).get("CODE_CODENAME"))%></a></li>
-	   	<!-- <li class=""><a href="javascript:void(null);" title="출판사">출판사</a></li>
-	   	<li class=""><a href="javascript:void(null);" title="분야(과목)">분야(과목)</a></li>
-	   	<li class=""><a href="javascript:void(null);" title="대상">대상</a></li>
-	   	<li class=""><a href="javascript:void(null);" title="학년">학년</a></li> -->
+   		<% if(indexCodeList != null && indexCodeList.size() > 0){ %>
+	   		<% for(int i=0; i<indexCodeList.size(); i++){ String tabactive = ""; %>
+	   		<% if(i == 0){ tabactive = "tabberactive"; } %>
+		   	<li class="<%=tabactive%> nocssii" id="tabView<%=i%>"><a href="javascript:tabmenuClick('<%=RsUtil.checkNull(indexCodeList.get(i).get("CODE_IDX"))%>', '<%=i%>');" title="영업지역"><%=RsUtil.checkNull(indexCodeList.get(i).get("CODE_CODENAME"))%></a></li>
+		   	<!-- <li class=""><a href="javascript:void(null);" title="출판사">출판사</a></li>
+		   	<li class=""><a href="javascript:void(null);" title="분야(과목)">분야(과목)</a></li>
+		   	<li class=""><a href="javascript:void(null);" title="대상">대상</a></li>
+		   	<li class=""><a href="javascript:void(null);" title="학년">학년</a></li> -->
+		   	<% } %>
 	   	<% } %>
    	</ul>
    		<div id="viewChange">
