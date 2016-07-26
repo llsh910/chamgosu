@@ -74,6 +74,7 @@ public class ProductController {
 			int allCount = productService.adminProductAllCnt();
 			pageInfo.put("allCount", allCount);
 			
+			mav.addObject("pageInfo", pageInfo);
 			mav.addObject("adminProductList", adminProductList); 
 			
 		}catch(Exception ex){
