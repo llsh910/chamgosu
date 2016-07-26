@@ -1,7 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../popup_top.jsp" %>
 <%
+	//출판사 코드 리스트
 	List<Map<String, Object>> pbsCodeList = (List<Map<String, Object>>)request.getAttribute("pbsCodeList");
+
+	//분야(과목)별 코드 리스트
+	List<Map<String, Object>> subjCodeList = (List<Map<String, Object>>)request.getAttribute("subjCodeList");
+	
+	//대상별 코드 리스트
+	List<Map<String, Object>> objCodeList = (List<Map<String, Object>>)request.getAttribute("objCodeList");
+	
+	//학년별 코드리스트
+	List<Map<String, Object>> gradeCodeList = (List<Map<String, Object>>)request.getAttribute("gradeCodeList");
 %>
 <div id="popup_wrap01"> 
   <h3 class="mgt10 mgb10 mgl10">개별상품 등록 및 수정</h3> 
@@ -135,19 +145,19 @@
               </colgroup>
               <tr>
                 <th scope="col">분야(과목)별</th>
-                <td><input type="radio" class="chk" id="MG_SUBJECT" name="MG_SUBJECT" value="00001"/>
-                  국어</td>
-                <td><input type="radio" class="chk" id="MG_SUBJECT" name="MG_SUBJECT" value="00002"/>
-                  수학</td>
-                <td><input type="radio" class="chk" id="MG_SUBJECT" name="MG_SUBJECT" value="00003"/>
-                  영어</td>
-                <td><input type="radio" class="chk" id="MG_SUBJECT" name="MG_SUBJECT" value="00004"/>
-                  사회</td>
-                <td><input type="radio" class="chk" id="MG_SUBJECT" name="MG_SUBJECT" value="00005"/>
-                  과학</td>
+                <% if(subjCodeList.size() <= 5){ %>
+                <% for(int i=0; i<subjCodeList.size(); i++){ %>
+                <td><input type="radio" class="chk" id="MG_SUBJECT" name="MG_SUBJECT" value="<%= RsUtil.checkNull(subjCodeList.get(i).get("CODE_FIRST"))%>"/><%= RsUtil.checkNull(subjCodeList.get(i).get("CODE_CODENAME"))%></td>
+                <%} %>
+                <% }else{ %>
+                <% for(int i=0; i<5; i++){ %>
+                <td><input type="radio" class="chk" id="MG_SUBJECT" name="MG_SUBJECT" value="<%= RsUtil.checkNull(subjCodeList.get(i).get("CODE_FIRST"))%>"/><%= RsUtil.checkNull(subjCodeList.get(i).get("CODE_CODENAME"))%></td>
+                <%} %>
+                <% } %>
               </tr>
             </table>
-            <a>40개 <img src="<%= realPath%>/css/images/more.gif" alt="more"/></a>
+            <%if(subjCodeList.size() > 5){ %>
+            <a><%= subjCodeList.size()%>개 <img src="<%= realPath%>/css/images/more.gif" alt="more"/></a>
             <ul class="hide">
               <li>
                 <table style="width:600px">
@@ -159,35 +169,23 @@
               <col width="97" />
               <col width="97" />
                   </colgroup>
-                  <tr>
-                    <th scope="col"></th>
-                    <td><input type="radio" class="chk" />
-                      국어</td>
-                    <td><input type="radio" class="chk" />
-                      수학</td>
-                    <td><input type="radio" class="chk" />
-                      영어</td>
-                    <td><input type="radio" class="chk" />
-                      사회</td>
-                    <td><input type="radio" class="chk" />
-                      과학</td>
-                  </tr>
-                  <tr>
-                    <th scope="col"></th>
-                    <td><input type="radio" class="chk" />
-                      국어</td>
-                    <td><input type="radio" class="chk" />
-                      수학</td>
-                    <td><input type="radio" class="chk" />
-                      영어</td>
-                    <td><input type="radio" class="chk" />
-                      사회</td>
-                    <td><input type="radio" class="chk" />
-                      과학</td>
-                  </tr>
+                  	<tr>
+                  		<th scope="col"></th>
+                  	<% for(int i=5; i<subjCodeList.size(); i++){ int j=i; %>
+                  		<td><input type="radio" class="chk" value="<%= RsUtil.checkNull(subjCodeList.get(i).get("CODE_FIRST"))%>"/><%= RsUtil.checkNull(subjCodeList.get(i).get("CODE_CODENAME"))%></td>
+                  		
+                  		<% if(j != 5){ %>
+                  			<% if((j+1) % 5 == 0){ %>
+                  				</tr>
+                  				<tr>
+                  				<th scope="col"></th>
+                  			<% } %>
+                  		<% } %>	
+                  	<% } %>	
                 </table>
               </li>
             </ul>
+            <%} %>
           </li>
           <li class="popmenu">
             <table style="width:600px">
@@ -200,20 +198,20 @@
               <col width="97" />
               </colgroup>
               <tr>
-                <th scope="col">대상별</th>
-                <td><input type="radio" class="chk" id="MG_OBJECT" name="MG_OBJECT" value="00001"/>
-                  유치부</td>
-                <td><input type="radio" class="chk" id="MG_OBJECT" name="MG_OBJECT" value="00002"/>
-                  초등학생</td>
-                <td><input type="radio" class="chk" id="MG_OBJECT" name="MG_OBJECT" value="00003"/>
-                  중학생</td>
-                <td><input type="radio" class="chk" id="MG_OBJECT" name="MG_OBJECT" value="00004"/>
-                  고등학생</td>
-                <td><input type="radio" class="chk" id="MG_OBJECT" name="MG_OBJECT" value="00005"/>
-                  대학생</td>
+                <th scope="col">분야(과목)별</th>
+                <% if(gradeCodeList.size() <= 5){ %>
+                <% for(int i=0; i<gradeCodeList.size(); i++){ %>
+                <td><input type="radio" class="chk" id="MG_GRADE" name="MG_GRADE" value="<%= RsUtil.checkNull(gradeCodeList.get(i).get("CODE_FIRST"))%>"/><%= RsUtil.checkNull(gradeCodeList.get(i).get("CODE_CODENAME"))%></td>
+                <%} %>
+                <% }else{ %>
+                <% for(int i=0; i<5; i++){ %>
+                <td><input type="radio" class="chk" id="MG_GRADE" name="MG_GRADE" value="<%= RsUtil.checkNull(gradeCodeList.get(i).get("CODE_FIRST"))%>"/><%= RsUtil.checkNull(gradeCodeList.get(i).get("CODE_CODENAME"))%></td>
+                <%} %>
+                <% } %>
               </tr>
             </table>
-            <a>40개 <img src="<%= realPath%>/css/images/more.gif" alt="more"/></a>
+            <%if(gradeCodeList.size() > 5){ %>
+            <a><%= gradeCodeList.size()%>개 <img src="<%= realPath%>/css/images/more.gif" alt="more"/></a>
             <ul class="hide">
               <li>
                 <table style="width:600px">
@@ -225,88 +223,23 @@
               <col width="97" />
               <col width="97" />
                   </colgroup>
-                  <tr>
-                    <th scope="col"></th>
-                    <td><input type="radio" class="chk" />
-                      유치부</td>
-                    <td><input type="radio" class="chk" />
-                      초등학생</td>
-                    <td><input type="radio" class="chk" />
-                      중학생</td>
-                    <td><input type="radio" class="chk" />
-                      고등학생</td>
-                    <td><input type="radio" class="chk" />
-                      대학생</td>
-                  </tr>
-                  <tr>
-                    <th scope="col"></th>
-                    <td><input type="radio" class="chk" />
-                      유치부</td>
-                    <td><input type="radio" class="chk" />
-                      초등학생</td>
-                    <td><input type="radio" class="chk" />
-                      중학생</td>
-                    <td><input type="radio" class="chk" />
-                      고등학생</td>
-                    <td><input type="radio" class="chk" />
-                      대학생</td>
-                  </tr>
+                  	<tr>
+                  		<th scope="col"></th>
+                  	<% for(int i=5; i<gradeCodeList.size(); i++){ int j=i; %>
+                  		<td><input type="radio" class="chk" value="<%= RsUtil.checkNull(gradeCodeList.get(i).get("CODE_FIRST"))%>"/><%= RsUtil.checkNull(gradeCodeList.get(i).get("CODE_CODENAME"))%></td>
+                  		
+                  		<% if(j != 5){ %>
+                  			<% if((j+1) % 5 == 0){ %>
+                  				</tr>
+                  				<tr>
+                  				<th scope="col"></th>
+                  			<% } %>
+                  		<% } %>	
+                  	<% } %>	
                 </table>
               </li>
             </ul>
-          </li>
-          <li class="popmenu">
-            <table style="width:600px">
-              <colgroup>
-              <col width="115" />
-              <col width="97" />
-              <col width="97" />
-              <col width="97" />
-              <col width="97" />
-              <col width="97" />
-              </colgroup>
-              <tr>
-                <th scope="col">학년별</th>
-                <td><input type="radio" class="chk" id="MG_GRADE" name="MG_GRADE" value="00001"/>
-                  1학년</td>
-                <td><input type="radio" class="chk" id="MG_GRADE" name="MG_GRADE" value="00002"/>
-                  2학년</td>
-                <td><input type="radio" class="chk" id="MG_GRADE" name="MG_GRADE" value="00003"/>
-                  3학년</td>
-                <td><input type="radio" class="chk" id="MG_GRADE" name="MG_GRADE" value="00004"/>
-                  4학년</td>
-                <td><input type="radio" class="chk" id="MG_GRADE" name="MG_GRADE" value="00005"/>
-                  4학년</td>
-              </tr>
-            </table>
-            <a>40개 <img src="<%= realPath%>/css/images/more.gif" alt="more"/></a>
-            <ul class="hide">
-              <li>
-                <table style="width:600px">
-              <colgroup>
-              <col width="115" />
-              <col width="97" />
-              <col width="97" />
-              <col width="97" />
-              <col width="97" />
-              <col width="97" />
-                  </colgroup>
-                  <tr>
-                    <th scope="col"></th>
-                    <td><input type="radio" class="chk" />
-                      1학년</td>
-                    <td><input type="radio" class="chk" />
-                      2학년</td>
-                    <td><input type="radio" class="chk" />
-                      3학년</td>
-                    <td><input type="radio" class="chk" />
-                      4학년</td>
-                    <td><input type="radio" class="chk" />
-                      4학년</td>
-                  </tr>
-                </table>
-              </li>
-            </ul>
+            <%} %>
           </li>
           <li class="popmenu">
             <table style="width:600px">
