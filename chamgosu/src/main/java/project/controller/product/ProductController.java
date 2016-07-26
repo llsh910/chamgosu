@@ -1,6 +1,7 @@
 package project.controller.product;
 
 import java.io.PrintWriter;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,7 +17,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import net.sf.json.JSONObject;
 import project.config.common.CommandMap;
+import project.config.util.MultiUtil;
 import project.config.util.RsUtil;
+import project.config.util.UrlUtil;
+import project.config.util.UtilMultiFileUp;
 import project.service.product.ProductService;
 
 /**
@@ -234,4 +238,46 @@ public class ProductController {
 
 
 	}
+	
+	/**
+	 * 상품이미지 등록 
+	*/
+	@RequestMapping(value="/goodImgFileUpload.do")
+	public void spFileUpload(HttpServletResponse response, HttpServletRequest request)throws Exception{
+		PrintWriter pw = null;
+    	String msg = "success";
+    	JSONObject json = new JSONObject();
+    	try {
+    		UtilMultiFileUp fileup = new UtilMultiFileUp(request);
+    		
+    		String imageName = fileup.getFileNameOne("file_1");
+    		
+        	String addName = Long.toString(new Date().getTime());
+        	String fileReName = addName + "_" + imageName;
+        	
+        	
+        	
+        	String path = MultiUtil.loadPropertyKey(UrlUtil.URLPROPPATH, "bookimgURL");
+        	
+        	String filePath = path + fileReName;
+        	if(!imageName.equals("")){
+    			fileup.saveFile("file_1", filePath);
+    			MultiUtil.createThumbImage(path, fileReName, "thumnail_" + fileReName, 80, 80);
+    			json.put("imageName", fileReName);
+    			json.put("img_thumnail", "thumnail_"+ fileReName);
+    		}else{
+    			msg = "error";
+    		}
+		} catch (Exception e) {
+			e.printStackTrace();
+			msg = "error";
+		}finally {
+			response.setContentType("application/x-json; charset=UTF-8");
+			json.put("msg", msg);
+			pw = response.getWriter();
+			pw.print(json);
+			pw.flush();
+			pw.close();
+		}
+	}	
 }

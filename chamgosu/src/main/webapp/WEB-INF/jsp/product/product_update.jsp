@@ -55,9 +55,9 @@
         </tr>
 	       <tr>
 	        <th scope="row">상품이미지</th>
-	          <td><img src="../img/book_noimage.jpg" alt="기본이미지" class="mgb10"><br><input type="text" id="fileName" class="file_input_textbox" style="width:120px" readonly >
+	          <td><img src="<%= realPath%>/img/book_noimage.jpg" alt="기본이미지" id="img_thumnailBox" class="mgb10"><br><input type="text" id="fileName" class="file_input_textbox" style="width:120px" readonly >
 	            <div class="file_input_div" style="width:80px"> <img src="../img/open.gif" class="file_input_img_btn" alt="open" />
-	              <input type="file" name="file_1" class="file_input_hidden" style="width:120px" onchange="javascript: document.getElementById('fileName').value = this.value"/>
+	              <input type="file" name="file_1" class="file_input_hidden" style="width:120px" onchange="javascript: document.getElementById('fileName').value = this.value; fileChange()"/>
 	            </div>이미지 사이즈는 세로 상관없이 가로80px입니다.</td>
 	          <th scope="row" class="bleft">상품승인</th>
 	          <td><input type="checkbox" class="chk" />
@@ -345,6 +345,24 @@
             	}
 			}
 		})
+	}
+	
+	function fileChange(){
+		var options = {
+	    	url : 'goodImgFileUpload.do',
+	    	type: 'post',
+	    	contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+	    	dataType : "json",
+	    	success:function(data){
+	    		console.log(data);
+	    		if(data.msg == "success"){
+	    			$("#img_thumnailBox").attr("src", "<%= realPath%>/bookimg/"+data.img_thumnail);
+	    		}else{
+	    			alert("사진업로드 중 오류가 발생하였습니다.");
+	    		}
+	    	}
+		};
+		jQuery("#updateProduct").ajaxForm(options).submit();
 	}
 </script>
 <%@ include file="../popup_bottom.jsp" %>
