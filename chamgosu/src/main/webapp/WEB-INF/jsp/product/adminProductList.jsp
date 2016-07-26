@@ -20,7 +20,6 @@
 	
 	//학년별 코드리스트
 	List<Map<String, Object>> gradeCodeList = (List<Map<String, Object>>)request.getAttribute("gradeCodeList");
-		
 %>
 <!--contents-->
   <div id="contents">
@@ -488,7 +487,7 @@
 	      </colgroup>
 	      <thead>
 	        <tr>
-	          <th scope="col"><input type="checkbox" class="chk" id="checkall" /></th>
+	          <th scope="col"><input type="checkbox" class="chk" id="checkall"/></th>
 	          <th scope="col">교재 이미지</th>
 	          <th scope="col">상품일련번호<br>
 	            ISBN</th>
@@ -505,9 +504,9 @@
 	          <th scope="col">상세정보<br>
 	            참고자료(url)</th>
 	          <th scope="col">상품등록자별<br>
-	            <input type="checkbox" class="chk" id="checkall01" />
+	            <input type="checkbox" class="chk" id="checkall01" onclick="checkAllBtn('Y')"/>
 	              예
-	              <input type="checkbox" class="chk" id="checkall02" />
+	              <input type="checkbox" class="chk" id="checkall02" onclick="checkAllBtn('N')"/>
 	              아니오</td></th>
 	          <th scope="col">수정/삭제</th>
 	        </tr>
@@ -535,7 +534,7 @@
 	        <tbody>
 	          <% for(int i=0; i<adminProductList.size(); i++){%>
 	          <tr>
-	            <td><input type="checkbox" class="chk" name="chk" /></td>
+	            <td><input type="checkbox" class="chk" name="chk" value="<%= RsUtil.checkNull(adminProductList.get(i).get("MG_SEQ"))%>" /></td>
 	            <td>
 	            	<img src="<%= realPath%><%= (RsUtil.checkNull(adminProductList.get(i).get("MG_BOOKIMG")).equals("") ? "/img/book_noimage.jpg" : "/bookimg/thumnail_" + RsUtil.checkNull(adminProductList.get(i).get("MG_BOOKIMG")) ) %>" alt="책 기본이미지">
 	            </td>
@@ -546,18 +545,19 @@
 	             	 <%= RsUtil.checkNull(adminProductList.get(i).get("MG_BOOKWRITER"))%></td>
 	            <td><%= MultiUtil.comma(RsUtil.checkNull(adminProductList.get(i).get("MG_PRICE")))%>원<br>
 	             	 <%= RsUtil.checkNull(adminProductList.get(i).get("MG_SUBJECT"))%></td>
-	            <td><%= RsUtil.checkNull(adminProductList.get(i).get("MG_OBJECT"))%></td>
-	            <td><%= RsUtil.checkNull(adminProductList.get(i).get("MG_GRADE"))%><br>
-	              2016</td>
-	            <td><%= RsUtil.checkNull(adminProductList.get(i).get("RG_MOREINF"))%><br>
-	              <%= RsUtil.checkNull(adminProductList.get(i).get("RG_REFMAT"))%></td>
+	            <td><%= RsUtil.checkNull(adminProductList.get(i).get("MG_OBJECT"))%><br />
+	            	<%= RsUtil.checkNull(adminProductList.get(i).get("MG_GRADE"))%>
+	            </td>
+	            <td><%= RsUtil.checkNull(adminProductList.get(i).get("MG_BOOKISYEAR"))%></td>
+	            <td><%= RsUtil.checkNull(adminProductList.get(i).get("MG_MOREINF"))%><br>
+	              <%= RsUtil.checkNull(adminProductList.get(i).get("MG_REFMAT"))%></td>
 	            <td>본사 담당자<br>
-	              <input type="checkbox" class="chk" name="chk01" />
+	              <input type="checkbox" class="chk" name="chk01" id="chk01" value="T" <%= WebUtil.isChecked("T", RsUtil.checkNull(adminProductList.get(i).get("MG_APPLYCHK")))%> onclick="checkBtn('Y', this)"/>
 	             		 예
-	              <input type="checkbox" class="chk" name="chk02" />
+	              <input type="checkbox" class="chk" name="chk02" id="chk02" value="F" <%= WebUtil.isChecked("F", RsUtil.checkNull(adminProductList.get(i).get("MG_APPLYCHK")))%> onclick="checkBtn('N', this)"/>
 	              		아니오
 	            </td>
-	            <td><input value="수정" type="button" class="btns01" />
+	            <td><input value="수정" type="button" class="btns01" onclick="popupOpen('product_update.do?mg_seq=<%= RsUtil.checkNull(adminProductList.get(i).get("MG_SEQ"))%>')"/>
 	              <input value="삭제" type="button" class="btns" /></td>
 	          </tr>
 	          <%} %>
@@ -576,7 +576,7 @@
 	    
 	    <!-- 버튼 -->
 	    <div class="btnarea">
-	      <input value="일괄저장" type="button" class="btn02 mgr10" />
+	      <input value="일괄저장" type="button" class="btn02 mgr10" onclick="productListSave()" />
 	      <input value="선택삭제" type="button" class="btn01" />
 	    </div>
     </form>
@@ -585,13 +585,67 @@
   <!--/contents--> 
   <%@ include file="../bottom.jsp"%>
   <script>
-	  var searchSubmit = function(){
-			jQuery("#searchForm").submit();
-		};
+	var searchSubmit = function(){
+		jQuery("#searchForm").submit();
+	};
+	
+	var pageSearch = function(page_index){
+		jQuery("#page_index").val(page_index);
 		
-		var pageSearch = function(page_index){
-			jQuery("#page_index").val(page_index);
+		searchSubmit();
+	};
+		
+	function checkAllBtn(chk){
+		if(chk == "Y"){
+			$("#checkall02").attr("checked", false);
 			
-			searchSubmit();
-		};
+			$("input[name=chk01]:checkbox").each(function(idx) {
+				$(this).attr("checked", true);
+			});
+			
+			$("input[name=chk02]:checkbox").each(function(idx) {
+				$(this).attr("checked", false);
+			});
+		}else{
+			$("#checkall01").attr("checked", false);
+			
+			$("input[name=chk01]:checkbox").each(function(idx) {
+				$(this).attr("checked", false);
+			});
+			
+			$("input[name=chk02]:checkbox").each(function(idx) {
+				$(this).attr("checked", true);
+			});
+		}
+	}
+	
+	
+	function checkBtn(chk, chk_this){
+		if(chk == "Y"){
+			$(chk_this).next().attr("checked", false);
+		}else{
+			$(chk_this).prev().attr("checked", false);
+		}
+	}
+	
+	function productListSave(){
+		var mg_seq = [];
+		var applychk = [];
+		$("input[name=chk]:checked").each(function(idx) {
+			var chk02 = jQuery(this).parent().parent().find("input[name='chk01']").is(":checked");
+			var chk03 = jQuery(this).parent().parent().find("input[name='chk02']").is(":checked");
+			
+			if(chk02 == true){
+				applychk.push("Y");
+			}else{
+				applychk.push("N");
+			}
+			
+			var seq = $(this).val();
+			mg_seq.push(seq);
+		});
+		console.log(mg_seq);
+		console.log(applychk);
+		
+	}
   </script>

@@ -19,6 +19,8 @@
 			MG_USERID,
 			MG_APPLYCHK,
 			MG_BOOKIMG,
+			MG_REFMAT,
+			MG_MOREINF,
 			REGDATE
 		)VALUES(
 			#{MG_ISBN},
@@ -35,39 +37,13 @@
 			#{MG_USERID},
 			#{MG_APPLYCHK},
 			#{MG_BOOKIMG},
+			#{MG_REFMAT},
+			#{MG_MOREINF},
 			CURDATE()
 		)
 		<selectKey resultType="int" order="AFTER">
 			SELECT MAX(MG_SEQ) FROM CG_MARSTERGOODS
 		</selectKey>
-	</insert>
-	<!-- 상품관리 List-->
-	<insert id="insertSubProduct">
-		INSERT INTO CG_REGIONGOODS(
-			RG_MOREINF
-			,RG_REFMAT
-			,RG_USERID
-			,RG_APPLYCHK
-			,RG_REGIONCODE
-			,RG_SPID
-			,RG_SPRATE
-			,RG_SPPRICE
-			,RG_BOOKSEQ
-			,RG_STOCKCNT
-			,REGDATE
-		)VALUES(
-			#{RG_MOREINF}
-			,#{RG_REFMAT}
-			,#{RG_USERID}
-			,#{RG_APPLYCHK}
-			,#{RG_REGIONCODE}
-			,#{RG_SPID}
-			,#{RG_SPRATE}
-			,#{RG_SPPRICE}
-			,#{RG_BOOKSEQ}
-			,#{RG_STOCKCNT}
-			,CURDATE()
-		)
 	</insert>
 	<select id="adminProductList" parameterType="hashmap" resultType="hashmap">
 		select 
@@ -86,9 +62,8 @@
 			,MG_USERID
 			,MG_APPLYCHK
 			,MG_BOOKIMG
-			,RG_MOREINF
-			,RG_REFMAT
-			,RG_APPLYCHK
+			,MG_REFMAT
+			,MG_MOREINF
 			,DATE_FORMAT( REGDATE,'%Y-%m-%d' ) as REGDATE
 		from
 		(
@@ -108,22 +83,16 @@
 				,MG_USERID
 				,MG_APPLYCHK
 				,MG_BOOKIMG
-				,B.BSN_NM
-				,R.RG_MOREINF
-				,R.RG_REFMAT
-				,R.RG_APPLYCHK
-				,M.REGDATE
+				,MG_REFMAT
+				,MG_MOREINF
+				,DATE_FORMAT( REGDATE,'%Y-%m-%d' ) as REGDATE
 				, @rnum := @rnum + 1 as rn
 			from
 				(SELECT @rnum := 0) r,
-				CG_MARSTERGOODS M
-				LEFT JOIN CG_REGIONGOODS R
-				ON M.MG_SEQ = R.RG_BOOKSEQ
-				LEFT JOIN CG_BOOKSUBNM B
-				ON R.RG_BOOKSUBNM = B.BSN_SEQ
+				CG_MARSTERGOODS
 			where
 				1=1
-			order by REGDATE desc
+			order by MG_SEQ desc
 		) as list
 		where list.rn between #{start} and #{end}
 	</select>
@@ -149,4 +118,54 @@
 			and CODE_FIRST != '#####'
 			and CODE_IDX = #{code_idx}
 	</select>
+	
+	<select id="adminProductView" parameterType="hashmap" resultType="hashmap">
+		select
+			MG_SEQ
+			,MG_ISBN
+			,MG_BOOKNM
+			,MG_BOOKSUBNM
+			,MG_PBS
+			,MG_BOOKWRITER
+			,MG_PRICE
+			,MG_SUBJECT
+			,MG_OBJECT
+			,MG_GRADE
+			,MG_STEP
+			,MG_BOOKISYEAR
+			,MG_USERID
+			,MG_APPLYCHK
+			,MG_BOOKIMG
+			,MG_REFMAT
+			,MG_MOREINF
+			,DATE_FORMAT( REGDATE,'%Y-%m-%d' ) as REGDATE
+		from
+			CG_MARSTERGOODS
+		where
+			MG_SEQ=#{mg_seq}
+	</select>
+	
+	<update id="updateAdminProduct">
+		update
+			CG_MARSTERGOODS
+		set
+			MG_ISBN = #{MG_ISBN},
+			MG_BOOKNM = #{MG_BOOKNM},
+			MG_BOOKSUBNM = #{MG_BOOKSUBNM},
+			MG_PBS = #{MG_PBS},
+			MG_BOOKWRITER = #{MG_BOOKWRITER},
+			MG_PRICE = #{MG_PRICE},
+			MG_SUBJECT = #{MG_SUBJECT},
+			MG_OBJECT = #{MG_OBJECT},
+			MG_GRADE = #{MG_GRADE},
+			MG_STEP = #{MG_STEP},
+			MG_BOOKISYEAR = #{MG_BOOKISYEAR},
+			MG_USERID = #{MG_USERID},
+			MG_APPLYCHK = #{MG_APPLYCHK},
+			MG_BOOKIMG = #{MG_BOOKIMG},
+			MG_REFMAT = #{MG_REFMAT},
+			MG_MOREINF = #{MG_MOREINF}
+		where
+			MG_SEQ = #{mg_seq}
+	</update>
 </mapper>

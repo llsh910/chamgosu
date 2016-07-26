@@ -131,9 +131,43 @@ public class ProductController {
 			
 			
 			Map<String, Object> param = new HashMap<String, Object>();
+			String mg_seq = RsUtil.checkNull(request.getParameter("mg_seq"));
+			param.put("mg_seq", mg_seq);
+			
+			//insert & update 타입 지정
+			String update_type = "";
+			
+			//이미지 데이터 가공
+			Map<String, Object> adminProduct = productService.adminProductView(param);
+			if(adminProduct != null){
+				
+				
+				if(RsUtil.checkNull(adminProduct.get("MG_BOOKIMG")).equals("")){
+					adminProduct.put("thumnail_image", "/img/book_noimage.jpg");
+					adminProduct.put("oriFileName", "");
+				}else{
+					adminProduct.put("thumnail_image", "/bookimg/thumnail_"+adminProduct.get("MG_BOOKIMG"));
+					adminProduct.put("oriFileName", adminProduct.get("MG_BOOKIMG").toString().substring(14));
+				}
+				
+				
+				update_type = "update";
+				
+				
+			}else{
+				
+				
+				adminProduct = new HashMap<String, Object>();
+				adminProduct.put("thumnail_image", "/img/book_noimage.jpg");
+				adminProduct.put("oriFileName", "");
+				
+				update_type = "insert";
+				
+			}
 			
 			
 			//출판사 코드리스트
+			param.remove("mg_seq");
 			param.put("code_idx", "02");
 			List<Map<String, Object>> pbsCodeList = productService.codeList(param);
 			param.remove("code_idx");
@@ -156,7 +190,8 @@ public class ProductController {
 			param.put("code_idx", "05");
 			List<Map<String, Object>> gradeCodeList = productService.codeList(param);
 			
-			
+			mav.addObject("update_type", update_type);
+			mav.addObject("adminProduct", adminProduct);
 			mav.addObject("gradeCodeList", gradeCodeList);
 			mav.addObject("objCodeList", objCodeList);
 			mav.addObject("subjCodeList", subjCodeList);
@@ -187,14 +222,26 @@ public class ProductController {
 			
 			
 			Map<String, Object> param = map.getMap();
-
+			String update_type= RsUtil.checkNull(param.get("update_type"));
 			String userId = "king7819";
 			param.put("MG_USERID", userId);
-			int result = productService.insertProduct(param);
 			
-			if(result <= 0){
-				msg = "error";
+			
+			if(update_type.equals("insert")){
+				int result = productService.insertProduct(param);
+				
+				if(result <= 0){
+					msg = "error";
+				}
+			}else{
+				int result = productService.updateAdminProduct(param);
+				
+				if(result <= 0){
+					msg = "error";
+				}
 			}
+			
+			
 			
 		}catch(Exception ex){
 			

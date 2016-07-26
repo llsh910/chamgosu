@@ -35,6 +35,16 @@ public class ProductDAO extends TempletDAO {
 		return (List<Map<String, Object>>) selectList("product.codeList", map);
 	}
 	
+	@SuppressWarnings("unchecked")
+	public Map<String, Object> adminProductView(Map<String, Object> map) throws Exception{
+		return (Map<String, Object>)selectOne("product.adminProductView", map);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public int updateAdminProduct(Map<String, Object> map) throws Exception{
+		return (Integer)update("product.updateAdminProduct", map);
+	}
+	
 	
 	
 }
