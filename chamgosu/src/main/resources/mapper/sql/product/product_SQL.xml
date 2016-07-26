@@ -3,7 +3,8 @@
  
 <mapper namespace="product">
 	<insert id="insertProduct" parameterType="hashmap">
-		INSERT INTO chamgosu.CG_MARSTERGOODS(
+		
+		INSERT INTO CG_MARSTERGOODS(
 			MG_ISBN,
 			MG_BOOKNM,
 			MG_BOOKSUBNM,
@@ -15,8 +16,6 @@
 			MG_GRADE,
 			MG_STEP,
 			MG_BOOKISYEAR,
-			MG_MOREINF,
-			MG_REFMAT,
 			MG_USERID,
 			MG_APPLYCHK,
 			MG_BOOKIMG,
@@ -33,27 +32,55 @@
 			#{MG_GRADE},
 			#{MG_STEP},
 			#{MG_BOOKISYEAR},
-			#{MG_MOREINF},
-			#{MG_REFMAT},
 			#{MG_USERID},
 			#{MG_APPLYCHK},
 			#{MG_BOOKIMG},
 			CURDATE()
 		)
+		<selectKey resultType="int" order="AFTER">
+			SELECT MAX(MG_SEQ) FROM CG_MARSTERGOODS
+		</selectKey>
 	</insert>
 	<!-- 상품관리 List-->
+	<insert id="insertSubProduct">
+		INSERT INTO CG_REGIONGOODS(
+			RG_MOREINF
+			,RG_REFMAT
+			,RG_USERID
+			,RG_APPLYCHK
+			,RG_REGIONCODE
+			,RG_SPID
+			,RG_SPRATE
+			,RG_SPPRICE
+			,RG_BOOKSEQ
+			,RG_STOCKCNT
+			,REGDATE
+		)VALUES(
+			#{RG_MOREINF}
+			,#{RG_REFMAT}
+			,#{RG_USERID}
+			,#{RG_APPLYCHK}
+			,#{RG_REGIONCODE}
+			,#{RG_SPID}
+			,#{RG_SPRATE}
+			,#{RG_SPPRICE}
+			,#{RG_BOOKSEQ}
+			,#{RG_STOCKCNT}
+			,CURDATE()
+		)
+	</insert>
 	<select id="adminProductList" parameterType="hashmap" resultType="hashmap">
 		select 
 			MG_SEQ
 			,MG_ISBN
 			,MG_BOOKNM
-			,BSN_NM
+			,MG_BOOKSUBNM
 			,UDF_SELECT_CODE1NAME('02', MG_PBS) as MG_PBS
 			,MG_BOOKWRITER
 			,MG_PRICE
-			,MG_SUBJECT
-			,MG_OBJECT
-			,MG_GRADE
+			,UDF_SELECT_CODE1NAME('03', MG_SUBJECT) as MG_SUBJECT
+			,UDF_SELECT_CODE1NAME('04', MG_OBJECT) as MG_OBJECT
+			,UDF_SELECT_CODE1NAME('05', MG_GRADE) as MG_GRADE
 			,MG_STEP
 			,MG_BOOKISYEAR
 			,MG_USERID
@@ -69,6 +96,7 @@
 				MG_SEQ
 				,MG_ISBN
 				,MG_BOOKNM
+				,MG_BOOKSUBNM
 				,MG_PBS
 				,MG_BOOKWRITER
 				,MG_PRICE

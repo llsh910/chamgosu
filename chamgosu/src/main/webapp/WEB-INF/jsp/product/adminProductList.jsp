@@ -664,17 +664,18 @@
           <% for(int i=0; i<adminProductList.size(); i++){%>
           <tr>
             <td><input type="checkbox" class="chk" name="chk" /></td>
-            <td><img src="../img/book_noimage.jpg" alt="책 기본이미지"></td>
+            <td>
+            	<img src="<%= realPath%><%= (RsUtil.checkNull(adminProductList.get(i).get("MG_BOOKIMG")).equals("") ? "/img/book_noimage.jpg" : "/bookimg/thumnail_" + RsUtil.checkNull(adminProductList.get(i).get("MG_BOOKIMG")) ) %>" alt="책 기본이미지">
+            </td>
             <td><%= RsUtil.checkNull(adminProductList.get(i).get("MG_ISBN"))%></td>
             <td><%= RsUtil.checkNull(adminProductList.get(i).get("MG_BOOKNM"))%><br>
-              (<%= RsUtil.checkNull(adminProductList.get(i).get("BSN_NM"))%>)</td>
+              (<%= RsUtil.checkNull(adminProductList.get(i).get("MG_BOOKSUBNM"))%>)</td>
             <td><%= RsUtil.checkNull(adminProductList.get(i).get("MG_PBS"))%><br>
              	 <%= RsUtil.checkNull(adminProductList.get(i).get("MG_BOOKWRITER"))%></td>
             <td><%= MultiUtil.comma(RsUtil.checkNull(adminProductList.get(i).get("MG_PRICE")))%>원<br>
-             	 영어</td>
-            <td>초등<br>
-              4학년</td>
-            <td>1학기 기말<br>
+             	 <%= RsUtil.checkNull(adminProductList.get(i).get("MG_SUBJECT"))%></td>
+            <td><%= RsUtil.checkNull(adminProductList.get(i).get("MG_OBJECT"))%></td>
+            <td><%= RsUtil.checkNull(adminProductList.get(i).get("MG_GRADE"))%><br>
               2016</td>
             <td><%= RsUtil.checkNull(adminProductList.get(i).get("RG_MOREINF"))%><br>
               <%= RsUtil.checkNull(adminProductList.get(i).get("RG_REFMAT"))%></td>

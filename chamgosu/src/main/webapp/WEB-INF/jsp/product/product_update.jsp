@@ -18,6 +18,7 @@
   
   
   <form id="updateProduct">
+  	<input type="hidden" name="MG_BOOKIMG" id="MG_BOOKIMG" value="" />
     <table class="bbs_write01">
       <caption>
       개별상품 등록 및 수정
@@ -60,18 +61,18 @@
 	              <input type="file" name="file_1" class="file_input_hidden" style="width:120px" onchange="javascript: document.getElementById('fileName').value = this.value; fileChange()"/>
 	            </div>이미지 사이즈는 세로 상관없이 가로80px입니다.</td>
 	          <th scope="row" class="bleft">상품승인</th>
-	          <td><input type="checkbox" class="chk" />
+	          <td><input type="checkbox" class="chk" name="MG_APPLYCHK" id="MG_APPLYCHK" value="T" />
 	              예
-	              <input type="checkbox" class="chk" />
+	              <input type="checkbox" class="chk" name="MG_APPLYCHK" id="MG_APPLYCHK" value="F" />
 	              아니오</td>
 	        </tr>
         <tr>
           <th scope="row">상세정보</th>
-          <td colspan="3"><textarea rows="5" class="inputTxt" id="MG_MOREINF" name="MG_MOREINF" style="width:90%;"></textarea></td>
+          <td colspan="3"><textarea rows="5" class="inputTxt" id="RG_MOREINF" name="RG_MOREINF" style="width:90%;"></textarea></td>
         </tr>
         <tr>
           <th scope="row">참고자료(url)</th>
-          <td colspan="3"><input type="text" class="inputTxt" id="MG_REFMAT" name="MG_REFMAT" style="width:90%;" /></td>
+          <td colspan="3"><input type="text" class="inputTxt" id="RG_REFMAT" name="RG_REFMAT" style="width:90%;" /></td>
         </tr>
       </tbody>
     </table>
@@ -198,7 +199,61 @@
               <col width="97" />
               </colgroup>
               <tr>
-                <th scope="col">분야(과목)별</th>
+                <th scope="col">대상별</th>
+                <% if(objCodeList.size() <= 5){ %>
+                <% for(int i=0; i<objCodeList.size(); i++){ %>
+                <td><input type="radio" class="chk" id="MG_OBJECT" name="MG_OBJECT" value="<%= RsUtil.checkNull(objCodeList.get(i).get("CODE_FIRST"))%>"/><%= RsUtil.checkNull(objCodeList.get(i).get("CODE_CODENAME"))%></td>
+                <%} %>
+                <% }else{ %>
+                <% for(int i=0; i<5; i++){ %>
+                <td><input type="radio" class="chk" id="MG_OBJECT" name="MG_OBJECT" value="<%= RsUtil.checkNull(objCodeList.get(i).get("CODE_FIRST"))%>"/><%= RsUtil.checkNull(objCodeList.get(i).get("CODE_CODENAME"))%></td>
+                <%} %>
+                <% } %>
+              </tr>
+            </table>
+            <%if(objCodeList.size() > 5){ %>
+            <a><%= objCodeList.size()%>개 <img src="<%= realPath%>/css/images/more.gif" alt="more"/></a>
+            <ul class="hide">
+              <li>
+                <table style="width:600px">
+              <colgroup>
+              <col width="115" />
+              <col width="97" />
+              <col width="97" />
+              <col width="97" />
+              <col width="97" />
+              <col width="97" />
+                  </colgroup>
+                  	<tr>
+                  		<th scope="col"></th>
+                  	<% for(int i=5; i<objCodeList.size(); i++){ int j=i; %>
+                  		<td><input type="radio" class="chk" value="<%= RsUtil.checkNull(objCodeList.get(i).get("CODE_FIRST"))%>"/><%= RsUtil.checkNull(objCodeList.get(i).get("CODE_CODENAME"))%></td>
+                  		
+                  		<% if(j != 5){ %>
+                  			<% if((j+1) % 5 == 0){ %>
+                  				</tr>
+                  				<tr>
+                  				<th scope="col"></th>
+                  			<% } %>
+                  		<% } %>	
+                  	<% } %>	
+                </table>
+              </li>
+            </ul>
+            <%} %>
+          </li>
+          <li class="popmenu">
+            <table style="width:600px">
+              <colgroup>
+              <col width="115" />
+              <col width="97" />
+              <col width="97" />
+              <col width="97" />
+              <col width="97" />
+              <col width="97" />
+              </colgroup>
+              <tr>
+                <th scope="col">학년별</th>
                 <% if(gradeCodeList.size() <= 5){ %>
                 <% for(int i=0; i<gradeCodeList.size(); i++){ %>
                 <td><input type="radio" class="chk" id="MG_GRADE" name="MG_GRADE" value="<%= RsUtil.checkNull(gradeCodeList.get(i).get("CODE_FIRST"))%>"/><%= RsUtil.checkNull(gradeCodeList.get(i).get("CODE_CODENAME"))%></td>
@@ -357,6 +412,7 @@
 	    		console.log(data);
 	    		if(data.msg == "success"){
 	    			$("#img_thumnailBox").attr("src", "<%= realPath%>/bookimg/"+data.img_thumnail);
+	    			$("#MG_BOOKIMG").val(data.imageName);
 	    		}else{
 	    			alert("사진업로드 중 오류가 발생하였습니다.");
 	    		}

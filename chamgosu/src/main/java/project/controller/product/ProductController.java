@@ -155,45 +155,6 @@ public class ProductController {
 			
 			Map<String, Object> param = map.getMap();
 
-			//배열로 넘어온 값 처리
-			/*String[] objects = (String[]) param.get("MG_OBJECT");
-			String[] grades = (String[]) param.get("MG_GRADE");
-			String[] pbss = (String[]) param.get("MG_PBS");
-			String[] subjects = (String[]) param.get("MG_SUBJECT");
-			
-			
-			String object = "";
-			String grade = "";
-			String pbs = "";
-			String subject = "";
-			
-			
-			for(int i=0; i < objects.length; i++){
-				object += objects[i];
-				if(i + 1 < objects.length) object += ",";
-			}
-			
-			for(int i=0; i < grades.length; i++){
-				grade += grades[i];
-				if(i + 1 < grades.length) grade += ",";
-			}
-			
-			for(int i=0; i < pbss.length; i++){
-				pbs += pbss[i];
-				if(i + 1 < pbss.length) pbs += ",";
-			}
-			
-			for(int i=0; i < subjects.length; i++){
-				subject += subjects[i];
-				if(i + 1 < subjects.length) subject += ",";
-			}
-			
-			
-			param.put("MG_OBJECT", object);
-			param.put("MG_GRADE", grade);
-			param.put("MG_PBS", pbs);
-			param.put("MG_SUBJECT", subject);
-			*/
 			String userId = "king7819";
 			param.put("MG_USERID", userId);
 			int result = productService.insertProduct(param);
