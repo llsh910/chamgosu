@@ -145,7 +145,7 @@
 			MG_SEQ=#{mg_seq}
 	</select>
 	
-	<update id="updateAdminProduct">
+	<update id="updateAdminProduct" parameterType="hashmap">
 		update
 			CG_MARSTERGOODS
 		set
@@ -165,6 +165,15 @@
 			MG_BOOKIMG = #{MG_BOOKIMG},
 			MG_REFMAT = #{MG_REFMAT},
 			MG_MOREINF = #{MG_MOREINF}
+		where
+			MG_SEQ = #{mg_seq}
+	</update>
+	
+	<update id="productApplyUpdate" parameterType="hashmap">
+		update
+			CG_MARSTERGOODS
+		set
+			MG_APPLYCHK = #{mg_applychk}
 		where
 			MG_SEQ = #{mg_seq}
 	</update>

@@ -320,5 +320,60 @@ public class ProductController {
 			pw.flush();
 			pw.close();
 		}
-	}	
+	}
+	
+	/**
+	 * 상품 승인 미승인
+	 * @param map
+	 * @param response
+	 * @param request
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/productApplyUpdate.do")
+	public void supplyRegisonStateSave(CommandMap map, HttpServletResponse response, HttpServletRequest request) throws Exception{
+		PrintWriter pw = null;
+
+		JSONObject json = new JSONObject();
+		String msg = "success";
+
+		Map<String, Object> param = new HashMap<String, Object>();
+		
+		
+		
+		String[] mg_seq = request.getParameterValues("mg_seq[]");
+		String[] applychk = request.getParameterValues("applychk[]");
+		
+
+		try{
+			
+			
+			if(mg_seq != null && mg_seq.length > 0){
+				for(int i=0; i<mg_seq.length; i++){
+					
+					
+					param.put("mg_seq", mg_seq[i]);
+					param.put("mg_applychk", applychk[i]);
+					
+					productService.productApplyUpdate(param);
+					
+				}
+			}
+			
+			
+			
+
+		}catch(Exception ex){
+			ex.printStackTrace();
+			msg = "error";
+		}finally{
+			response.setContentType("application/x-json; charset=UTF-8");
+			json.put("msg", msg);
+			pw = response.getWriter();
+			pw.print(json);
+			pw.flush();
+			pw.close();
+		}
+	}
+	
+	
 }

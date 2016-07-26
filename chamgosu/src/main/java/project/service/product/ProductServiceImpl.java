@@ -49,5 +49,13 @@ public class ProductServiceImpl implements ProductService {
 	public int updateAdminProduct(Map<String, Object> map) throws Exception{
 		return productDAO.updateAdminProduct(map);
 	}
+	
+	@Override
+	public int productApplyUpdate(Map<String, Object> map) throws Exception{
+		return productDAO.productApplyUpdate(map);
+	}
+	
+	
+	
 
 }

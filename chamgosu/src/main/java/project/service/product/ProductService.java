@@ -18,4 +18,7 @@ public interface ProductService {
 	
 	int updateAdminProduct(Map<String, Object> map) throws Exception;
 	
+	int productApplyUpdate(Map<String, Object> map) throws Exception;
+	
+	
 }

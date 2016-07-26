@@ -636,14 +636,34 @@
 			var chk03 = jQuery(this).parent().parent().find("input[name='chk02']").is(":checked");
 			
 			if(chk02 == true){
-				applychk.push("Y");
+				applychk.push("T");
 			}else{
-				applychk.push("N");
+				applychk.push("F");
 			}
 			
 			var seq = $(this).val();
 			mg_seq.push(seq);
 		});
+		
+		var Url = "productApplyUpdate.do";
+		jQuery.ajax({
+            url: Url,
+            type:'POST',
+            data : {
+            	"mg_seq[]" : mg_seq,
+            	"applychk[]" : applychk
+            },
+            success: function(data){
+            	if(data.msg == "success"){
+            		alert("저장되었습니다.");	
+            		location.reload();
+            	}else{
+            		alert("저장하는 과정에서 시스템오류가 발생하였습니다.");
+            	}
+			}
+		}); 
+		
+		
 		console.log(mg_seq);
 		console.log(applychk);
 		

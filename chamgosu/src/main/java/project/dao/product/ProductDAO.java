@@ -45,6 +45,13 @@ public class ProductDAO extends TempletDAO {
 		return (Integer)update("product.updateAdminProduct", map);
 	}
 	
+	@SuppressWarnings("unchecked")
+	public int productApplyUpdate(Map<String, Object> map) throws Exception{
+		return (Integer)update("product.productApplyUpdate", map);
+	}
+	
+	
+	
 	
 	
 }
