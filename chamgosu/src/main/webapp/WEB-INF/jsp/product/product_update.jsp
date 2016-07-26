@@ -119,7 +119,7 @@
                   	<tr>
                   		<th scope="col"></th>
                   	<% for(int i=5; i<pbsCodeList.size(); i++){ int j=i; %>
-                  		<td><input type="radio" class="chk" value="<%= RsUtil.checkNull(pbsCodeList.get(i).get("CODE_FIRST"))%>"/><%= RsUtil.checkNull(pbsCodeList.get(i).get("CODE_CODENAME"))%></td>
+                  		<td><input type="radio" class="chk" id="MG_PBS" name="MG_PBS" value="<%= RsUtil.checkNull(pbsCodeList.get(i).get("CODE_FIRST"))%>"/><%= RsUtil.checkNull(pbsCodeList.get(i).get("CODE_CODENAME"))%></td>
                   		
                   		<% if(j != 5){ %>
                   			<% if((j+1) % 5 == 0){ %>
@@ -173,7 +173,7 @@
                   	<tr>
                   		<th scope="col"></th>
                   	<% for(int i=5; i<subjCodeList.size(); i++){ int j=i; %>
-                  		<td><input type="radio" class="chk" value="<%= RsUtil.checkNull(subjCodeList.get(i).get("CODE_FIRST"))%>"/><%= RsUtil.checkNull(subjCodeList.get(i).get("CODE_CODENAME"))%></td>
+                  		<td><input type="radio" class="chk" id="MG_SUBJECT" name="MG_SUBJECT" value="<%= RsUtil.checkNull(subjCodeList.get(i).get("CODE_FIRST"))%>"/><%= RsUtil.checkNull(subjCodeList.get(i).get("CODE_CODENAME"))%></td>
                   		
                   		<% if(j != 5){ %>
                   			<% if((j+1) % 5 == 0){ %>
@@ -227,7 +227,7 @@
                   	<tr>
                   		<th scope="col"></th>
                   	<% for(int i=5; i<objCodeList.size(); i++){ int j=i; %>
-                  		<td><input type="radio" class="chk" value="<%= RsUtil.checkNull(objCodeList.get(i).get("CODE_FIRST"))%>"/><%= RsUtil.checkNull(objCodeList.get(i).get("CODE_CODENAME"))%></td>
+                  		<td><input type="radio" class="chk" id="MG_OBJECT" name="MG_OBJECT" value="<%= RsUtil.checkNull(objCodeList.get(i).get("CODE_FIRST"))%>"/><%= RsUtil.checkNull(objCodeList.get(i).get("CODE_CODENAME"))%></td>
                   		
                   		<% if(j != 5){ %>
                   			<% if((j+1) % 5 == 0){ %>
@@ -281,7 +281,7 @@
                   	<tr>
                   		<th scope="col"></th>
                   	<% for(int i=5; i<gradeCodeList.size(); i++){ int j=i; %>
-                  		<td><input type="radio" class="chk" value="<%= RsUtil.checkNull(gradeCodeList.get(i).get("CODE_FIRST"))%>"/><%= RsUtil.checkNull(gradeCodeList.get(i).get("CODE_CODENAME"))%></td>
+                  		<td><input type="radio" class="chk" id="MG_GRADE" name="MG_GRADE" value="<%= RsUtil.checkNull(gradeCodeList.get(i).get("CODE_FIRST"))%>"/><%= RsUtil.checkNull(gradeCodeList.get(i).get("CODE_CODENAME"))%></td>
                   		
                   		<% if(j != 5){ %>
                   			<% if((j+1) % 5 == 0){ %>

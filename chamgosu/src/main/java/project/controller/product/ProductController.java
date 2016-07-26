@@ -74,6 +74,38 @@ public class ProductController {
 			int allCount = productService.adminProductAllCnt();
 			pageInfo.put("allCount", allCount);
 			
+			Map<String, Object> param = new HashMap<String, Object>();
+			//출판사 코드리스트
+			param.put("code_idx", "02");
+			List<Map<String, Object>> pbsCodeList = productService.codeList(param);
+			param.remove("code_idx");
+			
+			
+			//분야(과목) 코드 리스트		
+			param.remove("code_idx");
+			param.put("code_idx", "03");
+			List<Map<String, Object>> subjCodeList = productService.codeList(param);
+			
+			
+			//대상 코드 리스트
+			param.remove("code_idx");
+			param.put("code_idx", "04");
+			List<Map<String, Object>> objCodeList = productService.codeList(param);
+			
+			
+			//학년 코드 리스트
+			param.remove("code_idx");
+			param.put("code_idx", "05");
+			List<Map<String, Object>> gradeCodeList = productService.codeList(param);
+			
+			
+			mav.addObject("gradeCodeList", gradeCodeList);
+			mav.addObject("objCodeList", objCodeList);
+			mav.addObject("subjCodeList", subjCodeList);
+			mav.addObject("pbsCodeList", pbsCodeList);
+			
+			
+			
 			mav.addObject("pageInfo", pageInfo);
 			mav.addObject("adminProductList", adminProductList); 
 			
