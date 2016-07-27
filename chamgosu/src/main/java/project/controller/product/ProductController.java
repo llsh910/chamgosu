@@ -27,6 +27,7 @@ import project.config.util.MultiUtil;
 import project.config.util.RsUtil;
 import project.config.util.UrlUtil;
 import project.config.util.UtilMultiFileUp;
+import project.service.code.CodeService;
 import project.service.product.ProductService;
 
 /**
@@ -40,6 +41,9 @@ public class ProductController {
 
 	@Resource(name="productService")
 	private ProductService productService;
+	
+	@Resource(name="codeService")
+	private CodeService codeService;
 	
 	/**
 	 * 본사 상품 리스트
@@ -283,13 +287,28 @@ public class ProductController {
 	@RequestMapping(value="/regionProductList.do")
 	public ModelAndView regionProductList (CommandMap map, HttpServletRequest request, HttpServletResponse response)throws Exception{
 		ModelAndView mav = new ModelAndView("/product/regionProductList");
-		
+		Map searchMap = new HashMap();
+		searchMap = map.getMap();
+
+		String code_idx = RsUtil.checkNull(searchMap.get("code_idx"));
+
+		if (code_idx.equals("")) {
+			code_idx = "01";
+		}
+		searchMap.remove("code_idx");
+
+		searchMap.put("code_idx", code_idx);
+
+		String code_first = RsUtil.checkNull(searchMap.get("code_first"));
+
+		if (code_first.equals("")) {
+			code_first = "00001";
+		}
+
+		searchMap.put("code_first", code_first);
 		try{
 			
-			Map<String, Object> searchMap = new HashMap<String, Object>();
-
-			searchMap = map.getMap();
-
+			
 			String per_page_param = RsUtil.checkNull(map.get("per_page"));
 
 			if(per_page_param.equals("")) per_page_param = "10";
@@ -339,6 +358,25 @@ public class ProductController {
 			param.remove("code_idx");
 			param.put("code_idx", "05");
 			List<Map<String, Object>> gradeCodeList = productService.codeList(param);
+			
+			
+			
+			
+			List indexCodeList = this.codeService.indexCodeList(searchMap);
+			List code1List = this.codeService.code1List(searchMap);
+
+			if (code_idx.equals("01")) {
+				List code2List = this.codeService.code2List(searchMap);
+				mav.addObject("code2List", code2List);
+			}
+
+			String code1Name = this.codeService.code1Name(searchMap);
+
+			mav.addObject("code_first", code_first);
+			mav.addObject("code_idx", code_idx);
+			mav.addObject("code1Name", code1Name);
+			mav.addObject("indexCodeList", indexCodeList);
+			mav.addObject("code1List", code1List);
 			
 			
 			mav.addObject("gradeCodeList", gradeCodeList);

@@ -20,6 +20,19 @@
 		
 		//학년별 코드리스트
 		List<Map<String, Object>> gradeCodeList = (List<Map<String, Object>>)request.getAttribute("gradeCodeList");
+		
+		
+		List<Map<String, Object>> indexCodeList = (List<Map<String, Object>>)request.getAttribute("indexCodeList");
+		List<Map<String, Object>> code1List = (List<Map<String, Object>>)request.getAttribute("code1List");
+		
+		
+		List<Map<String, Object>> code2List = (List<Map<String, Object>>)request.getAttribute("code2List");
+		
+		String code1Name = RsUtil.checkNull(request.getAttribute("code1Name"));
+		String code_idx = RsUtil.checkNull(request.getAttribute("code_idx"));
+		String code_first = RsUtil.checkNull(request.getAttribute("code_first"));
+		
+		
 %>
 <!--contents-->
   <div id="contents">
@@ -27,281 +40,23 @@
     <!--지역선택-->
     <div id="tabwrap">
       <ul class="tabs">
-        <li class="active" rel="tab1">서울</li>
-        <li rel="tab2">부산</li>
-        <li rel="tab3">경기</li>
-        <li rel="tab4">인천</li>
-        <li rel="tab5">대구</li>
-        <li rel="tab6">대전</li>
-        <li rel="tab7">광주</li>
-        <li rel="tab8">울산</li>
-        <li rel="tab9">경남</li>
-        <li rel="tab10">경북</li>
-        <li rel="tab11">충남</li>
-        <li rel="tab12">전남</li>
-        <li rel="tab13">전북</li>
-        <li rel="tab14">강원</li>
-        <li rel="tab15">제주</li>
-        <li rel="tab16">세종</li>
-        <li rel="tab17">전국</li>
-        <li rel="tab18">해외</li>
+      	<% 
+      	if(code1List != null && code1List.size() > 0){
+      	for(int i=0; i<code1List.size(); i++){
+      		String tabactive = "";	
+      		if(i == 0){ tabactive = "active"; }
+      	%>
+        <li class="<%= tabactive%>" rel="tab<%= i+1%>" onclick="code1Change('<%=RsUtil.checkNull(code1List.get(i).get("CODE_IDX")) %>', '<%=RsUtil.checkNull(code1List.get(i).get("CODE_FIRST")) %>', '<%=i%>')" ><%= RsUtil.checkNull(RsUtil.checkNull(code1List.get(i).get("CODE_CODENAME")))%></li>
+        <%}} %>
       </ul>
       <!-- 탭컨텐츠 -->
       <div class="tab_container">
         <div id="tab1" class="tab_content">
-          <input type="checkbox" class="chk" />
-          강남구
-          <input type="checkbox" class="chk" />
-          강동구
-          <input type="checkbox" class="chk" />
-          강북구
-          <input type="checkbox" class="chk" />
-          강서구
-          <input type="checkbox" class="chk" />
-          구로구
-          <input type="checkbox" class="chk" />
-          금천구
-          <input type="checkbox" class="chk" />
-          관악구
-          <input type="checkbox" class="chk" />
-          광진구
-          <input type="checkbox" class="chk" />
-          노원구
-          <input type="checkbox" class="chk" />
-          도봉구
-          <input type="checkbox" class="chk" />
-          동대문구
-          <input type="checkbox" class="chk" />
-          동작구
-          <input type="checkbox" class="chk" />
-          마포구
-          <input type="checkbox" class="chk" />
-          서대문구
-          <input type="checkbox" class="chk" />
-          서초구<br>
-          <input type="checkbox" class="chk" />
-          성북구
-          <input type="checkbox" class="chk" />
-          송파구 
-          <input type="checkbox" class="chk" />
-          성동구
-          <input type="checkbox" class="chk" />
-          양천구
-          <input type="checkbox" class="chk" />
-          영등포구
-          <input type="checkbox" class="chk" />
-          용산구
-          <input type="checkbox" class="chk" />
-          은평구
-          <input type="checkbox" class="chk" />
-          종로구
-          <input type="checkbox" class="chk" />
-          중구
-          <input type="checkbox" class="chk" />
-          중랑구</div>
-        <div id="tab2" class="tab_content">
-          <input type="checkbox" class="chk" />
-          지역1
-          <input type="checkbox" class="chk" />
-          지역2
-          <input type="checkbox" class="chk" />
-          지역3
-          <input type="checkbox" class="chk" />
-          지역4
-          <input type="checkbox" class="chk" />
-          지역5</div>
-        <div id="tab3" class="tab_content">
-          <input type="checkbox" class="chk" />
-          지역1
-          <input type="checkbox" class="chk" />
-          지역2
-          <input type="checkbox" class="chk" />
-          지역3
-          <input type="checkbox" class="chk" />
-          지역4
-          <input type="checkbox" class="chk" />
-          지역5
-          <input type="checkbox" class="chk" />
-          지역6</div>
-        <div id="tab4" class="tab_content">
-          <input type="checkbox" class="chk" />
-          지역1
-          <input type="checkbox" class="chk" />
-          지역2
-          <input type="checkbox" class="chk" />
-          지역3
-          <input type="checkbox" class="chk" />
-          지역4
-          <input type="checkbox" class="chk" />
-          지역5</div>
-        <div id="tab5" class="tab_content">
-          <input type="checkbox" class="chk" />
-          지역1
-          <input type="checkbox" class="chk" />
-          지역2
-          <input type="checkbox" class="chk" />
-          지역3
-          <input type="checkbox" class="chk" />
-          지역4
-          <input type="checkbox" class="chk" />
-          지역5
-          <input type="checkbox" class="chk" />
-          지역6</div>
-        <div id="tab6" class="tab_content">
-          <input type="checkbox" class="chk" />
-          지역1
-          <input type="checkbox" class="chk" />
-          지역2
-          <input type="checkbox" class="chk" />
-          지역3
-          <input type="checkbox" class="chk" />
-          지역4
-          <input type="checkbox" class="chk" />
-          지역5</div>
-        <div id="tab7" class="tab_content">
-          <input type="checkbox" class="chk" />
-          지역1
-          <input type="checkbox" class="chk" />
-          지역2
-          <input type="checkbox" class="chk" />
-          지역3
-          <input type="checkbox" class="chk" />
-          지역4
-          <input type="checkbox" class="chk" />
-          지역5
-          <input type="checkbox" class="chk" />
-          지역6</div>
-        <div id="tab8" class="tab_content">
-          <input type="checkbox" class="chk" />
-          지역1
-          <input type="checkbox" class="chk" />
-          지역2
-          <input type="checkbox" class="chk" />
-          지역3
-          <input type="checkbox" class="chk" />
-          지역4
-          <input type="checkbox" class="chk" />
-          지역5</div>
-        <div id="tab9" class="tab_content">
-          <input type="checkbox" class="chk" />
-          지역1
-          <input type="checkbox" class="chk" />
-          지역2
-          <input type="checkbox" class="chk" />
-          지역3
-          <input type="checkbox" class="chk" />
-          지역4
-          <input type="checkbox" class="chk" />
-          지역5
-          <input type="checkbox" class="chk" />
-          지역6</div>
-        <div id="tab10" class="tab_content">
-          <input type="checkbox" class="chk" />
-          지역1
-          <input type="checkbox" class="chk" />
-          지역2
-          <input type="checkbox" class="chk" />
-          지역3
-          <input type="checkbox" class="chk" />
-          지역4
-          <input type="checkbox" class="chk" />
-          지역5</div>
-        <div id="tab11" class="tab_content">
-          <input type="checkbox" class="chk" />
-          지역1
-          <input type="checkbox" class="chk" />
-          지역2
-          <input type="checkbox" class="chk" />
-          지역3
-          <input type="checkbox" class="chk" />
-          지역4
-          <input type="checkbox" class="chk" />
-          지역5
-          <input type="checkbox" class="chk" />
-          지역6</div>
-        <div id="tab12" class="tab_content">
-          <input type="checkbox" class="chk" />
-          지역1
-          <input type="checkbox" class="chk" />
-          지역2
-          <input type="checkbox" class="chk" />
-          지역3
-          <input type="checkbox" class="chk" />
-          지역4
-          <input type="checkbox" class="chk" />
-          지역5</div>
-        <div id="tab13" class="tab_content">
-          <input type="checkbox" class="chk" />
-          지역1
-          <input type="checkbox" class="chk" />
-          지역2
-          <input type="checkbox" class="chk" />
-          지역3
-          <input type="checkbox" class="chk" />
-          지역4
-          <input type="checkbox" class="chk" />
-          지역5
-          <input type="checkbox" class="chk" />
-          지역6</div>
-        <div id="tab14" class="tab_content">
-          <input type="checkbox" class="chk" />
-          지역1
-          <input type="checkbox" class="chk" />
-          지역2
-          <input type="checkbox" class="chk" />
-          지역3
-          <input type="checkbox" class="chk" />
-          지역4
-          <input type="checkbox" class="chk" />
-          지역5</div>
-          <div id="tab15" class="tab_content">
-          <input type="checkbox" class="chk" />
-          지역1
-          <input type="checkbox" class="chk" />
-          지역2
-          <input type="checkbox" class="chk" />
-          지역3
-          <input type="checkbox" class="chk" />
-          지역4
-          <input type="checkbox" class="chk" />
-          지역5
-          <input type="checkbox" class="chk" />
-          지역6</div>
-        <div id="tab16" class="tab_content">
-          <input type="checkbox" class="chk" />
-          지역1
-          <input type="checkbox" class="chk" />
-          지역2
-          <input type="checkbox" class="chk" />
-          지역3
-          <input type="checkbox" class="chk" />
-          지역4
-          <input type="checkbox" class="chk" />
-          지역5</div>
-        <div id="tab17" class="tab_content">
-          <input type="checkbox" class="chk" />
-          지역1
-          <input type="checkbox" class="chk" />
-          지역2
-          <input type="checkbox" class="chk" />
-          지역3
-          <input type="checkbox" class="chk" />
-          지역4
-          <input type="checkbox" class="chk" />
-          지역5
-          <input type="checkbox" class="chk" />
-          지역6</div>
-        <div id="tab18" class="tab_content">
-          <input type="checkbox" class="chk" />
-          지역1
-          <input type="checkbox" class="chk" />
-          지역2
-          <input type="checkbox" class="chk" />
-          지역3
-          <input type="checkbox" class="chk" />
-          지역4
-          <input type="checkbox" class="chk" />
-          지역5</div>
+        	<% if(code2List != null && code2List.size() > 0){ %>
+        	<% for(int i=0; i<code2List.size(); i++){ %>
+        		<input type="checkbox" class="chk" /> <%= RsUtil.checkNull(code2List.get(i).get("CODE_CODENAME"))%>
+        	<%}} %>
+        </div>
       </div>
       <!-- /탭컨텐츠 --> 
     </div>
@@ -1025,3 +780,27 @@ $(function () {
   </div>
   <!--/contents--> 
   <%@ include file="../bottom.jsp"%>
+  <script>
+  var code1Change = function(indexCd, code1, idx){
+	  console.log(idx);
+		jQuery.ajax({
+			type : "POST",
+			url : "code2JsonView.do",
+			data : {"code_idx" : indexCd, "code_first" : code1},
+			dataType : "json",
+			error : function(data){
+				alert("서버에 접속 할 수 없습니다. 다시 시도해 주십시오");
+			},
+			success : function(result){
+				console.log(result);
+				var htmlStr = '<div id="tab'+(parseInt(idx)+1)+'" class="tab_content" style="display:block;">';
+				for(var i=0; i < result.code2View.length; i++){
+					htmlStr += '<input type="checkbox" class="chk" /> ' + result.code2View[i].CODE_CODENAME;
+				}
+				htmlStr += '</div>';
+				jQuery(".tab_container").html(htmlStr);
+				
+		    }
+		});
+	};
+  </script>
