@@ -96,6 +96,23 @@
 				CG_MARSTERGOODS
 			where
 				1=1
+				
+			<if test="mg_booknm != null and mg_booknm != ''">
+				and  MG_BOOKNM like CONCAT('%', #{mg_booknm}, '%')
+				
+			</if>
+			<if test="mg_pbs != null and mg_pbs != ''">
+				and  MG_PBS = #{mg_pbs}
+			</if>
+			<if test="mg_subject != null and mg_subject != ''">
+				and  MG_SUBJECT = #{mg_subject}
+			</if>
+			<if test="mg_object != null and mg_object != ''">
+				and  MG_OBJECT = #{mg_object}
+			</if>
+			<if test="mg_grade != null and mg_grade != ''">
+				and  MG_GRADE = #{mg_grade}
+			</if>
 			order by MG_SEQ desc
 		) as list
 		<if test="start != null and start !=''">
@@ -106,6 +123,21 @@
 	<!-- 검색 상품수 -->
 	<select id="adminProductCnt" parameterType="hashmap" resultType="int">
 		select COUNT(*) from CG_MARSTERGOODS where	1=1
+		<if test="mg_booknm != null and mg_booknm != ''">
+				and  MG_BOOKNM like CONCAT('%', #{mg_booknm}, '%')
+		</if>
+		<if test="mg_pbs != null and mg_pbs != ''">
+			and  MG_PBS = #{mg_pbs}
+		</if>
+		<if test="mg_subject != null and mg_subject != ''">
+			and  MG_SUBJECT = #{mg_subject}
+		</if>
+		<if test="mg_object != null and mg_object != ''">
+			and  MG_OBJECT = #{mg_object}
+		</if>
+		<if test="mg_grade != null and mg_grade != ''">
+			and  MG_GRADE = #{mg_grade}
+		</if>
 	</select>
 	
 	<!-- 총상품수 -->

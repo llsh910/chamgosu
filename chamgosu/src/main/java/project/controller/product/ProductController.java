@@ -390,6 +390,26 @@ public class ProductController {
 		String msg = "success";
 		try{
 			
+			
+			UtilMultiFileUp fileup = new UtilMultiFileUp(request);
+    		
+    		String imageName = fileup.getFileNameOne("excelFile");
+    		
+        	String addName = Long.toString(new Date().getTime());
+        	String fileReName = addName + "_" + imageName;
+        	
+        	
+        	
+        	String path = MultiUtil.loadPropertyKey(UrlUtil.URLPROPPATH, "excelUploadURL");
+        	
+        	String filePath = path + fileReName;
+        	if(!imageName.equals("")){
+    			fileup.saveFile("excelFile", filePath);
+    		}else{
+    			msg = "error";
+    		}
+        	
+        	
 			Map<String, Object> param = new HashMap<String, Object>();
 			//출판사 코드리스트
 			param.remove("mg_seq");
@@ -416,7 +436,7 @@ public class ProductController {
 			List<Map<String, Object>> gradeCodeList = productService.codeList(param);
 			
 			
-			List<Map<String, Object>>excelData = ExcelFile.mgExcelUpload();
+			List<Map<String, Object>>excelData = ExcelFile.mgExcelUpload(filePath);
 			
 
 		
@@ -604,7 +624,9 @@ public class ProductController {
 		try{
 			Map<String, Object>param = new HashMap<String, Object>();
 			List<Map<String, Object>> adminProductList = productService.adminProductList(param);
-			ExcelFile.mgExcelDownload(adminProductList);
+			String fileName = ExcelFile.mgExcelDownload(adminProductList);
+			
+			json.put("fileName", fileName);
 			
 		}catch(Exception ex){
 			ex.printStackTrace();

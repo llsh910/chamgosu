@@ -20,12 +20,11 @@ public class ExcelFile {
 		
 	}
 	
-	@SuppressWarnings("resource")
-	public static List<Map<String, Object>> mgExcelUpload() throws Exception{
+	public static List<Map<String, Object>> mgExcelUpload(String fileName) throws Exception{
 		String path = MultiUtil.loadPropertyKey(UrlUtil.URLPROPPATH, "excelUploadURL");
 		
 		// 엑셀파일
-		File file = new File(path + "/prd_sample(본사).xlsx");
+		File file = new File(fileName);
 		
 		// 엑셀 파일 오픈
 		//org.apache.poi.ss.usermodel.Workbook wb = WorkbookFactory.create(file);
@@ -65,8 +64,7 @@ public class ExcelFile {
 		return listCashflow;
 	}
 	
-	@SuppressWarnings("resource")
-	public static void mgExcelDownload(List<Map<String, Object>> adminProductList) throws Exception{
+	public static String mgExcelDownload(List<Map<String, Object>> adminProductList) throws Exception{
 		String path = MultiUtil.loadPropertyKey(UrlUtil.URLPROPPATH, "excelUploadURL");
 		
 		// 엑셀파일
@@ -128,7 +126,7 @@ public class ExcelFile {
 		// 출력 파일 위치및 파일명 설정
 		FileOutputStream outFile;
 		String addName = Long.toString(new Date().getTime());
-		
+		String fileName = "";
 		
 		try {
 			
@@ -136,7 +134,7 @@ public class ExcelFile {
 			outFile = new FileOutputStream(path + addName +"_masterGoods.xlsx");
 			wb.write(outFile);
 			outFile.close();
-			
+			fileName = addName + "_masterGoods.xlsx";
 			System.out.println("파일생성 완료");
 		
 		
@@ -147,10 +145,12 @@ public class ExcelFile {
 		
 		}
 		
+		return fileName;
+		
 		
 		
 	        
 		
 	}
-	
+
 }

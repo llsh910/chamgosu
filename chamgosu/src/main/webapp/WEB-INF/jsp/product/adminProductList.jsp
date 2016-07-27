@@ -58,18 +58,19 @@
   <div id="contents">
     <h2>ㆍ상품 관리</h2>
     <!-- search -->
-    <form id="searchForm">
+    <form id="searchForm" method="post">
     	<input type="hidden" id="page_index" name="page_index" value="<%= page_index%>" />
 	    <div class="search">
 	      <ul>
 	        <li class="fl"> <span>SEARCH</span>
-	          <input type="text" class="inputTxt" style="width:320px;" />
-	          <input value="검색하기" type="button" class="btnm" />
+	          <input type="text" class="inputTxt" style="width:320px;" id="mg_booknm" name="mg_booknm" value="<%= RsUtil.checkNull(request.getParameter("mg_booknm"))%>"/>
+	          <input value="검색하기" type="button" class="btnm" onclick="searchSubmit()"/>
 	        </li>
 	        <li class="fr">
 	          <input value="개별 상품등록" type="button" class="btnm01" onclick="popupOpen('product_update.do')"/>
 	          <input value="엑셀파일 가져오기" type="button" class="btnm01" onclick="excelDownlod()" />
-	          <input value="엑셀파일 저장하기" type="button" class="btnm01" onclick="excelUpdate()" />
+	          <input value="엑셀파일 저장하기" type="button" class="btnm01" onclick="$('.file_input_hidden').click()" />
+	          <input type="file" name="excelFile" class="file_input_hidden" style="width:120px" onchange="excelUpdate()"/>
 	        </li>
 	      </ul>
 	    </div>
@@ -96,11 +97,11 @@
 	                <th scope="col">출판사별</th>
 	                <% if(pbsCodeList.size() <= 7){ %>
 	                <% for(int i=0; i<pbsCodeList.size(); i++){ %>
-	                <td><input type="radio" class="chk" id="" name="" value="<%= RsUtil.checkNull(pbsCodeList.get(i).get("CODE_FIRST"))%>"/><%= RsUtil.checkNull(pbsCodeList.get(i).get("CODE_CODENAME"))%></td>
+	                <td><input type="radio" class="chk" id="mg_pbs" name="mg_pbs" value="<%= RsUtil.checkNull(pbsCodeList.get(i).get("CODE_FIRST"))%>"/><%= RsUtil.checkNull(pbsCodeList.get(i).get("CODE_CODENAME"))%></td>
 	                <%} %>
 	                <% }else{ %>
 	                <% for(int i=0; i<7; i++){ %>
-	                <td><input type="radio" class="chk" id="" name="" value="<%= RsUtil.checkNull(pbsCodeList.get(i).get("CODE_FIRST"))%>"/><%= RsUtil.checkNull(pbsCodeList.get(i).get("CODE_CODENAME"))%></td>
+	                <td><input type="radio" class="chk" id="mg_pbs" name="mg_pbs" value="<%= RsUtil.checkNull(pbsCodeList.get(i).get("CODE_FIRST"))%>"/><%= RsUtil.checkNull(pbsCodeList.get(i).get("CODE_CODENAME"))%></td>
 	                <%} %>
 	                <% } %>
               	  </tr>
@@ -123,7 +124,7 @@
 	                  <tr>
                   		<th scope="col"></th>
 	                  	<% for(int i=7; i<pbsCodeList.size(); i++){ int j=i; %>
-	                  		<td><input type="radio" class="chk" id="" name="" value="<%= RsUtil.checkNull(pbsCodeList.get(i).get("CODE_FIRST"))%>"/><%= RsUtil.checkNull(pbsCodeList.get(i).get("CODE_CODENAME"))%></td>
+	                  		<td><input type="radio" class="chk" id="mg_pbs" name="mg_pbs" value="<%= RsUtil.checkNull(pbsCodeList.get(i).get("CODE_FIRST"))%>"/><%= RsUtil.checkNull(pbsCodeList.get(i).get("CODE_CODENAME"))%></td>
 	                  		
 	                  		<% if(j != 7){ %>
 	                  			<% if((j+1) % 7 == 0){ %>
@@ -154,11 +155,11 @@
 	                <th scope="col">분야(과목)별</th>
 	                <% if(subjCodeList.size() <= 7){ %>
 	                <% for(int i=0; i<subjCodeList.size(); i++){ %>
-	                <td><input type="radio" class="chk" id="" name="" value="<%= RsUtil.checkNull(subjCodeList.get(i).get("CODE_FIRST"))%>"/><%= RsUtil.checkNull(subjCodeList.get(i).get("CODE_CODENAME"))%></td>
+	                <td><input type="radio" class="chk" id="mg_subject" name="mg_subject" value="<%= RsUtil.checkNull(subjCodeList.get(i).get("CODE_FIRST"))%>"/><%= RsUtil.checkNull(subjCodeList.get(i).get("CODE_CODENAME"))%></td>
 	                <%} %>
 	                <% }else{ %>
 	                <% for(int i=0; i<7; i++){ %>
-	                <td><input type="radio" class="chk" id="" name="" value="<%= RsUtil.checkNull(subjCodeList.get(i).get("CODE_FIRST"))%>"/><%= RsUtil.checkNull(subjCodeList.get(i).get("CODE_CODENAME"))%></td>
+	                <td><input type="radio" class="chk" id="mg_subject" name="mg_subject" value="<%= RsUtil.checkNull(subjCodeList.get(i).get("CODE_FIRST"))%>"/><%= RsUtil.checkNull(subjCodeList.get(i).get("CODE_CODENAME"))%></td>
 	                <%} %>
 	                <% } %>
               	  </tr>
@@ -181,7 +182,7 @@
 	                  <tr>
                   		<th scope="col"></th>
 	                  	<% for(int i=7; i<subjCodeList.size(); i++){ int j=i; %>
-	                  		<td><input type="radio" class="chk" id="" name="" value="<%= RsUtil.checkNull(subjCodeList.get(i).get("CODE_FIRST"))%>"/><%= RsUtil.checkNull(subjCodeList.get(i).get("CODE_CODENAME"))%></td>
+	                  		<td><input type="radio" class="chk" id="mg_subject" name="mg_subject" value="<%= RsUtil.checkNull(subjCodeList.get(i).get("CODE_FIRST"))%>"/><%= RsUtil.checkNull(subjCodeList.get(i).get("CODE_CODENAME"))%></td>
 	                  		
 	                  		<% if(j != 7){ %>
 	                  			<% if((j+1) % 7 == 0){ %>
@@ -212,11 +213,11 @@
 	                <th scope="col">학년별</th>
 	                <% if(gradeCodeList.size() <= 7){ %>
 	                <% for(int i=0; i<gradeCodeList.size(); i++){ %>
-	                <td><input type="radio" class="chk" id="" name="" value="<%= RsUtil.checkNull(gradeCodeList.get(i).get("CODE_FIRST"))%>"/><%= RsUtil.checkNull(gradeCodeList.get(i).get("CODE_CODENAME"))%></td>
+	                <td><input type="radio" class="chk" id="mg_grade" name="mg_grade" value="<%= RsUtil.checkNull(gradeCodeList.get(i).get("CODE_FIRST"))%>"/><%= RsUtil.checkNull(gradeCodeList.get(i).get("CODE_CODENAME"))%></td>
 	                <%} %>
 	                <% }else{ %>
 	                <% for(int i=0; i<7; i++){ %>
-	                <td><input type="radio" class="chk" id="" name="" value="<%= RsUtil.checkNull(gradeCodeList.get(i).get("CODE_FIRST"))%>"/><%= RsUtil.checkNull(gradeCodeList.get(i).get("CODE_CODENAME"))%></td>
+	                <td><input type="radio" class="chk" id="mg_grade" name="mg_grade" value="<%= RsUtil.checkNull(gradeCodeList.get(i).get("CODE_FIRST"))%>"/><%= RsUtil.checkNull(gradeCodeList.get(i).get("CODE_CODENAME"))%></td>
 	                <%} %>
 	                <% } %>
               	  </tr>
@@ -239,7 +240,7 @@
 	                  <tr>
                   		<th scope="col"></th>
 	                  	<% for(int i=7; i<gradeCodeList.size(); i++){ int j=i; %>
-	                  		<td><input type="radio" class="chk" id="" name="" value="<%= RsUtil.checkNull(gradeCodeList.get(i).get("CODE_FIRST"))%>"/><%= RsUtil.checkNull(gradeCodeList.get(i).get("CODE_CODENAME"))%></td>
+	                  		<td><input type="radio" class="chk" id="mg_grade" name="mg_grade" value="<%= RsUtil.checkNull(gradeCodeList.get(i).get("CODE_FIRST"))%>"/><%= RsUtil.checkNull(gradeCodeList.get(i).get("CODE_CODENAME"))%></td>
 	                  		
 	                  		<% if(j != 7){ %>
 	                  			<% if((j+1) % 7 == 0){ %>
@@ -270,11 +271,11 @@
 	                <th scope="col">대상별</th>
 	                <% if(objCodeList.size() <= 7){ %>
 	                <% for(int i=0; i<objCodeList.size(); i++){ %>
-	                <td><input type="radio" class="chk" id="" name="" value="<%= RsUtil.checkNull(objCodeList.get(i).get("CODE_FIRST"))%>"/><%= RsUtil.checkNull(objCodeList.get(i).get("CODE_CODENAME"))%></td>
+	                <td><input type="radio" class="chk" id="mg_object" name="mg_object" value="<%= RsUtil.checkNull(objCodeList.get(i).get("CODE_FIRST"))%>"/><%= RsUtil.checkNull(objCodeList.get(i).get("CODE_CODENAME"))%></td>
 	                <%} %>
 	                <% }else{ %>
 	                <% for(int i=0; i<7; i++){ %>
-	                <td><input type="radio" class="chk" id="" name="" value="<%= RsUtil.checkNull(objCodeList.get(i).get("CODE_FIRST"))%>"/><%= RsUtil.checkNull(objCodeList.get(i).get("CODE_CODENAME"))%></td>
+	                <td><input type="radio" class="chk" id="mg_object" name="mg_object" value="<%= RsUtil.checkNull(objCodeList.get(i).get("CODE_FIRST"))%>"/><%= RsUtil.checkNull(objCodeList.get(i).get("CODE_CODENAME"))%></td>
 	                <%} %>
 	                <% } %>
               	  </tr>
@@ -297,7 +298,7 @@
 	                  <tr>
                   		<th scope="col"></th>
 	                  	<% for(int i=7; i<gradeCodeList.size(); i++){ int j=i; %>
-	                  		<td><input type="radio" class="chk" id="" name="" value="<%= RsUtil.checkNull(objCodeList.get(i).get("CODE_FIRST"))%>"/><%= RsUtil.checkNull(objCodeList.get(i).get("CODE_CODENAME"))%></td>
+	                  		<td><input type="radio" class="chk" id="mg_object" name="mg_object" value="<%= RsUtil.checkNull(objCodeList.get(i).get("CODE_FIRST"))%>"/><%= RsUtil.checkNull(objCodeList.get(i).get("CODE_CODENAME"))%></td>
 	                  		
 	                  		<% if(j != 7){ %>
 	                  			<% if((j+1) % 7 == 0){ %>
@@ -493,11 +494,11 @@
 	    
 	    <h4><span>총 상품수 : <%= allCount%>건</span> 검색상품 수 : <%= totalCount%>건
 	      <p>
-	        <select style="width:90px;">
-	          <option>10개씩 보기</option>
-	          <option>20개씩 보기</option>
-	          <option>50개씩 보기</option>
-	          <option>100개씩 보기</option>
+	        <select style="width:90px;" id="per_page" name="per_page" onchange="searchSubmit()">
+	          <option value="10" <%= WebUtil.isSelected("10", request.getParameter("per_page"))%>>10개씩 보기</option>
+	          <option value="20" <%= WebUtil.isSelected("20", request.getParameter("per_page"))%>>20개씩 보기</option>
+	          <option value="50" <%= WebUtil.isSelected("50", request.getParameter("per_page"))%>>50개씩 보기</option>
+	          <option value="100" <%= WebUtil.isSelected("100", request.getParameter("per_page"))%>>100개씩 보기</option>
 	        </select>
 	      </p>
 	    </h4>
@@ -565,7 +566,9 @@
 	        <col width="93" />
 	        </colgroup>
 	        <tbody>
-	          <% for(int i=0; i<adminProductList.size(); i++){%>
+	          <% 
+	          	if(adminProductList.size() > 0){
+	          		for(int i=0; i<adminProductList.size(); i++){%>
 	          <tr>
 	            <td><input type="checkbox" class="chk" name="chk" value="<%= RsUtil.checkNull(adminProductList.get(i).get("MG_SEQ"))%>" /></td>
 	            <td>
@@ -593,6 +596,10 @@
 	            <td><input value="수정" type="button" class="btns01" onclick="popupOpen('product_update.do?mg_seq=<%= RsUtil.checkNull(adminProductList.get(i).get("MG_SEQ"))%>')"/>
 	              <input value="삭제" type="button" class="btns" onclick="productDelete('<%= RsUtil.checkNull(adminProductList.get(i).get("MG_SEQ"))%>')"/></td>
 	          </tr>
+	          <%}}else{ %>
+	          	<tr>
+	          		<td colspan="11">상품이 존재하지 않습니다.</td>
+	          	</tr>
 	          <%} %>
 	        </tbody>
 	      </table>
@@ -700,14 +707,23 @@
 			}
 		}); 
 	}
-	
 	function excelUpdate(){
+		
+		
+		var result = confirm('데이터를 입력하시겠습니까?');
+		if(!result)return;
+		
+		
 		$(".backLayer").css("display","block");
+		
+		
 		var Url = "mgExcelUpload.do";
-		jQuery.ajax({
-            url: Url,
-            type:'POST',
-            success: function(data){
+		
+		var options = {
+	    	url : Url,
+	    	type: 'post',
+	    	contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+	    	success: function(data){
             	console.log(data);
             	
             	if(data.msg == "codeError"){
@@ -728,19 +744,35 @@
 			},complete: function(err){
 				$(".backLayer").css("display","none");
 			}
+		};
+		jQuery("#searchForm").ajaxForm(options).submit();
 		
-		}); 
+		
 	}
 	
 	function excelDownlod(){
+		$(".backLayer").css("display","block");
 		var Url = "mgExcelDownload.do";
 		jQuery.ajax({
             url: Url,
             type:'POST',
             success: function(data){
-            	console.log(data);
+            	if(data.msg == "success"){
+            		
+            		location.href = "<%= realPath%>/fileDown.do?filename="+data.fileName;
+            		
+      
+    				
+    				
+            	}else{
+            		
+            		alert("엑셀 파일 가져오는 과정에서 시스템오류가 발생하였습니다.");
+            		
+            	}
 			},complete: function(err){
 				
+				$(".backLayer").css("display","none");
+
 			}
 		
 		}); 
