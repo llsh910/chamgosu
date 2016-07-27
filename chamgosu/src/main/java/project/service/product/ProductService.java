@@ -20,5 +20,10 @@ public interface ProductService {
 	
 	int productApplyUpdate(Map<String, Object> map) throws Exception;
 	
+	int productDelete(Map<String, Object> map)throws Exception;
+	
+	int selectProductIdt(Map<String, Object> map)throws Exception;
+	
+	
 	
 }

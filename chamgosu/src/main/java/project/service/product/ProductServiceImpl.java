@@ -55,6 +55,16 @@ public class ProductServiceImpl implements ProductService {
 		return productDAO.productApplyUpdate(map);
 	}
 	
+	@Override
+	public int productDelete(Map<String, Object> map) throws Exception{
+		return productDAO.productDelete(map);
+	}
+	
+	@Override
+	public int selectProductIdt(Map<String, Object> map) throws Exception{
+		return productDAO.selectProductIdt(map);
+	}
+	
 	
 	
 

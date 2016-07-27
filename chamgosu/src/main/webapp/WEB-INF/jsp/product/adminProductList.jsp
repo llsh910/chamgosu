@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ include file="../top.jsp"%>
   <style>
   	.backLayer {
   		position:absolute; 
@@ -26,11 +27,12 @@
 		border:1px solid white; 
 		color:white; 
 		margin: 0 30%;
+		font-size:15px;
+		font-weight:bold;
 	}
 	
   </style>
-  <div class="backLayer"></div>
-<%@ include file="../top.jsp"%>
+  <div class="backLayer"><img src="<%= realPath%>/img/loding.gif" style="margin-left: 45%; margin-top: 20%;"></div>
 <%
 	List<Map<String, Object>> adminProductList = (List<Map<String, Object>>) request.getAttribute("adminProductList");
 	Map<String, Object> pageInfo = (Map<String, Object>)request.getAttribute("pageInfo");
@@ -580,7 +582,7 @@
 	            	<%= RsUtil.checkNull(adminProductList.get(i).get("MG_GRADE"))%>
 	            </td>
 	            <td><%= RsUtil.checkNull(adminProductList.get(i).get("MG_BOOKISYEAR"))%></td>
-	            <td><%= RsUtil.checkNull(adminProductList.get(i).get("MG_MOREINF"))%><br>
+	            <td  style="max-width: 80px; overflow:hidden; text-overflow: ellipsis; white-space: nowrap;"><%= RsUtil.checkNull(adminProductList.get(i).get("MG_MOREINF"))%><br>
 	              <%= RsUtil.checkNull(adminProductList.get(i).get("MG_REFMAT"))%></td>
 	            <td>본사 담당자<br>
 	              <input type="checkbox" class="chk" name="chk01" id="chk01" value="T" <%= WebUtil.isChecked("T", RsUtil.checkNull(adminProductList.get(i).get("MG_APPLYCHK")))%> onclick="checkBtn('Y', this)"/>
@@ -589,7 +591,7 @@
 	              		아니오
 	            </td>
 	            <td><input value="수정" type="button" class="btns01" onclick="popupOpen('product_update.do?mg_seq=<%= RsUtil.checkNull(adminProductList.get(i).get("MG_SEQ"))%>')"/>
-	              <input value="삭제" type="button" class="btns" /></td>
+	              <input value="삭제" type="button" class="btns" onclick="productDelete('<%= RsUtil.checkNull(adminProductList.get(i).get("MG_SEQ"))%>')"/></td>
 	          </tr>
 	          <%} %>
 	        </tbody>
@@ -608,7 +610,7 @@
 	    <!-- 버튼 -->
 	    <div class="btnarea">
 	      <input value="일괄저장" type="button" class="btn02 mgr10" onclick="productListSave()" />
-	      <input value="선택삭제" type="button" class="btn01" />
+	      <input value="선택삭제" type="button" class="btn01" onclick="productDelete('')" />
 	    </div>
     </form>
     <!-- /버튼 --> 
@@ -718,6 +720,7 @@
             		$("#errorMsgModal").css("display", "block");
             	}else if(data.msg == "success"){
             		alert("상품이 등록되었습니다.");
+            		location.reload();
             	}
             	
 			},complete: function(err){
@@ -729,5 +732,35 @@
 	
 	function errorMsgClose(){
 		$("#errorMsgModal").css("display", "none");
+	}
+	
+	function productDelete(num){
+		var mg_seq = [];
+		if(num == ""){
+			$("input[name=chk]:checked").each(function(idx) {
+				mg_seq.push($(this).val());
+			});
+		}else{
+			mg_seq.push(num);
+		}
+		console.log(mg_seq);
+		var Url = "productDelete.do";
+		jQuery.ajax({
+            url: Url,
+            type:'POST',
+            data:{
+            	"mg_seq[]" : mg_seq
+            },
+            success: function(data){
+            	if(data.msg == "success"){
+            		alert("삭제 완료했습니다.");
+            		location.reload();
+            	}else{
+            		alert("시스템 오류가 발생하였습니다.");
+            	}
+            	
+			}
+		
+		});
 	}
   </script>

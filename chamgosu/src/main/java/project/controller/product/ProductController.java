@@ -427,14 +427,20 @@ public class ProductController {
 			int successCnt = 0;
 			
 			for(int i=0; i<excelData.size(); i++){
+				log.debug(productService.selectProductIdt(excelData.get(i)));
+				if(productService.selectProductIdt(excelData.get(i)) > 0){
+					errorList.add(RsUtil.checkNull(excelData.get(i).get("MG_BOOKNM")) + " : " + "이미 중복된 데이터가 있습니다.(부제목 포함)");
+					continue;
+				}
 				
 				//출판사 코드값 찾기
 				for(int j=0;  j < pbsCodeList.size(); j++){
-					if(pbsCodeList.get(j).get("CODE_CODENAME").equals(RsUtil.checkNull(excelData.get(i).get("mg_pbs")))){
+					if(codeFlag == true) break;
+					if(pbsCodeList.get(j).get("CODE_CODENAME").equals(RsUtil.checkNull(excelData.get(i).get("MG_PBS")))){
 						
-						excelData.get(i).remove("mg_pbs");
+						excelData.get(i).remove("MG_PBS");
 						
-						excelData.get(i).put("mg_pbs", pbsCodeList.get(j).get("CODE_FIRST"));
+						excelData.get(i).put("MG_PBS", pbsCodeList.get(j).get("CODE_FIRST"));
 						
 						codeFlag = true;
 						
@@ -442,7 +448,7 @@ public class ProductController {
 				}
 				
 				if(codeFlag == false){
-					errorList.add(RsUtil.checkNull(excelData.get(i).get("mg_booknm")) + " : " + "해당 출판사코드가 없습니다.");
+					errorList.add(RsUtil.checkNull(excelData.get(i).get("MG_BOOKNM")) + " : " + "해당 출판사코드가 없습니다.");
 				}
 				
 				
@@ -450,11 +456,12 @@ public class ProductController {
 				
 				//분야(과목) 코드값 찾기
 				for(int j=0;  j < subjCodeList.size(); j++){
-					if(subjCodeList.get(j).get("CODE_CODENAME").equals(RsUtil.checkNull(excelData.get(i).get("mg_subject")))){
+					if(codeFlag == true) break;
+					if(subjCodeList.get(j).get("CODE_CODENAME").equals(RsUtil.checkNull(excelData.get(i).get("MG_SUBJECT")))){
 
-						excelData.get(i).remove("mg_subject");
+						excelData.get(i).remove("MG_SUBJECT");
 						
-						excelData.get(i).put("mg_subject", pbsCodeList.get(j).get("CODE_FIRST"));
+						excelData.get(i).put("MG_SUBJECT", pbsCodeList.get(j).get("CODE_FIRST"));
 						
 						codeFlag = true;
 						
@@ -463,37 +470,39 @@ public class ProductController {
 				
 				
 				if(codeFlag == false){
-					errorList.add(RsUtil.checkNull(excelData.get(i).get("mg_booknm")) + " : " + "해당 분야코드가 없습니다.");
+					errorList.add(RsUtil.checkNull(excelData.get(i).get("MG_BOOKNM")) + " : " + "해당 분야코드가 없습니다.");
 				}
 				
 				codeFlag = false;
 				
 				//대상 코드값 찾기
 				for(int j=0;  j < objCodeList.size(); j++){
-					if(objCodeList.get(j).get("CODE_CODENAME").equals(RsUtil.checkNull(excelData.get(i).get("mg_object")))){
+					if(codeFlag == true) break;
+					if(objCodeList.get(j).get("CODE_CODENAME").equals(RsUtil.checkNull(excelData.get(i).get("MG_OBJECT")))){
 						
 
-						excelData.get(i).remove("mg_object");
+						excelData.get(i).remove("MG_OBJECT");
 						
-						excelData.get(i).put("mg_object", pbsCodeList.get(j).get("CODE_FIRST"));
+						excelData.get(i).put("MG_OBJECT", pbsCodeList.get(j).get("CODE_FIRST"));
 						
 						codeFlag = true;
 					}
 				}
 				
 				if(codeFlag == false){
-					errorList.add(RsUtil.checkNull(excelData.get(i).get("mg_booknm")) + " : " + "해당 대상코드가 없습니다.");
+					errorList.add(RsUtil.checkNull(excelData.get(i).get("MG_BOOKNM")) + " : " + "해당 대상코드가 없습니다.");
 				}
 				
 				codeFlag = false;
 				
 				//학년별 코드값 찾기
 				for(int j=0;  j < gradeCodeList.size(); j++){
-					if(gradeCodeList.get(j).get("CODE_CODENAME").equals(RsUtil.checkNull(excelData.get(i).get("mg_grade")))){
+					if(codeFlag == true) break;
+					if(gradeCodeList.get(j).get("CODE_CODENAME").equals(RsUtil.checkNull(excelData.get(i).get("MG_GRADE")))){
 
-						excelData.get(i).remove("mg_grade");
+						excelData.get(i).remove("MG_GRADE");
 						
-						excelData.get(i).put("mg_grade", pbsCodeList.get(j).get("CODE_FIRST"));
+						excelData.get(i).put("MG_GRADE", pbsCodeList.get(j).get("CODE_FIRST"));
 						
 						codeFlag = true;
 						
@@ -501,13 +510,17 @@ public class ProductController {
 				}
 				
 				if(codeFlag == false){
-					errorList.add(RsUtil.checkNull(excelData.get(i).get("mg_booknm")) + " : " + "해당 학년코드가 없습니다.");
+					errorList.add(RsUtil.checkNull(excelData.get(i).get("MG_BOOKNM")) + " : " + "해당 학년코드가 없습니다.");
 				}
+				
+				codeFlag = false;
+				
+				
 				
 				if(errorList.size() <= 0){
 					int result = productService.insertProduct(excelData.get(i));
 					if(result <= 0){
-						errorList.add(RsUtil.checkNull(excelData.get(i).get("mg_booknm")) + " : " + "시스템 오류");
+						errorList.add(RsUtil.checkNull(excelData.get(i).get("MG_BOOKNM")) + " : " + "시스템 오류");
 					}else{
 						successCnt++;
 					}
@@ -535,6 +548,51 @@ public class ProductController {
 			pw.flush();
 			pw.close();
 		}
+	}
+	
+	@RequestMapping(value="productDelete.do")
+	public void productDelete(CommandMap map, HttpServletResponse response, HttpServletRequest request)throws Exception{
+		PrintWriter pw = null;
+
+		JSONObject json = new JSONObject();
+		String msg = "success";
+		
+		Map<String, Object> param = new HashMap<String, Object>();
+		
+		
+		
+		String[] mg_seq = request.getParameterValues("mg_seq[]");
+		
+
+		try{
+			
+			
+			if(mg_seq != null && mg_seq.length > 0){
+				for(int i=0; i<mg_seq.length; i++){
+					
+					param.remove("mg_seq");
+					param.put("mg_seq", mg_seq[i]);
+					
+					productService.productDelete(param);
+					
+				}
+			}
+			
+			
+			
+		}catch(Exception ex){
+			ex.printStackTrace();
+			msg = "error";
+		}finally{
+			response.setContentType("application/x-json; charset=UTF-8");
+			json.put("msg", msg);
+			pw = response.getWriter();
+			pw.print(json);
+			pw.flush();
+			pw.close();
+		}
+
+
 	}
 	
 	

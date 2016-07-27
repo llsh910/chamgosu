@@ -50,7 +50,15 @@ public class ProductDAO extends TempletDAO {
 		return (Integer)update("product.productApplyUpdate", map);
 	}
 	
+	@SuppressWarnings("unchecked")
+	public int productDelete(Map<String, Object> map) throws Exception{
+		return (Integer)delete("product.productDelete", map);
+	}
 	
+	@SuppressWarnings("unchecked")
+	public int selectProductIdt(Map<String, Object> map) throws Exception{
+		return (Integer)selectOne("product.selectProductIdt", map);
+	}
 	
 	
 	

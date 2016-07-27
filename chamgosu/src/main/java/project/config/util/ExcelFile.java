@@ -44,19 +44,20 @@ public class ExcelFile {
 
 			Map<String, Object> hmCashFlow = new HashMap<String, Object>();
 			DataFormatter formatter = new DataFormatter(); 
-			hmCashFlow.put("mg_isbn", formatter.formatCellValue(row.getCell(0)));
-			hmCashFlow.put("mg_booknm", formatter.formatCellValue(row.getCell(1)));
-			hmCashFlow.put("mg_booksubnm", formatter.formatCellValue(row.getCell(2)));
-			hmCashFlow.put("mg_pbs", formatter.formatCellValue(row.getCell(3)));
-			hmCashFlow.put("mg_bookwriter", formatter.formatCellValue(row.getCell(4)));
-			hmCashFlow.put("mg_subject", formatter.formatCellValue(row.getCell(5)));
-			hmCashFlow.put("mg_object", formatter.formatCellValue(row.getCell(6)));
-			hmCashFlow.put("mg_grade", formatter.formatCellValue(row.getCell(7)));
-			hmCashFlow.put("mg_step",formatter.formatCellValue(row.getCell(8)));
-			hmCashFlow.put("mg_bookisyear", formatter.formatCellValue(row.getCell(9)));
-			hmCashFlow.put("mg_price", formatter.formatCellValue(row.getCell(10)));
-			hmCashFlow.put("mg_moreinf", formatter.formatCellValue(row.getCell(13)));
-			
+			hmCashFlow.put("MG_ISBN", formatter.formatCellValue(row.getCell(0)));
+			hmCashFlow.put("MG_BOOKNM", formatter.formatCellValue(row.getCell(1)));
+			hmCashFlow.put("MG_BOOKSUBNM", formatter.formatCellValue(row.getCell(2)));
+			hmCashFlow.put("MG_PBS", formatter.formatCellValue(row.getCell(3)));
+			hmCashFlow.put("MG_BOOKWRITER", formatter.formatCellValue(row.getCell(4)));
+			hmCashFlow.put("MG_SUBJECT", formatter.formatCellValue(row.getCell(5)));
+			hmCashFlow.put("MG_OBJECT", formatter.formatCellValue(row.getCell(6)));
+			hmCashFlow.put("MG_GRADE", formatter.formatCellValue(row.getCell(7)));
+			hmCashFlow.put("MG_STEP",formatter.formatCellValue(row.getCell(8)));
+			hmCashFlow.put("MG_BOOKISYEAR", formatter.formatCellValue(row.getCell(9)));
+			hmCashFlow.put("MG_PRICE", formatter.formatCellValue(row.getCell(10)));
+			hmCashFlow.put("MG_REFMAT", formatter.formatCellValue(row.getCell(11)));
+			hmCashFlow.put("MG_MOREINF", formatter.formatCellValue(row.getCell(13)));
+			hmCashFlow.put("MG_APPLYCHK", "T");
 			listCashflow.add(hmCashFlow);
 		}
 		return listCashflow;
