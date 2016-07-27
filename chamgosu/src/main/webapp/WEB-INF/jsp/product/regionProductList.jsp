@@ -1,5 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../top.jsp"%>
+<%
+		List<Map<String, Object>> regionProductList = (List<Map<String, Object>>) request.getAttribute("regionProductList");
+		Map<String, Object> pageInfo = (Map<String, Object>)request.getAttribute("pageInfo");
+		String page_index = RsUtil.checkNull(pageInfo.get("page_index"));
+		String totalCount = RsUtil.checkNull(pageInfo.get("totalCount"));
+		String allCount = RsUtil.checkNull(pageInfo.get("allCount"));
+		String per_page = RsUtil.checkNull(pageInfo.get("per_page"));
+		if(page_index.equals("")) page_index = "1";
+		
+		//출판사 코드 리스트
+		List<Map<String, Object>> pbsCodeList = (List<Map<String, Object>>)request.getAttribute("pbsCodeList");
+		
+		//분야(과목)별 코드 리스트
+		List<Map<String, Object>> subjCodeList = (List<Map<String, Object>>)request.getAttribute("subjCodeList");
+		
+		//대상별 코드 리스트
+		List<Map<String, Object>> objCodeList = (List<Map<String, Object>>)request.getAttribute("objCodeList");
+		
+		//학년별 코드리스트
+		List<Map<String, Object>> gradeCodeList = (List<Map<String, Object>>)request.getAttribute("gradeCodeList");
+%>
 <!--contents-->
   <div id="contents">
     <h2>ㆍ지역별 상품 관리</h2>
@@ -917,7 +938,7 @@ $(function () {
             학년</th>
           <th scope="col">단계<br>
             발행연도</th>
-          <th scope="col">공급자별<br>
+          <th scope="col">공급자<br>
             공급율</th>
           <th scope="col">상품등록자별<br>
             <input type="checkbox" class="chk" id="checkall01" />
@@ -950,181 +971,38 @@ $(function () {
         <col width="93" />
         </colgroup>
         <tbody>
+        	 <% 
+	          	if(regionProductList.size() > 0){
+	          		for(int i=0; i<regionProductList.size(); i++){%>
           <tr> <td><input type="checkbox" class="chk" name="chk" /></td>
-            <td><img src="../img/book_noimage.jpg" alt="책 기본이미지"></td>
-            <td>DJH-1564<br>
-              123-456789</td>
-            <td>영어 경시대회 예상문제<br>
-              (가산초등학교)</td>
-            <td>영재교육<br>
-              김천재</td>
-            <td>32,000원<br>
-              영어</td>
-            <td>초등<br>
-              4학년</td>
-            <td>1학기 기말<br>
-              2016</td>
-            <td>광명도서<br>
-              75%</td>
+            <td><img src="<%= realPath%><%= (RsUtil.checkNull(regionProductList.get(i).get("MG_BOOKIMG")).equals("") ? "/img/book_noimage.jpg" : "/bookimg/thumnail_" + RsUtil.checkNull(regionProductList.get(i).get("MG_BOOKIMG")) ) %>" alt="책 기본이미지"></td>
+            <td><%= RsUtil.checkNull(regionProductList.get(i).get("MG_ISBN"))%></td>
+            <td><%= RsUtil.checkNull(regionProductList.get(i).get("MG_BOOKNM"))%><br>
+	              (<%= RsUtil.checkNull(regionProductList.get(i).get("MG_BOOKSUBNM"))%>)</td>
+            <td><%= RsUtil.checkNull(regionProductList.get(i).get("MG_PBS"))%><br>
+	             	 <%= RsUtil.checkNull(regionProductList.get(i).get("MG_BOOKWRITER"))%></td>
+            <td><%= MultiUtil.comma(RsUtil.checkNull(regionProductList.get(i).get("MG_PRICE")))%>원<br>
+	             	 <%= RsUtil.checkNull(regionProductList.get(i).get("MG_SUBJECT"))%></td>
+            <td><%= RsUtil.checkNull(regionProductList.get(i).get("MG_OBJECT"))%><br />
+	            	<%= RsUtil.checkNull(regionProductList.get(i).get("MG_GRADE"))%>
+	            </td>
+           <td><%= RsUtil.checkNull(regionProductList.get(i).get("MG_BOOKISYEAR"))%></td>
+            <td><%= RsUtil.checkNull(regionProductList.get(i).get("SP_BUSINM"))%><br>
+              <%= RsUtil.checkNull(regionProductList.get(i).get("RG_SPRATE"))%>%</td>
             <td>본사 담당자<br>
               <input type="checkbox" class="chk" name="chk01" />
               예
               <input type="checkbox" class="chk" name="chk02" />
               아니오</td>
-            <td>1000</td>
+            <td><%= RsUtil.checkNull(regionProductList.get(i).get("RG_STOCKCNT"))%></td>
             <td><input value="수정" type="button" class="btns01" />
               <input value="삭제" type="button" class="btns" /></td>
           </tr>
-          <tr> <td><input type="checkbox" class="chk" name="chk" /></td>
-            <td><img src="../img/book_noimage.jpg" alt="책 기본이미지"></td>
-            <td>DJH-1564<br>
-              123-456789</td>
-            <td>영어 경시대회 예상문제<br>
-              (가산초등학교)</td>
-            <td>영재교육<br>
-              김천재</td>
-            <td>32,000원<br>
-              영어</td>
-            <td>초등<br>
-              4학년</td>
-            <td>1학기 기말<br>
-              2016</td>
-            <td>광명도서<br>
-              75%</td>
-            <td>본사 담당자<br>
-              <input type="checkbox" class="chk" name="chk01" />
-              예
-              <input type="checkbox" class="chk" name="chk02" />
-              아니오</td>
-            <td>1000</td>
-            <td><input value="수정" type="button" class="btns01" />
-              <input value="삭제" type="button" class="btns" /></td>
-          </tr>
-          <tr> <td><input type="checkbox" class="chk" name="chk" /></td>
-            <td><img src="../img/book_noimage.jpg" alt="책 기본이미지"></td>
-            <td>DJH-1564<br>
-              123-456789</td>
-            <td>수학천재참고서<br>
-              (가산초등학교)</td>
-            <td>영재교육<br>
-              김천재</td>
-            <td>32,000원<br>
-              영어</td>
-            <td>초등<br>
-              4학년</td>
-            <td>1학기 기말<br>
-              2016</td>
-            <td>광명도서<br>
-              75%</td>
-            <td>본사 담당자<br>
-              <input type="checkbox" class="chk" name="chk01" />
-              예
-              <input type="checkbox" class="chk" name="chk02" />
-              아니오</td>
-            <td>1000</td>
-            <td><input value="수정" type="button" class="btns01" />
-              <input value="삭제" type="button" class="btns" /></td>
-          </tr>
-          <tr> <td><input type="checkbox" class="chk" name="chk" /></td>
-            <td><img src="../img/book_noimage.jpg" alt="책 기본이미지"></td>
-            <td>DJH-1564<br>
-              123-456789</td>
-            <td>영어 경시대회 예상문제<br>
-              (가산초등학교)</td>
-            <td>영재교육<br>
-              김천재</td>
-            <td>32,000원<br>
-              영어</td>
-            <td>초등<br>
-              4학년</td>
-            <td>1학기 기말<br>
-              2016</td>
-            <td>광명도서<br>
-              75%</td>
-            <td>본사 담당자<br>
-              <input type="checkbox" class="chk" name="chk01" />
-              예
-              <input type="checkbox" class="chk" name="chk02" />
-              아니오</td>
-            <td>1000</td>
-            <td><input value="수정" type="button" class="btns01" />
-              <input value="삭제" type="button" class="btns" /></td>
-          </tr>
-          <tr> <td><input type="checkbox" class="chk" name="chk" /></td>
-            <td><img src="../img/book_noimage.jpg" alt="책 기본이미지"></td>
-            <td>DJH-1564<br>
-              123-456789</td>
-            <td>영어 경시대회 예상문제<br>
-              (가산초등학교)</td>
-            <td>영재교육<br>
-              김천재</td>
-            <td>32,000원<br>
-              영어</td>
-            <td>초등<br>
-              4학년</td>
-            <td>1학기 기말<br>
-              2016</td>
-            <td>광명도서<br>
-              75%</td>
-            <td>본사 담당자<br>
-              <input type="checkbox" class="chk" name="chk01" />
-              예
-              <input type="checkbox" class="chk" name="chk02" />
-              아니오</td>
-            <td>1000</td>
-            <td><input value="수정" type="button" class="btns01" />
-              <input value="삭제" type="button" class="btns" /></td>
-          </tr>
-          <tr> <td><input type="checkbox" class="chk" name="chk" /></td>
-            <td><img src="../img/book_noimage.jpg" alt="책 기본이미지"></td>
-            <td>DJH-1564<br>
-              123-456789</td>
-            <td>영어 경시대회 예상문제<br>
-              (가산초등학교)</td>
-            <td>영재교육<br>
-              김천재</td>
-            <td>32,000원<br>
-              영어</td>
-            <td>초등<br>
-              4학년</td>
-            <td>1학기 기말<br>
-              2016</td>
-            <td>광명도서<br>
-              75%</td>
-            <td>본사 담당자<br>
-              <input type="checkbox" class="chk" name="chk01" />
-              예
-              <input type="checkbox" class="chk" name="chk02" />
-              아니오</td>
-            <td>1000</td>
-            <td><input value="수정" type="button" class="btns01" />
-              <input value="삭제" type="button" class="btns" /></td>
-          </tr>
-          <tr> <td><input type="checkbox" class="chk" name="chk" /></td>
-            <td><img src="../img/book_noimage.jpg" alt="책 기본이미지"></td>
-            <td>DJH-1564<br>
-              123-456789</td>
-            <td>영어 경시대회 예상문제<br>
-              (가산초등학교)</td>
-            <td>영재교육<br>
-              김천재</td>
-            <td>32,000원<br>
-              영어</td>
-            <td>초등<br>
-              4학년</td>
-            <td>1학기 기말<br>
-              2016</td>
-            <td>광명도서<br>
-              75%</td>
-            <td>본사 담당자<br>
-              <input type="checkbox" class="chk" name="chk01" />
-              예
-              <input type="checkbox" class="chk" name="chk02" />
-              아니오</td>
-            <td>1000</td>
-            <td><input value="수정" type="button" class="btns01" />
-              <input value="삭제" type="button" class="btns" /></td>
-          </tr>
+          <%}}else{%>
+          	<tr>
+          		<td colspan="11">상품이 존재하지 않습니다.</td>
+          	</tr>
+          <%} %>
         </tbody>
       </table>
     </div>

@@ -60,6 +60,13 @@ public class ProductDAO extends TempletDAO {
 		return (Integer)selectOne("product.selectProductIdt", map);
 	}
 	
+	@SuppressWarnings("unchecked")
+	public List<Map<String, Object>> regionProductList(Map<String, Object> map) throws Exception{
+		return (List<Map<String, Object>>) selectList("product.regionProductList", map);
+	}
+	
+	
+	
 	
 	
 }

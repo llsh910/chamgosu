@@ -65,6 +65,13 @@ public class ProductServiceImpl implements ProductService {
 		return productDAO.selectProductIdt(map);
 	}
 	
+	@Override
+	public List<Map<String, Object>> regionProductList(Map<String, Object> map) throws Exception{
+		return productDAO.regionProductList(map);
+	}
+	
+	
+	
 	
 	
 

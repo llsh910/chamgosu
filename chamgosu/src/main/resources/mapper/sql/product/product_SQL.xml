@@ -93,7 +93,7 @@
 				, @rnum := @rnum + 1 as rn
 			from
 				(SELECT @rnum := 0) r,
-				CG_MARSTERGOODS
+				CG_MARSTERGOODS 
 			where
 				1=1
 				
@@ -182,9 +182,16 @@
 			,MG_BOOKIMG
 			,MG_REFMAT
 			,MG_MOREINF
-			,DATE_FORMAT( REGDATE,'%Y-%m-%d' ) as REGDATE
+			,DATE_FORMAT( M.REGDATE,'%Y-%m-%d' ) as REGDATE
+			,RG_SPID
+			,RG_SPPRICE
+			,RG_SPRATE
+			,RG_STOCKCNT
+			,RG_APPLYCHK
 		from
-			CG_MARSTERGOODS
+			CG_MARSTERGOODS M
+			LEFT OUTER JOIN CG_REGIONGOODS R
+			ON M.MG_SEQ = R.RG_BOOKSEQ
 		where
 			MG_SEQ=#{mg_seq}
 	</select>
@@ -244,5 +251,74 @@
 			MG_BOOKNM = #{MG_BOOKNM}
 		and
 			MG_BOOKSUBNM = #{MG_BOOKSUBNM}
+	</select>
+	
+	<!-- 지역상품리스트 -->
+	<select id="regionProductList" parameterType="hashmap" resultType="hashmap">
+		select 
+			MG_SEQ
+			,MG_ISBN
+			,MG_BOOKNM
+			,MG_BOOKSUBNM
+			,UDF_SELECT_CODE1NAME('02', MG_PBS) as MG_PBS
+			,MG_BOOKWRITER
+			,MG_PRICE
+			,UDF_SELECT_CODE1NAME('03', MG_SUBJECT) as MG_SUBJECT
+			,UDF_SELECT_CODE1NAME('04', MG_OBJECT) as MG_OBJECT
+			,UDF_SELECT_CODE1NAME('05', MG_GRADE) as MG_GRADE
+			,MG_STEP
+			,MG_BOOKISYEAR
+			,MG_USERID
+			,MG_APPLYCHK
+			,MG_BOOKIMG
+			,MG_REFMAT
+			,MG_MOREINF
+			,RG_SPID
+			,RG_SPPRICE
+			,RG_SPRATE
+			,RG_STOCKCNT
+			,RG_APPLYCHK
+			,SP_BUSINM
+			,DATE_FORMAT( REGDATE,'%Y-%m-%d' ) as REGDATE
+		from
+		(
+			select
+				MG_SEQ
+				,MG_ISBN
+				,MG_BOOKNM
+				,MG_BOOKSUBNM
+				,MG_PBS
+				,MG_BOOKWRITER
+				,MG_PRICE
+				,MG_SUBJECT
+				,MG_OBJECT
+				,MG_GRADE
+				,MG_STEP
+				,MG_BOOKISYEAR
+				,MG_USERID
+				,MG_APPLYCHK
+				,MG_BOOKIMG
+				,MG_REFMAT
+				,MG_MOREINF
+				,DATE_FORMAT( M.REGDATE,'%Y-%m-%d' ) as REGDATE
+				,RG_SPID
+				,RG_SPPRICE
+				,RG_SPRATE
+				,RG_STOCKCNT
+				,RG_APPLYCHK
+				,SP_BUSINM
+				, @rnum := @rnum + 1 as rn
+			from
+				(SELECT @rnum := 0) r,
+				CG_MARSTERGOODS M
+				INNER JOIN CG_REGIONGOODS R
+				ON M.MG_SEQ = R.RG_BOOKSEQ
+				INNER JOIN CG_SUPPLIER S
+				ON R.RG_SPID = S.SP_SEQ
+			where
+				1=1
+			order by MG_SEQ desc
+		) as list
+		where list.rn between #{start} and #{end}
 	</select>
 </mapper>

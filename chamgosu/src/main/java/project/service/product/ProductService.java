@@ -24,6 +24,8 @@ public interface ProductService {
 	
 	int selectProductIdt(Map<String, Object> map)throws Exception;
 	
+	List<Map<String, Object>> regionProductList(Map<String, Object> map) throws Exception;
+	
 	
 	
 }

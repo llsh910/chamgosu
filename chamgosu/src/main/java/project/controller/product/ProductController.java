@@ -276,13 +276,78 @@ public class ProductController {
 		
 		try{
 			
-		}catch(Exception ex){
-			ex.printStackTrace();
-		}finally{
+			Map<String, Object> searchMap = new HashMap<String, Object>();
+
+			searchMap = map.getMap();
+
+			String per_page_param = RsUtil.checkNull(map.get("per_page"));
+
+			if(per_page_param.equals("")) per_page_param = "10";
+
+
+			String page_index = RsUtil.checkNull(map.get("page_index"));
+			int cur_page = (page_index.equals("")) ? 1 : Integer.parseInt(page_index); //현재페이지번호
+			int per_page=Integer.parseInt(per_page_param);							//한페이지에 출력될 리스트 갯수
+			int start = (cur_page - 1) * per_page + 1;		//리스트의 시작번호
+			int end = start + per_page -1;				//리스트의 마지막번호
+			int totalCount = 0;
+
+			searchMap.put("start", start);
+			searchMap.put("end", end);
+
+
+			totalCount = productService.adminProductCnt(searchMap);
+			Map<String, Object> pageInfo = new HashMap<String, Object>();
+			pageInfo.put("page_index", page_index);
+			pageInfo.put("totalCount", totalCount);
+			pageInfo.put("per_page", per_page);
+			List<Map<String, Object>> regionProductList = productService.regionProductList(searchMap);
 			
-			return mav;
+			int allCount = productService.adminProductAllCnt();
+			pageInfo.put("allCount", allCount);
 			
-		}
+			Map<String, Object> param = new HashMap<String, Object>();
+			//출판사 코드리스트
+			param.put("code_idx", "02");
+			List<Map<String, Object>> pbsCodeList = productService.codeList(param);
+			param.remove("code_idx");
+			
+			
+			//분야(과목) 코드 리스트		
+			param.remove("code_idx");
+			param.put("code_idx", "03");
+			List<Map<String, Object>> subjCodeList = productService.codeList(param);
+			
+			
+			//대상 코드 리스트
+			param.remove("code_idx");
+			param.put("code_idx", "04");
+			List<Map<String, Object>> objCodeList = productService.codeList(param);
+			
+			
+			//학년 코드 리스트
+			param.remove("code_idx");
+			param.put("code_idx", "05");
+			List<Map<String, Object>> gradeCodeList = productService.codeList(param);
+			
+			
+			mav.addObject("gradeCodeList", gradeCodeList);
+			mav.addObject("objCodeList", objCodeList);
+			mav.addObject("subjCodeList", subjCodeList);
+			mav.addObject("pbsCodeList", pbsCodeList);
+			
+			
+			
+			mav.addObject("pageInfo", pageInfo);
+			mav.addObject("regionProductList", regionProductList); 
+			
+			}catch(Exception ex){
+				ex.printStackTrace();
+			}finally{
+				
+				return mav;
+				
+			}
 
 
 	}
