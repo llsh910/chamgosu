@@ -2,7 +2,9 @@ package project.config.util;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -62,4 +64,93 @@ public class ExcelFile {
 		}
 		return listCashflow;
 	}
+	
+	@SuppressWarnings("resource")
+	public static void mgExcelDownload(List<Map<String, Object>> adminProductList) throws Exception{
+		String path = MultiUtil.loadPropertyKey(UrlUtil.URLPROPPATH, "excelUploadURL");
+		
+		// 엑셀파일
+		
+		
+		// 엑셀 파일 오픈
+		//org.apache.poi.ss.usermodel.Workbook wb = WorkbookFactory.create(file);
+		
+		XSSFWorkbook wb = new XSSFWorkbook();
+		Sheet sheet = wb.createSheet("mySheet");
+		Row row;
+		
+		
+		//출력 row 생성
+		row = sheet.createRow(0);
+		
+		
+		//출력 cell 생성
+		row.createCell(0).setCellValue("ISBN코드");
+		row.createCell(1).setCellValue("교재명");
+		row.createCell(2).setCellValue("부제목");
+		row.createCell(3).setCellValue("출판사");
+		row.createCell(4).setCellValue("저자");
+		row.createCell(5).setCellValue("분야");
+		row.createCell(6).setCellValue("대상");
+		row.createCell(7).setCellValue("학년");
+		row.createCell(8).setCellValue("단계");
+		row.createCell(9).setCellValue("발행년");
+		row.createCell(10).setCellValue("정가");
+		row.createCell(11).setCellValue("참고자료");
+		row.createCell(12).setCellValue("상품대표사진");
+		row.createCell(13).setCellValue("상세설명");
+		
+		
+		for(int i=0; i<adminProductList.size(); i++){
+			
+			row = sheet.createRow(i+1);
+			//출력 cell 생성
+			
+			row.createCell(0).setCellValue(RsUtil.checkNull(adminProductList.get(i).get("MG_ISBN")));
+			row.createCell(1).setCellValue(RsUtil.checkNull(adminProductList.get(i).get("MG_BOOKNM")));
+			row.createCell(2).setCellValue(RsUtil.checkNull(adminProductList.get(i).get("MG_BOOKSUBNM")));
+			row.createCell(3).setCellValue(RsUtil.checkNull(adminProductList.get(i).get("MG_PBS")));
+			row.createCell(4).setCellValue(RsUtil.checkNull(adminProductList.get(i).get("MG_BOOKWRITER")));
+			row.createCell(5).setCellValue(RsUtil.checkNull(adminProductList.get(i).get("MG_SUBJECT")));
+			row.createCell(6).setCellValue(RsUtil.checkNull(adminProductList.get(i).get("MG_OBJECT")));
+			row.createCell(7).setCellValue(RsUtil.checkNull(adminProductList.get(i).get("MG_GRADE")));
+			row.createCell(8).setCellValue(RsUtil.checkNull(adminProductList.get(i).get("MG_STEP")));
+			row.createCell(9).setCellValue(RsUtil.checkNull(adminProductList.get(i).get("MG_BOOKISYEAR")));
+			row.createCell(10).setCellValue(RsUtil.checkNull(adminProductList.get(i).get("MG_PRICE")));
+			row.createCell(11).setCellValue(RsUtil.checkNull(adminProductList.get(i).get("MG_REFMAT")));
+			row.createCell(12).setCellValue(RsUtil.checkNull(adminProductList.get(i).get("MG_BOOKIMG")));
+			row.createCell(13).setCellValue(RsUtil.checkNull(adminProductList.get(i).get("MG_MOREINF")));
+			
+			
+		}
+		
+		
+		// 출력 파일 위치및 파일명 설정
+		FileOutputStream outFile;
+		String addName = Long.toString(new Date().getTime());
+		
+		
+		try {
+			
+			
+			outFile = new FileOutputStream(path + addName +"_masterGoods.xlsx");
+			wb.write(outFile);
+			outFile.close();
+			
+			System.out.println("파일생성 완료");
+		
+		
+		} catch (Exception e) {
+		
+			e.printStackTrace();
+		
+		
+		}
+		
+		
+		
+	        
+		
+	}
+	
 }

@@ -98,7 +98,9 @@
 				1=1
 			order by MG_SEQ desc
 		) as list
+		<if test="start != null and start !=''">
 		where list.rn between #{start} and #{end}
+		</if>
 	</select>
 	
 	<!-- 검색 상품수 -->

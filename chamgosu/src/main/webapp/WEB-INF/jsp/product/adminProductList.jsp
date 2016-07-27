@@ -68,8 +68,8 @@
 	        </li>
 	        <li class="fr">
 	          <input value="개별 상품등록" type="button" class="btnm01" onclick="popupOpen('product_update.do')"/>
-	          <input value="엑셀파일 가져오기" type="button" class="btnm01" />
-	          <input value="엑셀파일 저장하기" type="button" class="btnm01" onclick="excelUpdate()"/>
+	          <input value="엑셀파일 가져오기" type="button" class="btnm01" onclick="excelDownlod()" />
+	          <input value="엑셀파일 저장하기" type="button" class="btnm01" onclick="excelUpdate()" />
 	        </li>
 	      </ul>
 	    </div>
@@ -721,13 +721,30 @@
             	}else if(data.msg == "success"){
             		alert("상품이 등록되었습니다.");
             		location.reload();
+            	}else{
+            		alert("엑셀 업로드 중 시스템 오류가 발생했습니다. 다시 시도하세요.");
             	}
             	
 			},complete: function(err){
 				$(".backLayer").css("display","none");
-			 }
+			}
 		
 		}); 
+	}
+	
+	function excelDownlod(){
+		var Url = "mgExcelDownload.do";
+		jQuery.ajax({
+            url: Url,
+            type:'POST',
+            success: function(data){
+            	console.log(data);
+			},complete: function(err){
+				
+			}
+		
+		}); 
+		
 	}
 	
 	function errorMsgClose(){

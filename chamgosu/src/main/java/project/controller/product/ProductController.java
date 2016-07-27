@@ -595,5 +595,28 @@ public class ProductController {
 
 	}
 	
+	@RequestMapping(value="mgExcelDownload.do")
+	public void mgExcelDownload(CommandMap map, HttpServletResponse response, HttpServletRequest request)throws Exception{
+		PrintWriter pw = null;
+
+		JSONObject json = new JSONObject();
+		String msg = "success";
+		try{
+			Map<String, Object>param = new HashMap<String, Object>();
+			List<Map<String, Object>> adminProductList = productService.adminProductList(param);
+			ExcelFile.mgExcelDownload(adminProductList);
+			
+		}catch(Exception ex){
+			ex.printStackTrace();
+			msg = "error";
+		}finally{
+			response.setContentType("application/x-json; charset=UTF-8");
+			json.put("msg", msg);
+			pw = response.getWriter();
+			pw.print(json);
+			pw.flush();
+			pw.close();
+		}
+	}
 	
 }
