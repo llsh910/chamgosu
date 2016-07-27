@@ -1,6 +1,8 @@
 package project.controller.product;
 
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -15,6 +17,8 @@ import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.mysql.fabric.xmlrpc.base.Array;
 
 import net.sf.json.JSONObject;
 import project.config.common.CommandMap;
@@ -386,14 +390,139 @@ public class ProductController {
 		String msg = "success";
 		try{
 			
+			Map<String, Object> param = new HashMap<String, Object>();
+			//출판사 코드리스트
+			param.remove("mg_seq");
+			param.put("code_idx", "02");
+			List<Map<String, Object>> pbsCodeList = productService.codeList(param);
+			param.remove("code_idx");
+			
+			
+			//분야(과목) 코드 리스트		
+			param.remove("code_idx");
+			param.put("code_idx", "03");
+			List<Map<String, Object>> subjCodeList = productService.codeList(param);
+			
+			
+			//대상 코드 리스트
+			param.remove("code_idx");
+			param.put("code_idx", "04");
+			List<Map<String, Object>> objCodeList = productService.codeList(param);
+			
+			
+			//학년 코드 리스트
+			param.remove("code_idx");
+			param.put("code_idx", "05");
+			List<Map<String, Object>> gradeCodeList = productService.codeList(param);
+			
 			
 			List<Map<String, Object>>excelData = ExcelFile.mgExcelUpload();
 			
-			for(int i=0; i<excelData.size(); i++){
-				log.debug(excelData.get(i));
-			}
 
-			//json.put("excelData", excelData);
+		
+			ArrayList<String> errorList = new ArrayList<String>();
+			
+			
+			boolean codeFlag = false;
+			int successCnt = 0;
+			
+			for(int i=0; i<excelData.size(); i++){
+				
+				//출판사 코드값 찾기
+				for(int j=0;  j < pbsCodeList.size(); j++){
+					if(pbsCodeList.get(j).get("CODE_CODENAME").equals(RsUtil.checkNull(excelData.get(i).get("mg_pbs")))){
+						
+						excelData.get(i).remove("mg_pbs");
+						
+						excelData.get(i).put("mg_pbs", pbsCodeList.get(j).get("CODE_FIRST"));
+						
+						codeFlag = true;
+						
+					}
+				}
+				
+				if(codeFlag == false){
+					errorList.add(RsUtil.checkNull(excelData.get(i).get("mg_booknm")) + " : " + "해당 출판사코드가 없습니다.");
+				}
+				
+				
+				codeFlag = false;
+				
+				//분야(과목) 코드값 찾기
+				for(int j=0;  j < subjCodeList.size(); j++){
+					if(subjCodeList.get(j).get("CODE_CODENAME").equals(RsUtil.checkNull(excelData.get(i).get("mg_subject")))){
+
+						excelData.get(i).remove("mg_subject");
+						
+						excelData.get(i).put("mg_subject", pbsCodeList.get(j).get("CODE_FIRST"));
+						
+						codeFlag = true;
+						
+					}
+				}
+				
+				
+				if(codeFlag == false){
+					errorList.add(RsUtil.checkNull(excelData.get(i).get("mg_booknm")) + " : " + "해당 분야코드가 없습니다.");
+				}
+				
+				codeFlag = false;
+				
+				//대상 코드값 찾기
+				for(int j=0;  j < objCodeList.size(); j++){
+					if(objCodeList.get(j).get("CODE_CODENAME").equals(RsUtil.checkNull(excelData.get(i).get("mg_object")))){
+						
+
+						excelData.get(i).remove("mg_object");
+						
+						excelData.get(i).put("mg_object", pbsCodeList.get(j).get("CODE_FIRST"));
+						
+						codeFlag = true;
+					}
+				}
+				
+				if(codeFlag == false){
+					errorList.add(RsUtil.checkNull(excelData.get(i).get("mg_booknm")) + " : " + "해당 대상코드가 없습니다.");
+				}
+				
+				codeFlag = false;
+				
+				//학년별 코드값 찾기
+				for(int j=0;  j < gradeCodeList.size(); j++){
+					if(gradeCodeList.get(j).get("CODE_CODENAME").equals(RsUtil.checkNull(excelData.get(i).get("mg_grade")))){
+
+						excelData.get(i).remove("mg_grade");
+						
+						excelData.get(i).put("mg_grade", pbsCodeList.get(j).get("CODE_FIRST"));
+						
+						codeFlag = true;
+						
+					}
+				}
+				
+				if(codeFlag == false){
+					errorList.add(RsUtil.checkNull(excelData.get(i).get("mg_booknm")) + " : " + "해당 학년코드가 없습니다.");
+				}
+				
+				if(errorList.size() <= 0){
+					int result = productService.insertProduct(excelData.get(i));
+					if(result <= 0){
+						errorList.add(RsUtil.checkNull(excelData.get(i).get("mg_booknm")) + " : " + "시스템 오류");
+					}else{
+						successCnt++;
+					}
+				}
+				codeFlag = false;
+			}
+			
+			
+			if(errorList.size() > 0){
+				msg = "codeError";
+				json.put("errorList", errorList);
+				json.put("errorCnt", errorList.size());
+			}
+			
+			json.put("successCnt", successCnt);
 			
 		}catch(Exception ex){
 			ex.printStackTrace();

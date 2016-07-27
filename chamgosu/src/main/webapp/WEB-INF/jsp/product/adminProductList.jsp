@@ -1,4 +1,35 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+  <style>
+  	.backLayer {
+  		position:absolute; 
+  		width: 100%; 
+  		height: 100%; 
+  		margin: 0 auto; 
+  		background:rgba(0,0,0,0.7);
+  		display:none;
+  	} 
+  	#errorMsgModal {
+  		position:fixed;
+  		width:100%;
+  		height:100%;
+  		margin:0 auto;
+  		background:rgba(0,0,0,0.7);
+  		display:none;
+  	}
+  	.errorMsgModal-div {
+  		margin: 0 30%;
+  		background:rgba(255,255,255,1);
+  		max-height: 300px;
+		overflow-y: scroll;  		
+	}
+	.errorMsgCloseBtn{
+		border:1px solid white; 
+		color:white; 
+		margin: 0 30%;
+	}
+	
+  </style>
+  <div class="backLayer"></div>
 <%@ include file="../top.jsp"%>
 <%
 	List<Map<String, Object>> adminProductList = (List<Map<String, Object>>) request.getAttribute("adminProductList");
@@ -584,6 +615,10 @@
   </div>
   <!--/contents--> 
   <%@ include file="../bottom.jsp"%>
+  <div id="errorMsgModal">
+  	<div class="errorMsgModal-div"></div>
+  	<button class="errorMsgCloseBtn" onclick="errorMsgClose()">닫기</button>
+  </div>
   <script>
 	var searchSubmit = function(){
 		jQuery("#searchForm").submit();
@@ -665,13 +700,34 @@
 	}
 	
 	function excelUpdate(){
+		$(".backLayer").css("display","block");
 		var Url = "mgExcelUpload.do";
 		jQuery.ajax({
             url: Url,
             type:'POST',
             success: function(data){
             	console.log(data);
-			}
+            	
+            	if(data.msg == "codeError"){
+            		var errorMsg = "";
+            		for(var i=0; i<data.errorList.length; i++){
+            			errorMsg += data.errorList[i] + "<br />";
+            		}
+            		//alert("성공 : " + data.successCnt + ", " +"실패 : " + data.errorCnt + "\n" + errorMsg);
+            		$("#errorMsgModal > div").html("성공 : " + data.successCnt + ", " +"실패 : " + data.errorCnt + "<br />" + errorMsg);
+            		$("#errorMsgModal").css("display", "block");
+            	}else if(data.msg == "success"){
+            		alert("상품이 등록되었습니다.");
+            	}
+            	
+			},complete: function(err){
+				$(".backLayer").css("display","none");
+			 }
+		
 		}); 
+	}
+	
+	function errorMsgClose(){
+		$("#errorMsgModal").css("display", "none");
 	}
   </script>

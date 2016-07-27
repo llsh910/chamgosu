@@ -116,7 +116,9 @@
 		where
 			CODE_ISUSE = 'Y'
 			and CODE_FIRST != '#####'
+		<if test="code_idx != null and code_idx != ''">
 			and CODE_IDX = #{code_idx}
+		</if>
 	</select>
 	
 	<select id="adminProductView" parameterType="hashmap" resultType="hashmap">
