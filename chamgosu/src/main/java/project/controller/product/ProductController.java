@@ -11,12 +11,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import net.sf.json.JSONObject;
 import project.config.common.CommandMap;
+import project.config.util.ExcelFile;
 import project.config.util.MultiUtil;
 import project.config.util.RsUtil;
 import project.config.util.UrlUtil;
@@ -190,6 +192,7 @@ public class ProductController {
 			param.put("code_idx", "05");
 			List<Map<String, Object>> gradeCodeList = productService.codeList(param);
 			
+			log.debug(gradeCodeList);
 			mav.addObject("update_type", update_type);
 			mav.addObject("adminProduct", adminProduct);
 			mav.addObject("gradeCodeList", gradeCodeList);
@@ -362,6 +365,36 @@ public class ProductController {
 			
 			
 
+		}catch(Exception ex){
+			ex.printStackTrace();
+			msg = "error";
+		}finally{
+			response.setContentType("application/x-json; charset=UTF-8");
+			json.put("msg", msg);
+			pw = response.getWriter();
+			pw.print(json);
+			pw.flush();
+			pw.close();
+		}
+	}
+	
+	@RequestMapping(value="mgExcelUpload.do")
+	public void mgExcelUpload(CommandMap map, HttpServletResponse response, HttpServletRequest request)throws Exception{
+		PrintWriter pw = null;
+
+		JSONObject json = new JSONObject();
+		String msg = "success";
+		try{
+			
+			
+			List<Map<String, Object>>excelData = ExcelFile.mgExcelUpload();
+			
+			for(int i=0; i<excelData.size(); i++){
+				log.debug(excelData.get(i));
+			}
+
+			//json.put("excelData", excelData);
+			
 		}catch(Exception ex){
 			ex.printStackTrace();
 			msg = "error";

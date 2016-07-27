@@ -36,7 +36,7 @@
 	        <li class="fr">
 	          <input value="개별 상품등록" type="button" class="btnm01" onclick="popupOpen('product_update.do')"/>
 	          <input value="엑셀파일 가져오기" type="button" class="btnm01" />
-	          <input value="엑셀파일 저장하기" type="button" class="btnm01" />
+	          <input value="엑셀파일 저장하기" type="button" class="btnm01" onclick="excelUpdate()"/>
 	        </li>
 	      </ul>
 	    </div>
@@ -662,10 +662,16 @@
             	}
 			}
 		}); 
-		
-		
-		console.log(mg_seq);
-		console.log(applychk);
-		
+	}
+	
+	function excelUpdate(){
+		var Url = "mgExcelUpload.do";
+		jQuery.ajax({
+            url: Url,
+            type:'POST',
+            success: function(data){
+            	console.log(data);
+			}
+		}); 
 	}
   </script>
