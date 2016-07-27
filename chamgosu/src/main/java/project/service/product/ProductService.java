@@ -26,6 +26,7 @@ public interface ProductService {
 	
 	List<Map<String, Object>> regionProductList(Map<String, Object> map) throws Exception;
 	
+	int updateRegionProduct(Map<String, Object> map) throws Exception;
 	
 	
 }

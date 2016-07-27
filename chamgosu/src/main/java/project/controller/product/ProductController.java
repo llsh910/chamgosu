@@ -246,6 +246,16 @@ public class ProductController {
 				if(result <= 0){
 					msg = "error";
 				}
+				if(RsUtil.checkNull(param.get("pdtType")).equals("region")){
+					double rate = (Integer.parseInt(RsUtil.checkNull(param.get("RG_SPRATE")))* 0.01);
+					String price = RsUtil.checkNull(param.get("MG_PRICE"));
+					param.put("RG_SPPRICE", Math.round(rate * Integer.parseInt(price)));
+					log.debug(rate);
+					result = productService.updateRegionProduct(param);
+					if(result <= 0){
+						msg = "error";
+					}
+				}
 			}
 			
 			

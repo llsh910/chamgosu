@@ -183,15 +183,20 @@
 			,MG_REFMAT
 			,MG_MOREINF
 			,DATE_FORMAT( M.REGDATE,'%Y-%m-%d' ) as REGDATE
+			,RG_SEQ
 			,RG_SPID
 			,RG_SPPRICE
 			,RG_SPRATE
 			,RG_STOCKCNT
 			,RG_APPLYCHK
+			,SP_BUSINM
+			,SP_NAME
 		from
 			CG_MARSTERGOODS M
 			LEFT OUTER JOIN CG_REGIONGOODS R
 			ON M.MG_SEQ = R.RG_BOOKSEQ
+			INNER JOIN CG_SUPPLIER S
+			ON R.RG_SPID = S.SP_SEQ
 		where
 			MG_SEQ=#{mg_seq}
 	</select>
@@ -220,7 +225,16 @@
 		where
 			MG_SEQ = #{mg_seq}
 	</update>
-	
+	<!-- 지역상품 수정 -->
+	<update id="updateRegionProduct" parameterType="hashmap">
+		update
+			CG_REGIONGOODS
+		set
+			RG_SPRATE = #{RG_SPRATE}
+			,RG_SPPRICE = #{RG_SPPRICE}
+		where
+			RG_SEQ = #{RG_SEQ}
+	</update>
 	
 	<!-- 상품 승인/미승인 변경 -->
 	<update id="productApplyUpdate" parameterType="hashmap">
@@ -279,6 +293,7 @@
 			,RG_STOCKCNT
 			,RG_APPLYCHK
 			,SP_BUSINM
+			,SP_NAME
 			,DATE_FORMAT( REGDATE,'%Y-%m-%d' ) as REGDATE
 		from
 		(
@@ -307,6 +322,7 @@
 				,RG_STOCKCNT
 				,RG_APPLYCHK
 				,SP_BUSINM
+				,SP_NAME
 				, @rnum := @rnum + 1 as rn
 			from
 				(SELECT @rnum := 0) r,

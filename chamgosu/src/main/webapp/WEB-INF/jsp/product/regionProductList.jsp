@@ -995,7 +995,7 @@ $(function () {
               <input type="checkbox" class="chk" name="chk02" />
               아니오</td>
             <td><%= RsUtil.checkNull(regionProductList.get(i).get("RG_STOCKCNT"))%></td>
-            <td><input value="수정" type="button" class="btns01" />
+            <td><input value="수정" type="button" class="btns01"  onclick="popupOpen('product_update.do?mg_seq=<%= RsUtil.checkNull(regionProductList.get(i).get("MG_SEQ"))%>&pdtType=region')"/>
               <input value="삭제" type="button" class="btns" /></td>
           </tr>
           <%}}else{%>

@@ -70,7 +70,10 @@ public class ProductServiceImpl implements ProductService {
 		return productDAO.regionProductList(map);
 	}
 	
-	
+	@Override
+	public int updateRegionProduct(Map<String, Object> map) throws Exception{
+		return productDAO.updateRegionProduct(map);
+	}
 	
 	
 	

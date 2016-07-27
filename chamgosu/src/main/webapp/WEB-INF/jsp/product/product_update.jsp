@@ -17,6 +17,7 @@
 	List<Map<String, Object>> gradeCodeList = (List<Map<String, Object>>)request.getAttribute("gradeCodeList");
 	
 	String update_type = (String)request.getAttribute("update_type");
+	String pdtType = RsUtil.checkNull(request.getParameter("pdtType"));
 	 
 %>
 <div id="popup_wrap01"> 
@@ -24,9 +25,11 @@
   
   
   <form id="updateProduct">
-  	<input type="hidden" name="MG_BOOKIMG" id="MG_BOOKIMG" value="<%= RsUtil.checkNull(adminProduct.get("MG_BOOKIMG"))%>" />
-  	<input type="hidden" name="update_type" name="update_type" value="<%= RsUtil.checkNull(update_type)%>" />
-  	<input type="hidden" name="mg_seq" name="mg_seq" value="<%= RsUtil.checkNull(adminProduct.get("MG_SEQ"))%>">
+  	<input type="hidden" id="MG_BOOKIMG" name="MG_BOOKIMG" value="<%= RsUtil.checkNull(adminProduct.get("MG_BOOKIMG"))%>" />
+  	<input type="hidden" id="update_type" name="update_type" value="<%= RsUtil.checkNull(update_type)%>" />
+  	<input type="hidden" id="mg_seq" name="mg_seq" value="<%= RsUtil.checkNull(adminProduct.get("MG_SEQ"))%>">
+  	<input type="hidden" id="pdtType" name="pdtType" value="<%= pdtType%>">
+  	<input type="hidden" id="RG_SEQ" name="RG_SEQ" value="<%= RsUtil.checkNull(adminProduct.get("RG_SEQ"))%>">
     <table class="bbs_write01">
       <caption>
       개별상품 등록 및 수정
@@ -62,6 +65,18 @@
           <th scope="row" class="bleft">상품등록일</th>
           <td><input type="text" class="inputTxt" id="REGDATE" name="REGDATE" style="width:80px;" value="<%= RsUtil.checkNull(adminProduct.get("REGDATE"))%>"/> </td>
         </tr>
+        <% if(pdtType.equals("region")){ %>
+        <tr>
+        	<th>상품등록자명</th>
+        	<td><input type="text" class="inputTxt" id="SP_BUSINM" name="SP_BUSINM" style="width:100px;" value="<%= RsUtil.checkNull(adminProduct.get("SP_NAME"))%>"/></td>
+        	<th>상품공급자명</th>
+        	<td><input type="text" class="inputTxt" id="SP_NAME" name="SP_NAME" style="width:100px;" value="<%= RsUtil.checkNull(adminProduct.get("SP_BUSINM"))%>"/></td>
+        </tr>
+        <tr>
+        	<th>상품공급률</th>
+        	<td colspan="3"><input type="text" class="inputTxt" id="RG_SPRATE" name="RG_SPRATE" style="width:100px;" value="<%= RsUtil.checkNull(adminProduct.get("RG_SPRATE"))%>"/>%</td>
+        </tr>
+        <%} %>
 	       <tr>
 	        <th scope="row">상품이미지</th>
 	          <td>
@@ -305,7 +320,7 @@
             </ul>
             <%} %>
           </li>
-          <li class="popmenu">
+          <!-- <li class="popmenu">
             <table style="width:600px">
               <colgroup>
               <col width="115" />
@@ -370,7 +385,7 @@
                 </table>
               </li>
             </ul>
-          </li>
+          </li>-->
         </ul>
       </div>
       <script>
