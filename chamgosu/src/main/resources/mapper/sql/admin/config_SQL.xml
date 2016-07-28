@@ -126,6 +126,33 @@
 		from
 			CG_CONFIG
 	</select>
+	<select id="selectAgreementList" parameterType="hashmap" resultType="hashmap">
+		select
+			AM_SEQ
+			,AM_CATEGORY
+			,AM_CONTENT
+		from
+			CG_AGREEMENT
+	</select>
+	<select id="selectAgreement" parameterType="hashmap" resultType="hashmap">
+		select
+			AM_SEQ
+			,AM_CATEGORY
+			,AM_CONTENT
+		from
+			CG_AGREEMENT
+		where
+			AM_SEQ = #{AM_SEQ}
+	</select>
+	<update id="updateAgreement" parameterType="hashmap">
+		update
+			CG_AGREEMENT
+		set
+			AM_CATEGORY = #{AM_CATEGORY}
+			,AM_CONTENT = #{AM_CONTENT}
+		where
+			AM_SEQ = #{AM_SEQ}
+	</update>
 	
    
 </mapper>
