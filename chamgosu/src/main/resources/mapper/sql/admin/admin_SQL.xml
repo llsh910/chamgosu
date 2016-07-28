@@ -4,7 +4,7 @@
 <mapper namespace="admin">
 	<insert id="insertAdministrator" parameterType="hashmap">
 		INSERT INTO chamgosu.CG_USER(
-			US_USERID,
+			US_USERID, 
 			US_LOGINID,
 			US_LOGINPASS,
 			US_NAME,
