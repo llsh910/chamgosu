@@ -28,6 +28,7 @@
 			,CF_TOPLOGO
 			,CF_BOTTOMLOGO
 			,CF_FAVICON
+			,CF_COPYRIGHT
 		)values(
 			#{CF_SITENAME}
 			,#{CF_SEARCHKEY}
@@ -53,6 +54,7 @@
 			,#{CF_TOPLOGO}
 			,#{CF_BOTTOMLOGO}
 			,#{CF_FAVICON}
+			,#{CF_COPYRIGHT}
 		)
 	</insert>
 	
@@ -84,6 +86,7 @@
 			,CF_TOPLOGO = #{CF_TOPLOGO}
 			,CF_BOTTOMLOGO = #{CF_BOTTOMLOGO}
 			,CF_FAVICON = #{CF_FAVICON}
+			,CF_COPYRIGHT = #{CF_COPYRIGHT}
 	</update>
 	
 	<select id="selectCompanyInfo" parameterType="hashmap" resultType="hashmap">
@@ -112,6 +115,7 @@
 			,CF_TOPLOGO
 			,CF_BOTTOMLOGO
 			,CF_FAVICON
+			,CF_COPYRIGHT
 		from
 			CG_CONFIG
 	</select>
