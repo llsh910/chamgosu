@@ -107,6 +107,8 @@ public class Administrator_setController {
     	JSONObject json = new JSONObject();
 		try{
 			
+			System.out.println("wlefkwlen");
+			
 			String US_USERID = RsUtil.checkNull(map.get("US_USERID"));
 	    	Map<String, Object> admin = administrator_setService.selectAdmin(US_USERID);
 	    	if(admin != null){
