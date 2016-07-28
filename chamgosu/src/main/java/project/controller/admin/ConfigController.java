@@ -1,6 +1,7 @@
 package project.controller.admin;
 
 import java.io.PrintWriter;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,7 +16,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import net.sf.json.JSONObject;
 import project.config.common.CommandMap;
+import project.config.util.MultiUtil;
 import project.config.util.RsUtil;
+import project.config.util.UrlUtil;
+import project.config.util.UtilMultiFileUp;
 import project.service.admin.ConfigService;
 
 @Controller
@@ -40,6 +44,12 @@ public class ConfigController
 			Map<String, Object> companyinfo = configService.selectCompanyInfo(param);
 			if(companyinfo == null){
 				companyinfo = new HashMap<String, Object>();
+			}else{
+				if(companyinfo.get("CF_INGAMIMG").equals("")){
+					companyinfo.put("INGAMTHNMNAIL", "img/stamp_noimage.jpg");
+				}else{
+					companyinfo.put("INGAMTHNMNAIL", "companyImg/thumnail_"+companyinfo.get("CF_INGAMIMG"));
+				}
 			}
 			mav.addObject("companyinfo", companyinfo);
 			
@@ -82,6 +92,45 @@ public class ConfigController
 			pw.close();
 		}
 	}
+	
+	@RequestMapping(value="/companyFileUpload.do")
+	public void spFileUpload(HttpServletResponse response, HttpServletRequest request)throws Exception{
+		PrintWriter pw = null;
+    	String msg = "success";
+    	JSONObject json = new JSONObject();
+    	try {
+    		UtilMultiFileUp fileup = new UtilMultiFileUp(request);
+    		String inputName = fileup.getParameter("inputName");
+    		
+    		String imageName = fileup.getFileNameOne(inputName);
+    		
+        	String addName = Long.toString(new Date().getTime());
+        	String fileReName = addName + "_" + imageName;
+        	
+        	
+        	
+        	String path = MultiUtil.loadPropertyKey(UrlUtil.URLPROPPATH, "companyURL");
+        	
+        	String filePath = path + fileReName;
+        	if(!imageName.equals("")){
+    			fileup.saveFile(inputName, filePath);
+    			MultiUtil.createThumbImage(path, fileReName, "thumnail_" + fileReName, 100, 100);
+    			json.put("imageName", fileReName);
+    		}else{
+    			msg = "error";
+    		}
+		} catch (Exception e) {
+			e.printStackTrace();
+			msg = "error";
+		}finally {
+			response.setContentType("application/x-json; charset=UTF-8");
+			json.put("msg", msg);
+			pw = response.getWriter();
+			pw.print(json);
+			pw.flush();
+			pw.close();
+		}
+	}	
 	
 	
 }
