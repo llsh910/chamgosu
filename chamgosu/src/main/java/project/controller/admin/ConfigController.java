@@ -3,6 +3,7 @@ package project.controller.admin;
 import java.io.PrintWriter;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -17,7 +18,6 @@ import org.springframework.web.servlet.ModelAndView;
 import net.sf.json.JSONObject;
 import project.config.common.CommandMap;
 import project.config.util.MultiUtil;
-import project.config.util.RsUtil;
 import project.config.util.UrlUtil;
 import project.config.util.UtilMultiFileUp;
 import project.service.admin.ConfigService;
@@ -140,7 +140,10 @@ public class ConfigController
 		ModelAndView mav = new ModelAndView("/admin/agreement");
 		try
 		{
+			Map<String, Object> param = map.getMap();
+			List<Map<String, Object>> agreementList = configService.selectAgreementList(param);
 			
+			mav.addObject("agreementList", agreementList);
 			
 		}
 		catch (Exception ex) {
@@ -150,5 +153,61 @@ public class ConfigController
 		return mav;
 	}
 	
+	@RequestMapping("agreementView.do")
+	public void agreementView(CommandMap map, HttpServletRequest request, HttpServletResponse response)
+		throws Exception
+	{
+		PrintWriter pw = null;
+    	String msg = "success";
+    	JSONObject json = new JSONObject();
+    	try {
+    		
+    		Map<String, Object> param = map.getMap();
+    		
+    		Map<String, Object> agreementView = configService.selectAgreement(param);
+    		json.put("agreementView", agreementView);
+    		
+		} catch (Exception e) {
+			e.printStackTrace();
+			msg = "error";
+		}finally {
+			response.setContentType("application/x-json; charset=UTF-8");
+			json.put("msg", msg);
+			pw = response.getWriter();
+			pw.print(json);
+			pw.flush();
+			pw.close();
+		}
+	}
+	
+	@RequestMapping("agreementUpdate.do")
+	public void agreementUpdate(CommandMap map, HttpServletRequest request, HttpServletResponse response)
+		throws Exception
+	{
+		PrintWriter pw = null;
+    	String msg = "success";
+    	JSONObject json = new JSONObject();
+    	try {
+    		
+    		Map<String, Object> param = map.getMap();
+    		
+    		int result = configService.updateAgreement(param);
+    		if(result <= 0){
+    			msg = "error";
+    		}
+    		
+    		
+		} catch (Exception e) {
+			e.printStackTrace();
+			msg = "error";
+		}finally {
+			response.setContentType("application/x-json; charset=UTF-8");
+			json.put("msg", msg);
+			pw = response.getWriter();
+			pw.print(json);
+			pw.flush();
+			pw.close();
+		}
+	}
 	
 }

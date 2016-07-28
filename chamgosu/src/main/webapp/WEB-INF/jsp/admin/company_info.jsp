@@ -206,7 +206,11 @@
 		    data :  $("#insertForm").serialize()
 		    ,
 		    success: function(data){
-		    	console.log(data);
+		    	if(data.msg == "success"){
+		    		alert("저장 완료했습니다.");
+		    	}else{
+		    		alert("저장하는 과정에서 시스템오류가 발생했습니다.");
+		    	}
 			}
 		}); 
 	}
