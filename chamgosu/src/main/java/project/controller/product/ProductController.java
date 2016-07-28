@@ -259,6 +259,7 @@ public class ProductController {
 					if(result <= 0){
 						msg = "error";
 					}
+					System.out.println(msg);
 				}
 			}
 			
