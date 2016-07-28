@@ -14,4 +14,19 @@ public interface ProductService {
 	
 	List<Map<String, Object>> codeList(Map<String, Object> map) throws Exception;
 	
+	Map<String, Object> adminProductView(Map<String, Object> map) throws Exception;
+	
+	int updateAdminProduct(Map<String, Object> map) throws Exception;
+	
+	int productApplyUpdate(Map<String, Object> map) throws Exception;
+	
+	int productDelete(Map<String, Object> map)throws Exception;
+	
+	int selectProductIdt(Map<String, Object> map)throws Exception;
+	
+	List<Map<String, Object>> regionProductList(Map<String, Object> map) throws Exception;
+	
+	int updateRegionProduct(Map<String, Object> map) throws Exception;
+	
+	
 }

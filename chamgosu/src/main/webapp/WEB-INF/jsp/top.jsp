@@ -29,9 +29,9 @@
   <div id="gnb">
     <div class="accordion">
       <h1>기본정보</h1>
-      <div> <a href="#">회사정보</a><br>
+      <div> <a href="<%= realPath%>/company_info.do">회사정보</a><br>
         <a href="<%= realPath%>/administrator_set.do">관리자 설정</a><br>
-        <a href="#">이용약관 관리</a> </div>
+        <a href="<%= realPath%>/agreement.do">이용약관 관리</a> </div>
       <h1>DB 관리</h1>
       <div> <a href="<%= realPath%>/adminProductList.do">상품관리</a><br>
         <a href="<%= realPath%>/regionProductList.do">지역별 상품 관리</a><br>

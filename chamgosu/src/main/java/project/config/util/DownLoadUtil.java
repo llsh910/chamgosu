@@ -67,8 +67,9 @@ public class DownLoadUtil extends HttpServlet {
 		String fileProUrl = RsUtil.checkNull(request.getParameter("fileProUrl"));
 		
 		//String propUrl = "E:/eclipseLuna/project/.metadata/.plugins/org.eclipse.wst.server.core/tmp1/wtpwebapps/car2day/WEB-INF/classes/winex/url.properties";
-		//String fileUrl = "/home/novatron/tomcat/webapps/ROOT/boardFile/";
-		String fileUrl = "C:/dev/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp1/wtpwebapps/chamgosu/spimg/";
+
+		String fileUrl = "/home/chamgosu/tomcat/webapps/ROOT/excelUploads/";
+		//String fileUrl = "C:/dev/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp1/wtpwebapps/chamgosu/excelUploads/";
 		String filename = request.getParameter("filename");
 		
 		if(fileUrl == null || fileUrl.equals("")){

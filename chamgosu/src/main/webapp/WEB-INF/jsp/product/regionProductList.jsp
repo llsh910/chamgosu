@@ -1,286 +1,62 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../top.jsp"%>
+<%
+		List<Map<String, Object>> regionProductList = (List<Map<String, Object>>) request.getAttribute("regionProductList");
+		Map<String, Object> pageInfo = (Map<String, Object>)request.getAttribute("pageInfo");
+		String page_index = RsUtil.checkNull(pageInfo.get("page_index"));
+		String totalCount = RsUtil.checkNull(pageInfo.get("totalCount"));
+		String allCount = RsUtil.checkNull(pageInfo.get("allCount"));
+		String per_page = RsUtil.checkNull(pageInfo.get("per_page"));
+		if(page_index.equals("")) page_index = "1";
+		
+		//출판사 코드 리스트
+		List<Map<String, Object>> pbsCodeList = (List<Map<String, Object>>)request.getAttribute("pbsCodeList");
+		
+		//분야(과목)별 코드 리스트
+		List<Map<String, Object>> subjCodeList = (List<Map<String, Object>>)request.getAttribute("subjCodeList");
+		
+		//대상별 코드 리스트
+		List<Map<String, Object>> objCodeList = (List<Map<String, Object>>)request.getAttribute("objCodeList");
+		
+		//학년별 코드리스트
+		List<Map<String, Object>> gradeCodeList = (List<Map<String, Object>>)request.getAttribute("gradeCodeList");
+		
+		
+		List<Map<String, Object>> indexCodeList = (List<Map<String, Object>>)request.getAttribute("indexCodeList");
+		List<Map<String, Object>> code1List = (List<Map<String, Object>>)request.getAttribute("code1List");
+		
+		
+		List<Map<String, Object>> code2List = (List<Map<String, Object>>)request.getAttribute("code2List");
+		
+		String code1Name = RsUtil.checkNull(request.getAttribute("code1Name"));
+		String code_idx = RsUtil.checkNull(request.getAttribute("code_idx"));
+		String code_first = RsUtil.checkNull(request.getAttribute("code_first"));
+		
+		
+%>
 <!--contents-->
   <div id="contents">
     <h2>ㆍ지역별 상품 관리</h2>
     <!--지역선택-->
     <div id="tabwrap">
       <ul class="tabs">
-        <li class="active" rel="tab1">서울</li>
-        <li rel="tab2">부산</li>
-        <li rel="tab3">경기</li>
-        <li rel="tab4">인천</li>
-        <li rel="tab5">대구</li>
-        <li rel="tab6">대전</li>
-        <li rel="tab7">광주</li>
-        <li rel="tab8">울산</li>
-        <li rel="tab9">경남</li>
-        <li rel="tab10">경북</li>
-        <li rel="tab11">충남</li>
-        <li rel="tab12">전남</li>
-        <li rel="tab13">전북</li>
-        <li rel="tab14">강원</li>
-        <li rel="tab15">제주</li>
-        <li rel="tab16">세종</li>
-        <li rel="tab17">전국</li>
-        <li rel="tab18">해외</li>
+      	<% 
+      	if(code1List != null && code1List.size() > 0){
+      	for(int i=0; i<code1List.size(); i++){
+      		String tabactive = "";	
+      		if(i == 0){ tabactive = "active"; }
+      	%>
+        <li class="<%= tabactive%>" rel="tab<%= i+1%>" onclick="code1Change('<%=RsUtil.checkNull(code1List.get(i).get("CODE_IDX")) %>', '<%=RsUtil.checkNull(code1List.get(i).get("CODE_FIRST")) %>', '<%=i%>')" ><%= RsUtil.checkNull(RsUtil.checkNull(code1List.get(i).get("CODE_CODENAME")))%></li>
+        <%}} %>
       </ul>
       <!-- 탭컨텐츠 -->
       <div class="tab_container">
         <div id="tab1" class="tab_content">
-          <input type="checkbox" class="chk" />
-          강남구
-          <input type="checkbox" class="chk" />
-          강동구
-          <input type="checkbox" class="chk" />
-          강북구
-          <input type="checkbox" class="chk" />
-          강서구
-          <input type="checkbox" class="chk" />
-          구로구
-          <input type="checkbox" class="chk" />
-          금천구
-          <input type="checkbox" class="chk" />
-          관악구
-          <input type="checkbox" class="chk" />
-          광진구
-          <input type="checkbox" class="chk" />
-          노원구
-          <input type="checkbox" class="chk" />
-          도봉구
-          <input type="checkbox" class="chk" />
-          동대문구
-          <input type="checkbox" class="chk" />
-          동작구
-          <input type="checkbox" class="chk" />
-          마포구
-          <input type="checkbox" class="chk" />
-          서대문구
-          <input type="checkbox" class="chk" />
-          서초구<br>
-          <input type="checkbox" class="chk" />
-          성북구
-          <input type="checkbox" class="chk" />
-          송파구 
-          <input type="checkbox" class="chk" />
-          성동구
-          <input type="checkbox" class="chk" />
-          양천구
-          <input type="checkbox" class="chk" />
-          영등포구
-          <input type="checkbox" class="chk" />
-          용산구
-          <input type="checkbox" class="chk" />
-          은평구
-          <input type="checkbox" class="chk" />
-          종로구
-          <input type="checkbox" class="chk" />
-          중구
-          <input type="checkbox" class="chk" />
-          중랑구</div>
-        <div id="tab2" class="tab_content">
-          <input type="checkbox" class="chk" />
-          지역1
-          <input type="checkbox" class="chk" />
-          지역2
-          <input type="checkbox" class="chk" />
-          지역3
-          <input type="checkbox" class="chk" />
-          지역4
-          <input type="checkbox" class="chk" />
-          지역5</div>
-        <div id="tab3" class="tab_content">
-          <input type="checkbox" class="chk" />
-          지역1
-          <input type="checkbox" class="chk" />
-          지역2
-          <input type="checkbox" class="chk" />
-          지역3
-          <input type="checkbox" class="chk" />
-          지역4
-          <input type="checkbox" class="chk" />
-          지역5
-          <input type="checkbox" class="chk" />
-          지역6</div>
-        <div id="tab4" class="tab_content">
-          <input type="checkbox" class="chk" />
-          지역1
-          <input type="checkbox" class="chk" />
-          지역2
-          <input type="checkbox" class="chk" />
-          지역3
-          <input type="checkbox" class="chk" />
-          지역4
-          <input type="checkbox" class="chk" />
-          지역5</div>
-        <div id="tab5" class="tab_content">
-          <input type="checkbox" class="chk" />
-          지역1
-          <input type="checkbox" class="chk" />
-          지역2
-          <input type="checkbox" class="chk" />
-          지역3
-          <input type="checkbox" class="chk" />
-          지역4
-          <input type="checkbox" class="chk" />
-          지역5
-          <input type="checkbox" class="chk" />
-          지역6</div>
-        <div id="tab6" class="tab_content">
-          <input type="checkbox" class="chk" />
-          지역1
-          <input type="checkbox" class="chk" />
-          지역2
-          <input type="checkbox" class="chk" />
-          지역3
-          <input type="checkbox" class="chk" />
-          지역4
-          <input type="checkbox" class="chk" />
-          지역5</div>
-        <div id="tab7" class="tab_content">
-          <input type="checkbox" class="chk" />
-          지역1
-          <input type="checkbox" class="chk" />
-          지역2
-          <input type="checkbox" class="chk" />
-          지역3
-          <input type="checkbox" class="chk" />
-          지역4
-          <input type="checkbox" class="chk" />
-          지역5
-          <input type="checkbox" class="chk" />
-          지역6</div>
-        <div id="tab8" class="tab_content">
-          <input type="checkbox" class="chk" />
-          지역1
-          <input type="checkbox" class="chk" />
-          지역2
-          <input type="checkbox" class="chk" />
-          지역3
-          <input type="checkbox" class="chk" />
-          지역4
-          <input type="checkbox" class="chk" />
-          지역5</div>
-        <div id="tab9" class="tab_content">
-          <input type="checkbox" class="chk" />
-          지역1
-          <input type="checkbox" class="chk" />
-          지역2
-          <input type="checkbox" class="chk" />
-          지역3
-          <input type="checkbox" class="chk" />
-          지역4
-          <input type="checkbox" class="chk" />
-          지역5
-          <input type="checkbox" class="chk" />
-          지역6</div>
-        <div id="tab10" class="tab_content">
-          <input type="checkbox" class="chk" />
-          지역1
-          <input type="checkbox" class="chk" />
-          지역2
-          <input type="checkbox" class="chk" />
-          지역3
-          <input type="checkbox" class="chk" />
-          지역4
-          <input type="checkbox" class="chk" />
-          지역5</div>
-        <div id="tab11" class="tab_content">
-          <input type="checkbox" class="chk" />
-          지역1
-          <input type="checkbox" class="chk" />
-          지역2
-          <input type="checkbox" class="chk" />
-          지역3
-          <input type="checkbox" class="chk" />
-          지역4
-          <input type="checkbox" class="chk" />
-          지역5
-          <input type="checkbox" class="chk" />
-          지역6</div>
-        <div id="tab12" class="tab_content">
-          <input type="checkbox" class="chk" />
-          지역1
-          <input type="checkbox" class="chk" />
-          지역2
-          <input type="checkbox" class="chk" />
-          지역3
-          <input type="checkbox" class="chk" />
-          지역4
-          <input type="checkbox" class="chk" />
-          지역5</div>
-        <div id="tab13" class="tab_content">
-          <input type="checkbox" class="chk" />
-          지역1
-          <input type="checkbox" class="chk" />
-          지역2
-          <input type="checkbox" class="chk" />
-          지역3
-          <input type="checkbox" class="chk" />
-          지역4
-          <input type="checkbox" class="chk" />
-          지역5
-          <input type="checkbox" class="chk" />
-          지역6</div>
-        <div id="tab14" class="tab_content">
-          <input type="checkbox" class="chk" />
-          지역1
-          <input type="checkbox" class="chk" />
-          지역2
-          <input type="checkbox" class="chk" />
-          지역3
-          <input type="checkbox" class="chk" />
-          지역4
-          <input type="checkbox" class="chk" />
-          지역5</div>
-          <div id="tab15" class="tab_content">
-          <input type="checkbox" class="chk" />
-          지역1
-          <input type="checkbox" class="chk" />
-          지역2
-          <input type="checkbox" class="chk" />
-          지역3
-          <input type="checkbox" class="chk" />
-          지역4
-          <input type="checkbox" class="chk" />
-          지역5
-          <input type="checkbox" class="chk" />
-          지역6</div>
-        <div id="tab16" class="tab_content">
-          <input type="checkbox" class="chk" />
-          지역1
-          <input type="checkbox" class="chk" />
-          지역2
-          <input type="checkbox" class="chk" />
-          지역3
-          <input type="checkbox" class="chk" />
-          지역4
-          <input type="checkbox" class="chk" />
-          지역5</div>
-        <div id="tab17" class="tab_content">
-          <input type="checkbox" class="chk" />
-          지역1
-          <input type="checkbox" class="chk" />
-          지역2
-          <input type="checkbox" class="chk" />
-          지역3
-          <input type="checkbox" class="chk" />
-          지역4
-          <input type="checkbox" class="chk" />
-          지역5
-          <input type="checkbox" class="chk" />
-          지역6</div>
-        <div id="tab18" class="tab_content">
-          <input type="checkbox" class="chk" />
-          지역1
-          <input type="checkbox" class="chk" />
-          지역2
-          <input type="checkbox" class="chk" />
-          지역3
-          <input type="checkbox" class="chk" />
-          지역4
-          <input type="checkbox" class="chk" />
-          지역5</div>
+        	<% if(code2List != null && code2List.size() > 0){ %>
+        	<% for(int i=0; i<code2List.size(); i++){ %>
+        		<input type="checkbox" class="chk" /> <%= RsUtil.checkNull(code2List.get(i).get("CODE_CODENAME"))%>
+        	<%}} %>
+        </div>
       </div>
       <!-- /탭컨텐츠 --> 
     </div>
@@ -917,7 +693,7 @@ $(function () {
             학년</th>
           <th scope="col">단계<br>
             발행연도</th>
-          <th scope="col">공급자별<br>
+          <th scope="col">공급자<br>
             공급율</th>
           <th scope="col">상품등록자별<br>
             <input type="checkbox" class="chk" id="checkall01" />
@@ -950,181 +726,38 @@ $(function () {
         <col width="93" />
         </colgroup>
         <tbody>
+        	 <% 
+	          	if(regionProductList.size() > 0){
+	          		for(int i=0; i<regionProductList.size(); i++){%>
           <tr> <td><input type="checkbox" class="chk" name="chk" /></td>
-            <td><img src="../img/book_noimage.jpg" alt="책 기본이미지"></td>
-            <td>DJH-1564<br>
-              123-456789</td>
-            <td>영어 경시대회 예상문제<br>
-              (가산초등학교)</td>
-            <td>영재교육<br>
-              김천재</td>
-            <td>32,000원<br>
-              영어</td>
-            <td>초등<br>
-              4학년</td>
-            <td>1학기 기말<br>
-              2016</td>
-            <td>광명도서<br>
-              75%</td>
+            <td><img src="<%= realPath%><%= (RsUtil.checkNull(regionProductList.get(i).get("MG_BOOKIMG")).equals("") ? "/img/book_noimage.jpg" : "/bookimg/thumnail_" + RsUtil.checkNull(regionProductList.get(i).get("MG_BOOKIMG")) ) %>" alt="책 기본이미지"></td>
+            <td><%= RsUtil.checkNull(regionProductList.get(i).get("MG_ISBN"))%></td>
+            <td><%= RsUtil.checkNull(regionProductList.get(i).get("MG_BOOKNM"))%><br>
+	              (<%= RsUtil.checkNull(regionProductList.get(i).get("MG_BOOKSUBNM"))%>)</td>
+            <td><%= RsUtil.checkNull(regionProductList.get(i).get("MG_PBS"))%><br>
+	             	 <%= RsUtil.checkNull(regionProductList.get(i).get("MG_BOOKWRITER"))%></td>
+            <td><%= MultiUtil.comma(RsUtil.checkNull(regionProductList.get(i).get("MG_PRICE")))%>원<br>
+	             	 <%= RsUtil.checkNull(regionProductList.get(i).get("MG_SUBJECT"))%></td>
+            <td><%= RsUtil.checkNull(regionProductList.get(i).get("MG_OBJECT"))%><br />
+	            	<%= RsUtil.checkNull(regionProductList.get(i).get("MG_GRADE"))%>
+	            </td>
+           <td><%= RsUtil.checkNull(regionProductList.get(i).get("MG_BOOKISYEAR"))%></td>
+            <td><%= RsUtil.checkNull(regionProductList.get(i).get("SP_BUSINM"))%><br>
+              <%= RsUtil.checkNull(regionProductList.get(i).get("RG_SPRATE"))%>%</td>
             <td>본사 담당자<br>
               <input type="checkbox" class="chk" name="chk01" />
               예
               <input type="checkbox" class="chk" name="chk02" />
               아니오</td>
-            <td>1000</td>
-            <td><input value="수정" type="button" class="btns01" />
+            <td><%= RsUtil.checkNull(regionProductList.get(i).get("RG_STOCKCNT"))%></td>
+            <td><input value="수정" type="button" class="btns01"  onclick="popupOpen('product_update.do?mg_seq=<%= RsUtil.checkNull(regionProductList.get(i).get("MG_SEQ"))%>&pdtType=region')"/>
               <input value="삭제" type="button" class="btns" /></td>
           </tr>
-          <tr> <td><input type="checkbox" class="chk" name="chk" /></td>
-            <td><img src="../img/book_noimage.jpg" alt="책 기본이미지"></td>
-            <td>DJH-1564<br>
-              123-456789</td>
-            <td>영어 경시대회 예상문제<br>
-              (가산초등학교)</td>
-            <td>영재교육<br>
-              김천재</td>
-            <td>32,000원<br>
-              영어</td>
-            <td>초등<br>
-              4학년</td>
-            <td>1학기 기말<br>
-              2016</td>
-            <td>광명도서<br>
-              75%</td>
-            <td>본사 담당자<br>
-              <input type="checkbox" class="chk" name="chk01" />
-              예
-              <input type="checkbox" class="chk" name="chk02" />
-              아니오</td>
-            <td>1000</td>
-            <td><input value="수정" type="button" class="btns01" />
-              <input value="삭제" type="button" class="btns" /></td>
-          </tr>
-          <tr> <td><input type="checkbox" class="chk" name="chk" /></td>
-            <td><img src="../img/book_noimage.jpg" alt="책 기본이미지"></td>
-            <td>DJH-1564<br>
-              123-456789</td>
-            <td>수학천재참고서<br>
-              (가산초등학교)</td>
-            <td>영재교육<br>
-              김천재</td>
-            <td>32,000원<br>
-              영어</td>
-            <td>초등<br>
-              4학년</td>
-            <td>1학기 기말<br>
-              2016</td>
-            <td>광명도서<br>
-              75%</td>
-            <td>본사 담당자<br>
-              <input type="checkbox" class="chk" name="chk01" />
-              예
-              <input type="checkbox" class="chk" name="chk02" />
-              아니오</td>
-            <td>1000</td>
-            <td><input value="수정" type="button" class="btns01" />
-              <input value="삭제" type="button" class="btns" /></td>
-          </tr>
-          <tr> <td><input type="checkbox" class="chk" name="chk" /></td>
-            <td><img src="../img/book_noimage.jpg" alt="책 기본이미지"></td>
-            <td>DJH-1564<br>
-              123-456789</td>
-            <td>영어 경시대회 예상문제<br>
-              (가산초등학교)</td>
-            <td>영재교육<br>
-              김천재</td>
-            <td>32,000원<br>
-              영어</td>
-            <td>초등<br>
-              4학년</td>
-            <td>1학기 기말<br>
-              2016</td>
-            <td>광명도서<br>
-              75%</td>
-            <td>본사 담당자<br>
-              <input type="checkbox" class="chk" name="chk01" />
-              예
-              <input type="checkbox" class="chk" name="chk02" />
-              아니오</td>
-            <td>1000</td>
-            <td><input value="수정" type="button" class="btns01" />
-              <input value="삭제" type="button" class="btns" /></td>
-          </tr>
-          <tr> <td><input type="checkbox" class="chk" name="chk" /></td>
-            <td><img src="../img/book_noimage.jpg" alt="책 기본이미지"></td>
-            <td>DJH-1564<br>
-              123-456789</td>
-            <td>영어 경시대회 예상문제<br>
-              (가산초등학교)</td>
-            <td>영재교육<br>
-              김천재</td>
-            <td>32,000원<br>
-              영어</td>
-            <td>초등<br>
-              4학년</td>
-            <td>1학기 기말<br>
-              2016</td>
-            <td>광명도서<br>
-              75%</td>
-            <td>본사 담당자<br>
-              <input type="checkbox" class="chk" name="chk01" />
-              예
-              <input type="checkbox" class="chk" name="chk02" />
-              아니오</td>
-            <td>1000</td>
-            <td><input value="수정" type="button" class="btns01" />
-              <input value="삭제" type="button" class="btns" /></td>
-          </tr>
-          <tr> <td><input type="checkbox" class="chk" name="chk" /></td>
-            <td><img src="../img/book_noimage.jpg" alt="책 기본이미지"></td>
-            <td>DJH-1564<br>
-              123-456789</td>
-            <td>영어 경시대회 예상문제<br>
-              (가산초등학교)</td>
-            <td>영재교육<br>
-              김천재</td>
-            <td>32,000원<br>
-              영어</td>
-            <td>초등<br>
-              4학년</td>
-            <td>1학기 기말<br>
-              2016</td>
-            <td>광명도서<br>
-              75%</td>
-            <td>본사 담당자<br>
-              <input type="checkbox" class="chk" name="chk01" />
-              예
-              <input type="checkbox" class="chk" name="chk02" />
-              아니오</td>
-            <td>1000</td>
-            <td><input value="수정" type="button" class="btns01" />
-              <input value="삭제" type="button" class="btns" /></td>
-          </tr>
-          <tr> <td><input type="checkbox" class="chk" name="chk" /></td>
-            <td><img src="../img/book_noimage.jpg" alt="책 기본이미지"></td>
-            <td>DJH-1564<br>
-              123-456789</td>
-            <td>영어 경시대회 예상문제<br>
-              (가산초등학교)</td>
-            <td>영재교육<br>
-              김천재</td>
-            <td>32,000원<br>
-              영어</td>
-            <td>초등<br>
-              4학년</td>
-            <td>1학기 기말<br>
-              2016</td>
-            <td>광명도서<br>
-              75%</td>
-            <td>본사 담당자<br>
-              <input type="checkbox" class="chk" name="chk01" />
-              예
-              <input type="checkbox" class="chk" name="chk02" />
-              아니오</td>
-            <td>1000</td>
-            <td><input value="수정" type="button" class="btns01" />
-              <input value="삭제" type="button" class="btns" /></td>
-          </tr>
+          <%}}else{%>
+          	<tr>
+          		<td colspan="11">상품이 존재하지 않습니다.</td>
+          	</tr>
+          <%} %>
         </tbody>
       </table>
     </div>
@@ -1147,3 +780,27 @@ $(function () {
   </div>
   <!--/contents--> 
   <%@ include file="../bottom.jsp"%>
+  <script>
+  var code1Change = function(indexCd, code1, idx){
+	  console.log(idx);
+		jQuery.ajax({
+			type : "POST",
+			url : "code2JsonView.do",
+			data : {"code_idx" : indexCd, "code_first" : code1},
+			dataType : "json",
+			error : function(data){
+				alert("서버에 접속 할 수 없습니다. 다시 시도해 주십시오");
+			},
+			success : function(result){
+				console.log(result);
+				var htmlStr = '<div id="tab'+(parseInt(idx)+1)+'" class="tab_content" style="display:block;">';
+				for(var i=0; i < result.code2View.length; i++){
+					htmlStr += '<input type="checkbox" class="chk" /> ' + result.code2View[i].CODE_CODENAME;
+				}
+				htmlStr += '</div>';
+				jQuery(".tab_container").html(htmlStr);
+				
+		    }
+		});
+	};
+  </script>

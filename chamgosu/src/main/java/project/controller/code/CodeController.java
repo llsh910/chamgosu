@@ -155,6 +155,46 @@ public class CodeController
 
 		return mav;
 	}
+	
+	@RequestMapping({"code2JsonView.do"})
+	public void code2JsonView(CommandMap map, HttpServletResponse response)
+			throws Exception
+	{
+		
+		PrintWriter pw = null;
+
+		JSONObject json = new JSONObject();
+		String msg = "success";
+		
+		
+		Map searchMap = new HashMap();
+		searchMap = map.getMap();
+		String code_idx = RsUtil.checkNull(searchMap.get("code_idx"));
+		String code_first = RsUtil.checkNull(searchMap.get("code_first"));
+		try
+		{
+			List code2View = this.codeService.code2List(searchMap);
+
+			String code1Name = this.codeService.code1Name(searchMap);
+
+			json.put("code_first", code_first);
+			json.put("code_idx", code_idx);
+			json.put("code1Name", code1Name);
+
+			json.put("code2View", code2View);
+		}
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+		}finally {
+			response.setContentType("application/x-json; charset=UTF-8");
+			json.put("msg", msg);
+			pw = response.getWriter();
+			pw.print(json);
+			pw.flush();
+			pw.close();
+		}
+	}
 
 	@RequestMapping({"code1Save.do"})
 	public void code1Save(CommandMap map, HttpServletResponse response)

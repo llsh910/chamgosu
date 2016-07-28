@@ -2,8 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
 <mapper namespace="product">
+	<!-- 상품 등록 -->
 	<insert id="insertProduct" parameterType="hashmap">
-		INSERT INTO chamgosu.CG_MARSTERGOODS(
+		
+		INSERT INTO CG_MARSTERGOODS(
 			MG_ISBN,
 			MG_BOOKNM,
 			MG_BOOKSUBNM,
@@ -15,11 +17,11 @@
 			MG_GRADE,
 			MG_STEP,
 			MG_BOOKISYEAR,
-			MG_MOREINF,
-			MG_REFMAT,
 			MG_USERID,
 			MG_APPLYCHK,
 			MG_BOOKIMG,
+			MG_REFMAT,
+			MG_MOREINF,
 			REGDATE
 		)VALUES(
 			#{MG_ISBN},
@@ -33,35 +35,39 @@
 			#{MG_GRADE},
 			#{MG_STEP},
 			#{MG_BOOKISYEAR},
-			#{MG_MOREINF},
-			#{MG_REFMAT},
 			#{MG_USERID},
 			#{MG_APPLYCHK},
 			#{MG_BOOKIMG},
+			#{MG_REFMAT},
+			#{MG_MOREINF},
 			CURDATE()
 		)
+		<selectKey resultType="int" order="AFTER">
+			SELECT MAX(MG_SEQ) FROM CG_MARSTERGOODS
+		</selectKey>
 	</insert>
-	<!-- 상품관리 List-->
+	
+	
+	<!-- 상품 리스트 -->
 	<select id="adminProductList" parameterType="hashmap" resultType="hashmap">
 		select 
 			MG_SEQ
 			,MG_ISBN
 			,MG_BOOKNM
-			,BSN_NM
+			,MG_BOOKSUBNM
 			,UDF_SELECT_CODE1NAME('02', MG_PBS) as MG_PBS
 			,MG_BOOKWRITER
 			,MG_PRICE
-			,MG_SUBJECT
-			,MG_OBJECT
-			,MG_GRADE
+			,UDF_SELECT_CODE1NAME('03', MG_SUBJECT) as MG_SUBJECT
+			,UDF_SELECT_CODE1NAME('04', MG_OBJECT) as MG_OBJECT
+			,UDF_SELECT_CODE1NAME('05', MG_GRADE) as MG_GRADE
 			,MG_STEP
 			,MG_BOOKISYEAR
 			,MG_USERID
 			,MG_APPLYCHK
 			,MG_BOOKIMG
-			,RG_MOREINF
-			,RG_REFMAT
-			,RG_APPLYCHK
+			,MG_REFMAT
+			,MG_MOREINF
 			,DATE_FORMAT( REGDATE,'%Y-%m-%d' ) as REGDATE
 		from
 		(
@@ -69,6 +75,7 @@
 				MG_SEQ
 				,MG_ISBN
 				,MG_BOOKNM
+				,MG_BOOKSUBNM
 				,MG_PBS
 				,MG_BOOKWRITER
 				,MG_PRICE
@@ -80,34 +87,65 @@
 				,MG_USERID
 				,MG_APPLYCHK
 				,MG_BOOKIMG
-				,B.BSN_NM
-				,R.RG_MOREINF
-				,R.RG_REFMAT
-				,R.RG_APPLYCHK
-				,M.REGDATE
+				,MG_REFMAT
+				,MG_MOREINF
+				,DATE_FORMAT( REGDATE,'%Y-%m-%d' ) as REGDATE
 				, @rnum := @rnum + 1 as rn
 			from
 				(SELECT @rnum := 0) r,
-				CG_MARSTERGOODS M
-				LEFT JOIN CG_REGIONGOODS R
-				ON M.MG_SEQ = R.RG_BOOKSEQ
-				LEFT JOIN CG_BOOKSUBNM B
-				ON R.RG_BOOKSUBNM = B.BSN_SEQ
+				CG_MARSTERGOODS 
 			where
 				1=1
-			order by REGDATE desc
+				
+			<if test="mg_booknm != null and mg_booknm != ''">
+				and  MG_BOOKNM like CONCAT('%', #{mg_booknm}, '%')
+				
+			</if>
+			<if test="mg_pbs != null and mg_pbs != ''">
+				and  MG_PBS = #{mg_pbs}
+			</if>
+			<if test="mg_subject != null and mg_subject != ''">
+				and  MG_SUBJECT = #{mg_subject}
+			</if>
+			<if test="mg_object != null and mg_object != ''">
+				and  MG_OBJECT = #{mg_object}
+			</if>
+			<if test="mg_grade != null and mg_grade != ''">
+				and  MG_GRADE = #{mg_grade}
+			</if>
+			order by MG_SEQ desc
 		) as list
+		<if test="start != null and start !=''">
 		where list.rn between #{start} and #{end}
+		</if>
 	</select>
 	
+	<!-- 검색 상품수 -->
 	<select id="adminProductCnt" parameterType="hashmap" resultType="int">
 		select COUNT(*) from CG_MARSTERGOODS where	1=1
+		<if test="mg_booknm != null and mg_booknm != ''">
+				and  MG_BOOKNM like CONCAT('%', #{mg_booknm}, '%')
+		</if>
+		<if test="mg_pbs != null and mg_pbs != ''">
+			and  MG_PBS = #{mg_pbs}
+		</if>
+		<if test="mg_subject != null and mg_subject != ''">
+			and  MG_SUBJECT = #{mg_subject}
+		</if>
+		<if test="mg_object != null and mg_object != ''">
+			and  MG_OBJECT = #{mg_object}
+		</if>
+		<if test="mg_grade != null and mg_grade != ''">
+			and  MG_GRADE = #{mg_grade}
+		</if>
 	</select>
 	
+	<!-- 총상품수 -->
 	<select id="adminProductAllCnt" parameterType="hashmap" resultType="int">
 		select COUNT(*) from CG_MARSTERGOODS
 	</select>
 	
+	<!-- codeList 가져오기 -->
 	<select id="codeList" parameterType="hashmap" resultType="hashmap">
 		select
 			CODE_IDX
@@ -119,6 +157,184 @@
 		where
 			CODE_ISUSE = 'Y'
 			and CODE_FIRST != '#####'
+		<if test="code_idx != null and code_idx != ''">
 			and CODE_IDX = #{code_idx}
+		</if>
+	</select>
+	
+	<!-- 단일상품 View -->
+	<select id="adminProductView" parameterType="hashmap" resultType="hashmap">
+		select
+			MG_SEQ
+			,MG_ISBN
+			,MG_BOOKNM
+			,MG_BOOKSUBNM
+			,MG_PBS
+			,MG_BOOKWRITER
+			,MG_PRICE
+			,MG_SUBJECT
+			,MG_OBJECT
+			,MG_GRADE
+			,MG_STEP
+			,MG_BOOKISYEAR
+			,MG_USERID
+			,MG_APPLYCHK
+			,MG_BOOKIMG
+			,MG_REFMAT
+			,MG_MOREINF
+			,DATE_FORMAT( M.REGDATE,'%Y-%m-%d' ) as REGDATE
+			,RG_SEQ
+			,RG_SPID
+			,RG_SPPRICE
+			,RG_SPRATE
+			,RG_STOCKCNT
+			,RG_APPLYCHK
+			,SP_BUSINM
+			,SP_NAME
+		from
+			CG_MARSTERGOODS M
+			LEFT OUTER JOIN CG_REGIONGOODS R
+			ON M.MG_SEQ = R.RG_BOOKSEQ
+			INNER JOIN CG_SUPPLIER S
+			ON R.RG_SPID = S.SP_SEQ
+		where
+			MG_SEQ=#{mg_seq}
+	</select>
+	
+	<!-- 상품 수정 -->
+	<update id="updateAdminProduct" parameterType="hashmap">
+		update
+			CG_MARSTERGOODS
+		set
+			MG_ISBN = #{MG_ISBN},
+			MG_BOOKNM = #{MG_BOOKNM},
+			MG_BOOKSUBNM = #{MG_BOOKSUBNM},
+			MG_PBS = #{MG_PBS},
+			MG_BOOKWRITER = #{MG_BOOKWRITER},
+			MG_PRICE = #{MG_PRICE},
+			MG_SUBJECT = #{MG_SUBJECT},
+			MG_OBJECT = #{MG_OBJECT},
+			MG_GRADE = #{MG_GRADE},
+			MG_STEP = #{MG_STEP},
+			MG_BOOKISYEAR = #{MG_BOOKISYEAR},
+			MG_USERID = #{MG_USERID},
+			MG_APPLYCHK = #{MG_APPLYCHK},
+			MG_BOOKIMG = #{MG_BOOKIMG},
+			MG_REFMAT = #{MG_REFMAT},
+			MG_MOREINF = #{MG_MOREINF}
+		where
+			MG_SEQ = #{mg_seq}
+	</update>
+	<!-- 지역상품 수정 -->
+	<update id="updateRegionProduct" parameterType="hashmap">
+		update
+			CG_REGIONGOODS
+		set
+			RG_SPRATE = #{RG_SPRATE}
+			,RG_SPPRICE = #{RG_SPPRICE}
+		where
+			RG_SEQ = #{RG_SEQ}
+	</update>
+	
+	<!-- 상품 승인/미승인 변경 -->
+	<update id="productApplyUpdate" parameterType="hashmap">
+		update
+			CG_MARSTERGOODS
+		set
+			MG_APPLYCHK = #{mg_applychk}
+		where
+			MG_SEQ = #{mg_seq}
+	</update>
+	
+	<!-- 상품 삭제 -->
+	<delete id="productDelete" parameterType="hashmap">
+		delete
+		from
+			CG_MARSTERGOODS
+		where
+			MG_SEQ = #{mg_seq}
+	</delete>
+	
+	<!-- 상품 중복체크 -->
+	<select id="selectProductIdt" parameterType="hashmap" resultType="int">
+		select
+			COUNT(*)
+		from
+			CG_MARSTERGOODS
+		where
+			MG_BOOKNM = #{MG_BOOKNM}
+		and
+			MG_BOOKSUBNM = #{MG_BOOKSUBNM}
+	</select>
+	
+	<!-- 지역상품리스트 -->
+	<select id="regionProductList" parameterType="hashmap" resultType="hashmap">
+		select 
+			MG_SEQ
+			,MG_ISBN
+			,MG_BOOKNM
+			,MG_BOOKSUBNM
+			,UDF_SELECT_CODE1NAME('02', MG_PBS) as MG_PBS
+			,MG_BOOKWRITER
+			,MG_PRICE
+			,UDF_SELECT_CODE1NAME('03', MG_SUBJECT) as MG_SUBJECT
+			,UDF_SELECT_CODE1NAME('04', MG_OBJECT) as MG_OBJECT
+			,UDF_SELECT_CODE1NAME('05', MG_GRADE) as MG_GRADE
+			,MG_STEP
+			,MG_BOOKISYEAR
+			,MG_USERID
+			,MG_APPLYCHK
+			,MG_BOOKIMG
+			,MG_REFMAT
+			,MG_MOREINF
+			,RG_SPID
+			,RG_SPPRICE
+			,RG_SPRATE
+			,RG_STOCKCNT
+			,RG_APPLYCHK
+			,SP_BUSINM
+			,SP_NAME
+			,DATE_FORMAT( REGDATE,'%Y-%m-%d' ) as REGDATE
+		from
+		(
+			select
+				MG_SEQ
+				,MG_ISBN
+				,MG_BOOKNM
+				,MG_BOOKSUBNM
+				,MG_PBS
+				,MG_BOOKWRITER
+				,MG_PRICE
+				,MG_SUBJECT
+				,MG_OBJECT
+				,MG_GRADE
+				,MG_STEP
+				,MG_BOOKISYEAR
+				,MG_USERID
+				,MG_APPLYCHK
+				,MG_BOOKIMG
+				,MG_REFMAT
+				,MG_MOREINF
+				,DATE_FORMAT( M.REGDATE,'%Y-%m-%d' ) as REGDATE
+				,RG_SPID
+				,RG_SPPRICE
+				,RG_SPRATE
+				,RG_STOCKCNT
+				,RG_APPLYCHK
+				,SP_BUSINM
+				,SP_NAME
+				, @rnum := @rnum + 1 as rn
+			from
+				(SELECT @rnum := 0) r,
+				CG_MARSTERGOODS M
+				INNER JOIN CG_REGIONGOODS R
+				ON M.MG_SEQ = R.RG_BOOKSEQ
+				INNER JOIN CG_SUPPLIER S
+				ON R.RG_SPID = S.SP_SEQ
+			where
+				1=1
+			order by MG_SEQ desc
+		) as list
+		where list.rn between #{start} and #{end}
 	</select>
 </mapper>

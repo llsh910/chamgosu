@@ -39,5 +39,43 @@ public class ProductServiceImpl implements ProductService {
 	public List<Map<String, Object>> codeList(Map<String, Object> map) throws Exception{
 		return productDAO.codeList(map);
 	}
+	
+	@Override
+	public Map<String, Object> adminProductView(Map<String, Object> map) throws Exception{
+		return productDAO.adminProductView(map);
+	}
+	
+	@Override
+	public int updateAdminProduct(Map<String, Object> map) throws Exception{
+		return productDAO.updateAdminProduct(map);
+	}
+	
+	@Override
+	public int productApplyUpdate(Map<String, Object> map) throws Exception{
+		return productDAO.productApplyUpdate(map);
+	}
+	
+	@Override
+	public int productDelete(Map<String, Object> map) throws Exception{
+		return productDAO.productDelete(map);
+	}
+	
+	@Override
+	public int selectProductIdt(Map<String, Object> map) throws Exception{
+		return productDAO.selectProductIdt(map);
+	}
+	
+	@Override
+	public List<Map<String, Object>> regionProductList(Map<String, Object> map) throws Exception{
+		return productDAO.regionProductList(map);
+	}
+	
+	@Override
+	public int updateRegionProduct(Map<String, Object> map) throws Exception{
+		return productDAO.updateRegionProduct(map);
+	}
+	
+	
+	
 
 }
