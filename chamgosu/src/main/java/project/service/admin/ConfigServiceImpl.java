@@ -1,5 +1,6 @@
 package project.service.admin;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -30,5 +31,17 @@ public class ConfigServiceImpl
 	
 	public int updateCompanyInfo(Map<String, Object> map) throws Exception{
 		return this.configDAO.updateCompanyInfo(map);
+	};
+	
+	public Map<String, Object> selectAgreement(Map<String, Object> map) throws Exception{
+		return this.configDAO.selectAgreement(map);
+	};
+	
+	public List<Map<String, Object>> selectAgreementList(Map<String, Object> map) throws Exception{
+		return this.configDAO.selectAgreementList(map);
+	};
+	
+	public int updateAgreement(Map<String, Object> map) throws Exception{
+		return this.configDAO.updateAgreement(map);
 	};
 }

@@ -26,5 +26,21 @@ public class ConfigDAO extends TempletDAO
 	public int updateCompanyInfo(Map<String, Object> map) throws Exception{
 		return (Integer) insert("config.updateCompanyInfo", map);
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Map<String, Object>> selectAgreementList(Map<String, Object> map) throws Exception{
+		return (List<Map<String, Object>>) selectList("config.selectAgreementList", map);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public Map<String, Object> selectAgreement(Map<String, Object> map) throws Exception{
+		return (Map<String, Object>) selectOne("config.selectAgreement", map);
+	}
+	
+	public int updateAgreement(Map<String, Object> map) throws Exception{
+		return (Integer) insert("config.updateAgreement", map);
+	}
+	
+	
  
 }

@@ -130,7 +130,25 @@ public class ConfigController
 			pw.flush();
 			pw.close();
 		}
-	}	
+	}
+	
+	
+	@RequestMapping("agreement.do")
+	public ModelAndView agreemant(CommandMap map, HttpServletRequest request, HttpServletResponse response)
+			throws Exception
+	{
+		ModelAndView mav = new ModelAndView("/admin/agreement");
+		try
+		{
+			
+			
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+		}
+
+		return mav;
+	}
 	
 	
 }

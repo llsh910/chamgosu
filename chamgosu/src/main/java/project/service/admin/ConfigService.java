@@ -15,6 +15,13 @@ public abstract interface ConfigService
 	public int insertCompanyInfo(Map<String, Object> map) throws Exception;
 	
 	public int updateCompanyInfo(Map<String, Object> map) throws Exception;
+	
+	public Map<String, Object> selectAgreement(Map<String, Object> map) throws Exception;
+	
+	public List<Map<String, Object>> selectAgreementList(Map<String, Object> map) throws Exception;
+	
+	public int updateAgreement(Map<String, Object> map) throws Exception;
+	
 
   
 }
