@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="config">
+	<insert id="insertCompanyInfo" parameterType="hashmap">
+		insert into CG_CONFIG(
+			CF_SITENAME
+			,CF_SEARCHKEY
+			,CF_INTRO1
+			,CF_INTRO2
+			,CF_COMPNUM
+			,CF_INGAMIMG
+			,CF_MUTUAL
+			,CF_MEMNAME
+			,CF_ZIPCODE
+			,CF_ADDR1
+			,CF_ADDR2
+			,CF_CONDITIONS
+			,CF_ITEM
+			,CF_TELNO1
+			,CF_FAX
+			,CF_EMAIL
+			,CF_CARD
+			,CF_BANK
+			,CF_VIRTUAL
+			,CF_PHONE
+			,CF_MAINLOGO
+			,CF_TOPLOGO
+			,CF_BOTTOMLOGO
+			,CF_FAVICON
+		)values(
+			#{CF_SITENAME}
+			,#{CF_SEARCHKEY}
+			,#{CF_INTRO1}
+			,#{CF_INTRO2}
+			,#{CF_COMPNUM}
+			,#{CF_INGAMIMG}
+			,#{CF_MUTUAL}
+			,#{CF_MEMNAME}
+			,#{CF_ZIPCODE}
+			,#{CF_ADDR1}
+			,#{CF_ADDR2}
+			,#{CF_CONDITIONS}
+			,#{CF_ITEM}
+			,#{CF_TELNO1}
+			,#{CF_FAX}
+			,#{CF_EMAIL}
+			,#{CF_CARD}
+			,#{CF_BANK}
+			,#{CF_VIRTUAL}
+			,#{CF_PHONE}
+			,#{CF_MAINLOGO}
+			,#{CF_TOPLOGO}
+			,#{CF_BOTTOMLOGO}
+			,#{CF_FAVICON}
+		)
+	</insert>
+	
+	<update id="updateCompanyInfo" parameterType="hashmap">
+		update
+			CG_CONFIG
+		set
+			CF_SITENAME = #{CF_SITENAME}
+			,CF_SEARCHKEY = #{CF_SEARCHKEY}
+			,CF_INTRO1 = #{CF_INTRO1}
+			,CF_INTRO2 = #{CF_INTRO2}
+			,CF_COMPNUM = #{CF_COMPNUM}
+			,CF_INGAMIMG = #{CF_INGAMIMG}
+			,CF_MUTUAL = #{CF_MUTUAL}
+			,CF_MEMNAME = #{CF_MEMNAME}
+			,CF_ZIPCODE = #{CF_ZIPCODE}
+			,CF_ADDR1 = #{CF_ADDR1}
+			,CF_ADDR2 = #{CF_ADDR2}
+			,CF_CONDITIONS = #{CF_CONDITIONS}
+			,CF_ITEM = #{CF_ITEM}
+			,CF_TELNO1 = #{CF_TELNO1}
+			,CF_FAX = #{CF_FAX}
+			,CF_EMAIL = #{CF_EMAIL}
+			,CF_CARD = #{CF_CARD}
+			,CF_BANK = #{CF_BANK}
+			,CF_VIRTUAL = #{CF_VIRTUAL}
+			,CF_PHONE = #{CF_PHONE}
+			,CF_MAINLOGO = #{CF_MAINLOGO}
+			,CF_TOPLOGO = #{CF_TOPLOGO}
+			,CF_BOTTOMLOGO = #{CF_BOTTOMLOGO}
+			,CF_FAVICON = #{CF_FAVICON}
+	</update>
+	
+	<select id="selectCompanyInfo" parameterType="hashmap" resultType="hashmap">
+		select
+			CF_SITENAME
+			,CF_SEARCHKEY
+			,CF_INTRO1
+			,CF_INTRO2
+			,CF_COMPNUM
+			,CF_INGAMIMG
+			,CF_MUTUAL
+			,CF_MEMNAME
+			,CF_ZIPCODE
+			,CF_ADDR1
+			,CF_ADDR2
+			,CF_CONDITIONS
+			,CF_ITEM
+			,CF_TELNO1
+			,CF_FAX
+			,CF_EMAIL
+			,CF_CARD
+			,CF_BANK
+			,CF_VIRTUAL
+			,CF_PHONE
+			,CF_MAINLOGO
+			,CF_TOPLOGO
+			,CF_BOTTOMLOGO
+			,CF_FAVICON
+		from
+			CG_CONFIG
+	</select>
+	
+	<select id="selectCompanyInfoCnt" parameterType="hashmap" resultType="int">
+		select
+			COUNT(*)
+		from
+			CG_CONFIG
+	</select>
+	
+   
+</mapper>
